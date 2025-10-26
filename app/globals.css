@@ -2,99 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --bg-primary: #000000;
-    --bg-secondary: #0a0e27;
-    --bg-tertiary: #1a1f3a;
-    --accent-purple: #8b5cf6;
-    --accent-blue: #3b82f6;
-    --accent-neon: #22d3ee;
-    --text-primary: #ffffff;
-    --text-secondary: #94a3b8;
-  }
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
   html {
-    scroll-behavior: smooth;
+    font-size: 14px;
   }
-
+  
   body {
-    @apply bg-black text-white antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-
-  /* Smooth scrolling */
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
+    overflow-x: hidden;
+    position: relative;
   }
 }
 
-@layer components {
-  /* Glass morphism effect */
-  .glass {
-    @apply backdrop-blur-xl bg-white/5 border border-white/10;
-  }
-
-  .glass-dark {
-    @apply backdrop-blur-xl bg-black/40 border border-white/10;
-  }
-
-  /* Neon glow effect */
-  .neon-glow {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5),
-                0 0 40px rgba(139, 92, 246, 0.3),
-                0 0 60px rgba(139, 92, 246, 0.1);
-  }
-
-  .neon-glow-blue {
-    box-shadow: 0 0 20px rgba(34, 211, 238, 0.5),
-                0 0 40px rgba(34, 211, 238, 0.3),
-                0 0 60px rgba(34, 211, 238, 0.1);
-  }
-
-  /* Gradient text */
-  .gradient-text {
-    @apply bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent;
-  }
-
-  .gradient-text-neon {
-    @apply bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent;
-  }
-
-  /* Button styles */
-  .btn-primary {
-    @apply px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold rounded-2xl 
-           hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all duration-300 hover:scale-105;
-  }
-
-  .btn-secondary {
-    @apply px-8 py-4 glass text-white font-bold rounded-2xl border-2 border-purple-500/50
-           hover:border-purple-400 hover:bg-purple-500/10 transition-all duration-300;
-  }
-
-  /* Card styles */
-  .card-dark {
-    @apply glass-dark rounded-3xl p-6 md:p-8 hover:bg-white/10 transition-all duration-300;
-  }
-
-  /* Grid backgrounds */
-  .grid-bg {
-    background-image: 
-      linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-  }
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0e27;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -103,26 +58,98 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #a78bfa, #60a5fa);
+  background: linear-gradient(180deg, #7c3aed, #2563eb);
 }
 
-/* Selection styling */
-::selection {
-  background-color: rgba(139, 92, 246, 0.3);
-  color: white;
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Smooth transitions */
-* {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+.glass-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive text sizing */
-@media (max-width: 640px) {
-  .btn-primary,
-  .btn-secondary {
-    @apply px-6 py-3 text-sm;
+/* Card styles */
+.card-dark {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* MOBILE: Smaller padding */
+@media (max-width: 768px) {
+  .card-dark {
+    padding: 1.25rem;
+    border-radius: 1rem;
   }
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-neon {
+  background: linear-gradient(135deg, #667eea 0%, #22d3ee 50%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+}
+
+/* Grid background */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-bold text-white shadow-lg hover:shadow-purple-500/50 transition-all duration-300;
+}
+
+/* MOBILE: Better touch targets */
+@media (max-width: 768px) {
+  .btn-primary {
+    @apply px-8 py-4 text-base;
+    min-height: 48px;
+  }
+}
+
+.btn-secondary {
+  @apply px-6 py-3 glass border-2 border-white/20 rounded-xl font-bold text-white hover:bg-white/10 transition-all duration-300;
+}
+
+@media (max-width: 768px) {
+  .btn-secondary {
+    @apply px-8 py-4 text-base;
+    min-height: 48px;
+  }
+}
+
+/* Neon glow utilities */
+.glow-purple {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
 
 /* Light mode support */
@@ -155,4 +182,133 @@ html.light .text-gray-400 {
 
 html.light .text-gray-300 {
   @apply text-gray-700;
+}
+
+/* MOBILE: Prevent horizontal scroll */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Prevent text overflow */
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Better video on mobile */
+  video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  *:hover {
+    transform: none !important;
+  }
+  
+  /* Increase tap targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Optimize for notch devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  nav {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* MOBILE: Reduce motion for better performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile menu fix */
+@media (max-width: 768px) {
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* Prevent zoom on input focus (iOS) */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Better touch scrolling */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar on mobile for cleaner look */
+@media (max-width: 768px) {
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
