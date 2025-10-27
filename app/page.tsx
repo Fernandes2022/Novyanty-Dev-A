@@ -115,7 +115,7 @@ export default function Home() {
         </motion.div>
       )}
 
-      {/* Navigation */}
+      {/* Navigation - WITH ADAPTIVE ENGINE BADGE */}
       <motion.nav 
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -124,6 +124,7 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex h-16 md:h-20 items-center justify-between">
+            {/* Left - Just icon on mobile, hidden text */}
             <Link href="/" className="flex items-center gap-2 md:gap-3 group">
               <motion.div 
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -132,9 +133,28 @@ export default function Home() {
               >
                 <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
               </motion.div>
-              <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
             </Link>
 
+            {/* Center - Adaptive Engine Badge */}
+            <motion.div 
+              initial={{ scale: 0 }} 
+              animate={{ scale: 1 }} 
+              transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
+              className="absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
+              style={{
+                background: 'rgba(0, 0, 0, 0.6)',
+                backdropFilter: 'blur(20px)'
+              }}
+            >
+              <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-purple-400" />
+              <span className="text-xs md:text-sm font-bold text-white">
+                <Tooltip content="Real-time layout & color tuning">
+                  <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
+                </Tooltip>
+              </span>
+            </motion.div>
+
+            {/* Right - Menu items */}
             <div className="hidden md:flex items-center gap-8">
               <Link href="/faq" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity">
                 FAQ
@@ -164,10 +184,10 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* 🎬 HERO SECTION - REPOSITIONED LAYOUT */}
-      <section ref={heroRef} className="relative min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
+      {/* 🎬 HERO SECTION - TEXT AT BOTTOM ONLY */}
+      <section ref={heroRef} className="relative min-h-screen flex items-end pt-16 md:pt-20 overflow-hidden">
         
-        {/* VIDEO BACKGROUND */}
+        {/* VIDEO BACKGROUND - FACE VISIBLE */}
         <div className="absolute inset-0 overflow-hidden">
           <video 
             ref={videoRef}
@@ -188,14 +208,14 @@ export default function Home() {
           </video>
           
           <div 
-            className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/30"
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"
             style={{ 
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%)'
+              background: 'linear-gradient(to bottom, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 100%)'
             }}
           ></div>
         </div>
 
-        {/* Reduced particles */}
+        {/* Particles */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(4)].map((_, i) => (
             <motion.div
@@ -220,74 +240,47 @@ export default function Home() {
           ))}
         </div>
 
-        {/* TOP SECTION - ADAPTIVE ENGINE BADGE */}
+        {/* BOTTOM SECTION - ALL CONTENT HERE */}
         <motion.div 
-          className="relative z-10 flex justify-center pt-4 md:pt-8"
-          initial={{ opacity: 0, y: -20 }} 
+          className="relative z-10 w-full pb-6 md:pb-12"
+          initial={{ opacity: 0, y: 50 }} 
           animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.div 
-            initial={{ scale: 0 }} 
-            animate={isHeroInView ? { scale: 1 } : {}} 
-            transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200, damping: 15 }} 
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
-            style={{
-              background: 'rgba(0, 0, 0, 0.6)',
-              backdropFilter: 'blur(20px)'
-            }}
-          >
-            <Sparkles className="h-4 w-4 text-purple-400" />
-            <span className="text-sm font-bold text-white">
-              <Tooltip content="Real-time layout & color tuning">
-                <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
-              </Tooltip>
-            </span>
-          </motion.div>
-        </motion.div>
-
-        {/* BOTTOM SECTION - LOGO + MAIN CONTENT */}
-        <motion.div className="relative flex-1 flex items-end justify-center pb-8 md:pb-16 z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }} 
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-            transition={{ duration: 0.8, delay: 0.3 }} 
-            className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center w-full space-y-6 md:space-y-8"
-          >
+          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-4 md:space-y-6">
             
-            {/* LOGO - Now at bottom with text */}
+            {/* LOGO + BRAND NAME */}
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={isHeroInView ? { scale: 1, opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex justify-center"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex justify-center mb-4"
             >
-              <div className="flex items-center gap-3 px-6 py-3 rounded-2xl"
+              <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 rounded-2xl"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.5)',
+                  background: 'rgba(0, 0, 0, 0.6)',
                   backdropFilter: 'blur(20px)',
-                  border: '2px solid rgba(255, 255, 255, 0.1)'
+                  border: '2px solid rgba(255, 255, 255, 0.15)'
                 }}
               >
                 <motion.div 
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg"
+                  className="h-8 w-8 md:h-10 md:w-10 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg"
                 >
-                  <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                  <Sparkles className="h-4 w-4 md:h-5 md:w-5 text-white" />
                 </motion.div>
-                <span className="text-lg md:text-2xl font-bold text-white">Creative Workspace</span>
+                <span className="text-base md:text-xl font-bold text-white">Creative Workspace</span>
               </div>
             </motion.div>
 
             {/* Main Headline */}
             <motion.h1 
-              initial={{ opacity: 0, y: 30 }} 
+              initial={{ opacity: 0, y: 20 }} 
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-              transition={{ duration: 0.8, delay: 0.5 }} 
+              transition={{ duration: 0.8, delay: 0.4 }} 
               className="text-hero px-4"
               style={{
-                textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 4px 40px rgba(0,0,0,0.6)'
+                textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
               }}
             >
               <span className="block mb-2 text-white">Build a website</span>
@@ -296,7 +289,7 @@ export default function Home() {
                 className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" 
                 style={{ 
                   backgroundSize: "200% 200%",
-                  filter: 'drop-shadow(0 0 30px rgba(34, 211, 238, 0.8))'
+                  filter: 'drop-shadow(0 0 40px rgba(34, 211, 238, 0.9))'
                 }}
               >
                 coffee cools
@@ -308,10 +301,10 @@ export default function Home() {
             <motion.p 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.7 }} 
+              transition={{ duration: 0.6, delay: 0.6 }} 
               className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
               style={{
-                background: 'rgba(0, 0, 0, 0.5)',
+                background: 'rgba(0, 0, 0, 0.6)',
                 backdropFilter: 'blur(15px)',
                 textShadow: '0 2px 10px rgba(0,0,0,0.8)'
               }}
@@ -323,29 +316,25 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.9 }} 
-              className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-2 px-4"
+              transition={{ duration: 0.6, delay: 0.8 }} 
+              className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
             >
               <Link href="/workspace" className="w-full sm:w-auto">
                 <motion.button 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  transition={{ duration: 0.2 }}
-                  className="w-full sm:w-auto btn-primary group"
+                  className="w-full sm:w-auto btn-primary"
                 >
-                  <span>
-                    <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
-                    <span className="sm:hidden">Build It for Me</span>
-                  </span>
+                  <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
+                  <span className="sm:hidden">Build It for Me</span>
                   <ArrowRight className="inline-block ml-2 h-5 w-5" />
                 </motion.button>
               </Link>
               <motion.button 
                 whileHover={{ scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }} 
-                transition={{ duration: 0.2 }}
                 onClick={() => setShowDemoVideo(true)} 
-                className="w-full sm:w-auto btn-secondary group"
+                className="w-full sm:w-auto btn-secondary"
               >
                 <Play className="inline-block mr-2 h-5 w-5" />
                 <span className="hidden sm:inline">Show Me the Demo</span>
@@ -357,8 +346,8 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 1.1 }} 
-              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto pt-2 px-4"
+              transition={{ duration: 0.6, delay: 1 }} 
+              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-4"
             >
               {[
                 { icon: Star, value: "4.98", label: "50K+ users" },
@@ -368,10 +357,9 @@ export default function Home() {
                 <motion.div 
                   key={i} 
                   whileHover={{ scale: 1.05, y: -5 }} 
-                  transition={{ duration: 0.2 }}
                   className="rounded-xl p-3 md:p-4 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.5)',
+                    background: 'rgba(0, 0, 0, 0.6)',
                     backdropFilter: 'blur(20px)'
                   }}
                 >
@@ -389,14 +377,14 @@ export default function Home() {
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
               transition={{ delay: 1.4 }} 
-              className="pt-4"
+              className="pt-2"
             >
               <div className="text-small text-white opacity-70 flex flex-col items-center gap-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
                 <span>Scroll to explore</span>
                 <span>↓</span>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
       </section>
 
