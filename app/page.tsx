@@ -163,7 +163,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="md:hidden flex items-center gap-3 mt-6">
+            <div className="md:hidden flex items-center gap-3 ml-auto">
               <ThemeToggle />
               <Link href="/workspace">
                 <motion.button whileTap={{ scale: 0.95 }} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm text-white">
