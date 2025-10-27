@@ -198,10 +198,6 @@ export default function Home() {
         <motion.div className="relative max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center z-10 pt-[35vh] sm:pt-[45vh] md:pt-[50vh] lg:pt-[55vh]">
           <motion.div initial={{ opacity: 0, y: 50 }} animate={isHeroInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="space-y-4 md:space-y-8">
             
-            <motion.div initial={{ scale: 0, rotate: -180 }} animate={isHeroInView ? { scale: 1, rotate: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} className="inline-flex items-center gap-2 px-3 md:px-5 py-1.5 md:py-2.5 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl text-xs md:text-sm shadow-lg shadow-purple-500/20">
-              <motion.div animate={{ rotate: 360, scale: [1, 1.2, 1] }} transition={{ rotate: { duration: 3, ease: "linear", repeat: Infinity }, scale: { duration: 2, repeat: Infinity } }}>
-                <Sparkles className="h-4 w-4 text-purple-400" />
-              </motion.div>
               <span className="font-bold text-white">
                 <Tooltip content="Real-time layout & color tuning">
                   <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
