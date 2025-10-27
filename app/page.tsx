@@ -52,7 +52,6 @@ export default function Home() {
     if (videoRef.current) {
       videoRef.current.play().catch(err => {
         console.log('Video autoplay prevented:', err);
-        // Try again after user interaction
         document.addEventListener('touchstart', () => {
           videoRef.current?.play();
         }, { once: true });
@@ -165,10 +164,10 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* 🎬 HERO SECTION - OPTIMIZED */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 md:pt-20 overflow-hidden">
+      {/* 🎬 HERO SECTION - REPOSITIONED LAYOUT */}
+      <section ref={heroRef} className="relative min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
         
-        {/* VIDEO BACKGROUND - AUTOPLAY FIX */}
+        {/* VIDEO BACKGROUND */}
         <div className="absolute inset-0 overflow-hidden">
           <video 
             ref={videoRef}
@@ -189,14 +188,14 @@ export default function Home() {
           </video>
           
           <div 
-            className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/20"
+            className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/30"
             style={{ 
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.2) 100%)'
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%)'
             }}
           ></div>
         </div>
 
-        {/* Reduced particles for performance */}
+        {/* Reduced particles */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(4)].map((_, i) => (
             <motion.div
@@ -221,37 +220,71 @@ export default function Home() {
           ))}
         </div>
 
-        {/* CONTENT */}
-        <motion.div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center z-10">
+        {/* TOP SECTION - ADAPTIVE ENGINE BADGE */}
+        <motion.div 
+          className="relative z-10 flex justify-center pt-4 md:pt-8"
+          initial={{ opacity: 0, y: -20 }} 
+          animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
+          transition={{ duration: 0.6 }}
+        >
           <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
+            initial={{ scale: 0 }} 
+            animate={isHeroInView ? { scale: 1 } : {}} 
+            transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200, damping: 15 }} 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
+            style={{
+              background: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(20px)'
+            }}
+          >
+            <Sparkles className="h-4 w-4 text-purple-400" />
+            <span className="text-sm font-bold text-white">
+              <Tooltip content="Real-time layout & color tuning">
+                <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
+              </Tooltip>
+            </span>
+          </motion.div>
+        </motion.div>
+
+        {/* BOTTOM SECTION - LOGO + MAIN CONTENT */}
+        <motion.div className="relative flex-1 flex items-end justify-center pb-8 md:pb-16 z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }} 
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-            transition={{ duration: 0.8 }} 
-            className="space-y-6 md:space-y-8"
+            transition={{ duration: 0.8, delay: 0.3 }} 
+            className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center w-full space-y-6 md:space-y-8"
           >
             
-            <motion.div 
-              initial={{ scale: 0 }} 
-              animate={isHeroInView ? { scale: 1 } : {}} 
-              transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200, damping: 15 }} 
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
-              style={{
-                background: 'rgba(0, 0, 0, 0.6)',
-                backdropFilter: 'blur(20px)'
-              }}
+            {/* LOGO - Now at bottom with text */}
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={isHeroInView ? { scale: 1, opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex justify-center"
             >
-              <Sparkles className="h-4 w-4 text-purple-400" />
-              <span className="text-sm font-bold text-white">
-                <Tooltip content="Real-time layout & color tuning">
-                  <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
-                </Tooltip>
-              </span>
+              <div className="flex items-center gap-3 px-6 py-3 rounded-2xl"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  backdropFilter: 'blur(20px)',
+                  border: '2px solid rgba(255, 255, 255, 0.1)'
+                }}
+              >
+                <motion.div 
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg"
+                >
+                  <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                </motion.div>
+                <span className="text-lg md:text-2xl font-bold text-white">Creative Workspace</span>
+              </div>
             </motion.div>
 
+            {/* Main Headline */}
             <motion.h1 
               initial={{ opacity: 0, y: 30 }} 
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-              transition={{ duration: 0.8, delay: 0.3 }} 
+              transition={{ duration: 0.8, delay: 0.5 }} 
               className="text-hero px-4"
               style={{
                 textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 4px 40px rgba(0,0,0,0.6)'
@@ -271,10 +304,11 @@ export default function Home() {
               </span>
             </motion.h1>
 
+            {/* Subtext */}
             <motion.p 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.5 }} 
+              transition={{ duration: 0.6, delay: 0.7 }} 
               className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
               style={{
                 background: 'rgba(0, 0, 0, 0.5)',
@@ -285,11 +319,12 @@ export default function Home() {
               No code. No drama. Just say what you want and watch the magic happen.
             </motion.p>
 
+            {/* CTAs */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.7 }} 
-              className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-4 md:pt-6 px-4"
+              transition={{ duration: 0.6, delay: 0.9 }} 
+              className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-2 px-4"
             >
               <Link href="/workspace" className="w-full sm:w-auto">
                 <motion.button 
@@ -318,11 +353,12 @@ export default function Home() {
               </motion.button>
             </motion.div>
 
+            {/* Stats */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.9 }} 
-              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto pt-6 md:pt-8 px-4"
+              transition={{ duration: 0.6, delay: 1.1 }} 
+              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto pt-2 px-4"
             >
               {[
                 { icon: Star, value: "4.98", label: "50K+ users" },
@@ -348,11 +384,12 @@ export default function Home() {
 
             <AudioExperience />
 
+            {/* Scroll Indicator */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              transition={{ delay: 1.2 }} 
-              className="pt-6 md:pt-8"
+              transition={{ delay: 1.4 }} 
+              className="pt-4"
             >
               <div className="text-small text-white opacity-70 flex flex-col items-center gap-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
                 <span>Scroll to explore</span>
@@ -365,7 +402,7 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* 📜 HOW IT WORKS - CENTERED */}
+      {/* REST OF THE SECTIONS - UNCHANGED */}
       <section ref={storyRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
@@ -410,7 +447,6 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* 🧩 WHY WE'RE DIFFERENT - CENTERED */}
       <section ref={uspRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
@@ -538,7 +574,6 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* 🎥 LOVED BY CREATORS - CENTERED */}
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
