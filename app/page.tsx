@@ -95,15 +95,15 @@ export default function Home() {
                   <div className="space-y-2 text-sm md:text-base text-white">
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="flex items-start gap-2">
                       <span className="text-purple-400 font-bold">1.</span>
-                      <span>Say what you want</span>
+                      <span>Say what you want (we actually listen, unlike your ex)</span>
                     </motion.p>
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="flex items-start gap-2">
                       <span className="text-blue-400 font-bold">2.</span>
-                      <span>Sit back and watch</span>
+                      <span>Sit back. Pretend you're productive</span>
                     </motion.p>
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }} className="flex items-start gap-2">
                       <span className="text-cyan-400 font-bold">3.</span>
-                      <span>Launch your site</span>
+                      <span>One click and boom — you're a founder</span>
                     </motion.p>
                   </div>
                 </motion.div>
@@ -175,8 +175,7 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* HERO - TEXT AT ABSOLUTE BOTTOM */}
-      <section ref={heroRef} className="relative h-screen flex flex-col justify-end pt-20 overflow-hidden">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 md:pt-20 overflow-hidden">
         
         <div className="absolute inset-0 overflow-hidden">
           <video 
@@ -197,7 +196,7 @@ export default function Home() {
             <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
           </video>
           
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"></div>
         </div>
 
         <div className="absolute inset-0 pointer-events-none">
@@ -224,35 +223,34 @@ export default function Home() {
           ))}
         </div>
 
-        {/* ALL CONTENT AT ABSOLUTE BOTTOM */}
         <motion.div 
-          className="relative z-10 w-full pb-2 md:pb-4"
+          className="relative z-10 w-full"
           initial={{ opacity: 0, y: 50 }} 
           animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
           transition={{ duration: 0.8 }}
         >
-          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-2 md:space-y-3">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-6 md:space-y-8">
             
             <motion.h1 
-              initial={{ opacity: 0 }} 
-              animate={isHeroInView ? { opacity: 1 } : {}} 
+              initial={{ opacity: 0, y: 30 }} 
+              animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
               transition={{ duration: 0.8, delay: 0.2 }} 
-              className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight px-4"
+              className="text-hero px-4"
               style={{
-                textShadow: '0 2px 30px rgba(0,0,0,1), 0 4px 50px rgba(0,0,0,0.8)'
+                textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
               }}
             >
-              <span className="block text-white mb-1">Build a website</span>
-              <span className="block text-white mb-1">before your</span>
+              <span className="block mb-2 text-white">Build a website</span>
+              <span className="block mb-2 text-white">before your</span>
               <span 
-                className="block gradient-text-neon flex items-center justify-center gap-2 md:gap-3 flex-wrap" 
+                className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" 
                 style={{ 
                   backgroundSize: "200% 200%",
                   filter: 'drop-shadow(0 0 40px rgba(34, 211, 238, 0.9))'
                 }}
               >
                 coffee cools
-                <Coffee className="h-10 w-10 md:h-14 md:w-14" />
+                <Coffee className="h-12 w-12 md:h-16 md:w-16" />
               </span>
             </motion.h1>
 
@@ -260,9 +258,9 @@ export default function Home() {
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
               transition={{ duration: 0.6, delay: 0.4 }} 
-              className="text-sm md:text-lg max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-6 py-2 md:py-3 border border-white/20 text-white"
+              className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
               style={{
-                background: 'rgba(0, 0, 0, 0.7)',
+                background: 'rgba(0, 0, 0, 0.6)',
                 backdropFilter: 'blur(15px)',
                 textShadow: '0 2px 10px rgba(0,0,0,0.8)'
               }}
@@ -274,26 +272,26 @@ export default function Home() {
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
               transition={{ duration: 0.6, delay: 0.6 }} 
-              className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center items-center px-4"
+              className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
             >
               <Link href="/workspace" className="w-full sm:w-auto">
                 <motion.button 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  className="w-full sm:w-auto btn-primary text-sm md:text-base px-4 md:px-6 py-2 md:py-3"
+                  className="w-full sm:w-auto btn-primary"
                 >
                   <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
                   <span className="sm:hidden">Build It for Me</span>
-                  <ArrowRight className="inline-block ml-2 h-4 w-4 md:h-5 md:w-5" />
+                  <ArrowRight className="inline-block ml-2 h-5 w-5" />
                 </motion.button>
               </Link>
               <motion.button 
                 whileHover={{ scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }} 
                 onClick={() => setShowDemoVideo(true)} 
-                className="w-full sm:w-auto btn-secondary text-sm md:text-base px-4 md:px-6 py-2 md:py-3"
+                className="w-full sm:w-auto btn-secondary"
               >
-                <Play className="inline-block mr-2 h-4 w-4 md:h-5 md:w-5" />
+                <Play className="inline-block mr-2 h-5 w-5" />
                 <span className="hidden sm:inline">Show Me the Demo</span>
                 <span className="sm:hidden">Demo</span>
               </motion.button>
@@ -303,7 +301,7 @@ export default function Home() {
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
               transition={{ duration: 0.6, delay: 0.8 }} 
-              className="grid grid-cols-3 gap-2 md:gap-3 max-w-2xl mx-auto px-4"
+              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-4"
             >
               {[
                 { icon: Star, value: "4.98", label: "50K+ users" },
@@ -312,16 +310,16 @@ export default function Home() {
               ].map((stat, i) => (
                 <motion.div 
                   key={i} 
-                  whileHover={{ scale: 1.05 }} 
-                  className="rounded-lg md:rounded-xl p-2 md:p-3 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
+                  whileHover={{ scale: 1.05, y: -5 }} 
+                  className="rounded-xl p-3 md:p-4 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.7)',
+                    background: 'rgba(0, 0, 0, 0.6)',
                     backdropFilter: 'blur(20px)'
                   }}
                 >
-                  <stat.icon className="h-5 w-5 md:h-6 md:w-6 text-purple-400 mx-auto mb-1 md:mb-2" />
-                  <div className="text-lg md:text-xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-xs text-white opacity-80">{stat.label}</div>
+                  <stat.icon className="h-6 w-6 md:h-7 md:w-7 text-purple-400 mx-auto mb-2" />
+                  <div className="text-xl md:text-2xl font-bold gradient-text">{stat.value}</div>
+                  <div className="text-xs text-white opacity-80 mt-1">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -332,9 +330,9 @@ export default function Home() {
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
               transition={{ delay: 1.2 }} 
-              className="pt-1"
+              className="pt-4"
             >
-              <div className="text-xs md:text-sm text-white opacity-70 flex flex-col items-center gap-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+              <div className="text-small text-white opacity-70 flex flex-col items-center gap-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
                 <span>Scroll to explore</span>
                 <span>↓</span>
               </div>
