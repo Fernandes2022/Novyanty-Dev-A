@@ -136,7 +136,7 @@ export default function Home() {
               initial={{ scale: 0 }} 
               animate={{ scale: 1 }} 
               transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-              className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20 z-50"
+              className="absolute left-1/2 -translate-x-1/2 top-3 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20 z-50"
               style={{
                 background: 'rgba(0, 0, 0, 0.6)',
                 backdropFilter: 'blur(20px)'
@@ -163,7 +163,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="md:hidden flex items-center gap-2 mt-3">
+            <div className="md:hidden flex items-center gap-3 mt-6">
               <ThemeToggle />
               <Link href="/workspace">
                 <motion.button whileTap={{ scale: 0.95 }} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm text-white">
