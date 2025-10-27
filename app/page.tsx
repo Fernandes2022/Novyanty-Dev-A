@@ -48,7 +48,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Force video autoplay on mobile
     if (videoRef.current) {
       videoRef.current.play().catch(err => {
         console.log('Video autoplay prevented:', err);
@@ -115,7 +114,7 @@ export default function Home() {
         </motion.div>
       )}
 
-      {/* Navigation - WITH ADAPTIVE ENGINE BADGE */}
+      {/* Navigation */}
       <motion.nav 
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -124,7 +123,7 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex h-16 md:h-20 items-center justify-between">
-            {/* Left - Just icon on mobile, hidden text */}
+            {/* Left - Logo + Name */}
             <Link href="/" className="flex items-center gap-2 md:gap-3 group">
               <motion.div 
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -133,6 +132,7 @@ export default function Home() {
               >
                 <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
               </motion.div>
+              <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
             </Link>
 
             {/* Center - Adaptive Engine Badge */}
@@ -154,7 +154,7 @@ export default function Home() {
               </span>
             </motion.div>
 
-            {/* Right - Menu items */}
+            {/* Right - Menu */}
             <div className="hidden md:flex items-center gap-8">
               <Link href="/faq" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity">
                 FAQ
@@ -184,10 +184,10 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* 🎬 HERO SECTION - TEXT AT BOTTOM ONLY */}
-      <section ref={heroRef} className="relative min-h-screen flex items-end pt-16 md:pt-20 overflow-hidden">
+      {/* 🎬 HERO SECTION - TEXT WAY DOWN AT BOTTOM */}
+      <section ref={heroRef} className="relative h-screen flex items-end pt-16 md:pt-20 overflow-hidden">
         
-        {/* VIDEO BACKGROUND - FACE VISIBLE */}
+        {/* VIDEO BACKGROUND */}
         <div className="absolute inset-0 overflow-hidden">
           <video 
             ref={videoRef}
@@ -208,10 +208,7 @@ export default function Home() {
           </video>
           
           <div 
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"
-            style={{ 
-              background: 'linear-gradient(to bottom, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 100%)'
-            }}
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50"
           ></div>
         </div>
 
@@ -240,44 +237,20 @@ export default function Home() {
           ))}
         </div>
 
-        {/* BOTTOM SECTION - ALL CONTENT HERE */}
+        {/* CONTENT AT VERY BOTTOM - NO LOGO, NO BADGE */}
         <motion.div 
-          className="relative z-10 w-full pb-6 md:pb-12"
+          className="relative z-10 w-full pb-4 md:pb-8"
           initial={{ opacity: 0, y: 50 }} 
           animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
           transition={{ duration: 0.8 }}
         >
-          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-4 md:space-y-6">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-3 md:space-y-5">
             
-            {/* LOGO + BRAND NAME */}
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={isHeroInView ? { scale: 1, opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex justify-center mb-4"
-            >
-              <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 rounded-2xl"
-                style={{
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  backdropFilter: 'blur(20px)',
-                  border: '2px solid rgba(255, 255, 255, 0.15)'
-                }}
-              >
-                <motion.div 
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="h-8 w-8 md:h-10 md:w-10 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg"
-                >
-                  <Sparkles className="h-4 w-4 md:h-5 md:w-5 text-white" />
-                </motion.div>
-                <span className="text-base md:text-xl font-bold text-white">Creative Workspace</span>
-              </div>
-            </motion.div>
-
-            {/* Main Headline */}
+            {/* Main Headline - LOWER */}
             <motion.h1 
               initial={{ opacity: 0, y: 20 }} 
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-              transition={{ duration: 0.8, delay: 0.4 }} 
+              transition={{ duration: 0.8, delay: 0.2 }} 
               className="text-hero px-4"
               style={{
                 textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
@@ -301,7 +274,7 @@ export default function Home() {
             <motion.p 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.6 }} 
+              transition={{ duration: 0.6, delay: 0.4 }} 
               className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
               style={{
                 background: 'rgba(0, 0, 0, 0.6)',
@@ -316,7 +289,7 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.8 }} 
+              transition={{ duration: 0.6, delay: 0.6 }} 
               className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
             >
               <Link href="/workspace" className="w-full sm:w-auto">
@@ -346,7 +319,7 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 1 }} 
+              transition={{ duration: 0.6, delay: 0.8 }} 
               className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-4"
             >
               {[
@@ -376,7 +349,7 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              transition={{ delay: 1.4 }} 
+              transition={{ delay: 1.2 }} 
               className="pt-2"
             >
               <div className="text-small text-white opacity-70 flex flex-col items-center gap-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
@@ -390,7 +363,7 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* REST OF THE SECTIONS - UNCHANGED */}
+      {/* REST OF SECTIONS - UNCHANGED */}
       <section ref={storyRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
