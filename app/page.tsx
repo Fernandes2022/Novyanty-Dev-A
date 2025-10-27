@@ -193,9 +193,8 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* 🎬 HERO SECTION - MOBILE WOW FACTOR */}
+      {/* 🎬 HERO SECTION */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 md:pt-20 overflow-hidden">
-        {/* VIDEO BACKGROUND - MUCH MORE VISIBLE ON MOBILE */}
         <div className="absolute inset-0 overflow-hidden">
           <video
             autoPlay
@@ -207,11 +206,10 @@ export default function Home() {
             <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
             <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
           </video>
-          {/* LIGHTER OVERLAY ON MOBILE - VIDEO SHOWS THROUGH */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/60 md:from-black/40 md:via-black/30 md:to-black/50"></div>
         </div>
 
-        {/* Animated floating particles - WOW FACTOR */}
+        {/* Animated floating particles */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(15)].map((_, i) => (
             <motion.div
@@ -248,7 +246,6 @@ export default function Home() {
           }}
         ></motion.div>
 
-        {/* CONTENT - POSITIONED TO SHOW VIDEO */}
         <motion.div 
           className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center z-10"
         >
@@ -258,7 +255,6 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="space-y-4 md:space-y-8"
           >
-            {/* Badge - WITH STUNNING ANIMATION */}
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={isHeroInView ? { scale: 1, rotate: 0 } : {}}
@@ -289,7 +285,6 @@ export default function Home() {
               </span>
             </motion.div>
 
-            {/* Main Headline - POSITIONED TO NOT BLOCK VIDEO */}
             <motion.h1 
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={isHeroInView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -301,7 +296,6 @@ export default function Home() {
               }}
               className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-tight px-4"
             >
-              {/* MOBILE: Compact layout to show more video */}
               <motion.span 
                 className="block text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)] mb-2"
                 initial={{ x: -50, opacity: 0 }}
@@ -348,7 +342,6 @@ export default function Home() {
               </motion.span>
             </motion.h1>
 
-            {/* Subtext - MINIMAL BACKGROUND TO SHOW VIDEO */}
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -358,7 +351,6 @@ export default function Home() {
               No code. No drama. Just say what you want and watch the magic happen.
             </motion.p>
 
-            {/* CTAs - STUNNING ENTRANCE */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
@@ -425,7 +417,7 @@ export default function Home() {
               </motion.button>
             </motion.div>
 
-            {/* Stats - FLOATING ANIMATION */}
+            {/* Stats - FIXED: Removed duplicate animate */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -440,27 +432,20 @@ export default function Home() {
                 <motion.div 
                   key={i}
                   initial={{ scale: 0, rotate: -180 }}
-                  animate={isHeroInView ? { scale: 1, rotate: 0 } : {}}
+                  animate={isHeroInView ? { 
+                    scale: 1, 
+                    rotate: 0,
+                    y: [0, -10, 0]
+                  } : {}}
                   transition={{ 
-                    duration: 0.6, 
-                    delay: 1.5 + i * 0.1,
-                    type: "spring",
-                    stiffness: 200
+                    scale: { duration: 0.6, delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 },
+                    rotate: { duration: 0.6, delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 },
+                    y: { duration: 3, repeat: Infinity, delay: i * 0.3 }
                   }}
                   whileHover={{
                     scale: 1.1,
                     y: -5,
                     transition: { duration: 0.2 }
-                  }}
-                  animate={{
-                    y: [0, -10, 0]
-                  }}
-                  transition={{
-                    y: {
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: i * 0.3
-                    }
                   }}
                   className="bg-black/40 backdrop-blur-xl rounded-xl md:rounded-2xl p-3 md:p-6 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
                 >
@@ -482,7 +467,6 @@ export default function Home() {
               ))}
             </motion.div>
 
-            {/* Scroll Indicator - ANIMATED */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -509,8 +493,7 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* REST OF SECTIONS REMAIN THE SAME */}
-      {/* 📜 SCROLL STORY FLOW */}
+      {/* Rest of sections remain the same - keeping them as is */}
       <section ref={storyRef} className="py-20 md:py-32 px-4 md:px-6 lg:px-8 relative bg-black">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -591,9 +574,6 @@ export default function Home() {
       </section>
 
       <GradientDivider />
-
-      {/* Continue with other sections... (USP, Demo, Community, CTA, Footer) */}
-      {/* I'll keep them as they were since they're working well */}
 
       <section ref={uspRef} className="py-20 md:py-32 px-4 md:px-6 lg:px-8 relative bg-black">
         <div className="max-w-7xl mx-auto">
