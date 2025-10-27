@@ -1,32 +1,27 @@
-import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/geist";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "Creative Workspace - AI-Powered Composition Platform",
-  description: "Transform your ideas into stunning digital experiences with our adaptive composition engine. No code required.",
-  keywords: ["creative", "workspace", "AI", "composition", "no-code", "web design"],
+  title: "Creative Workspace - Build Websites Before Your Coffee Cools",
+  description: "No code. No drama. Just say what you want and watch the magic happen. Build professional websites in minutes with AI-powered adaptive design.",
+  keywords: ["website builder", "no code", "AI", "web design", "creative workspace"],
   authors: [{ name: "Creative Workspace Team" }],
   openGraph: {
-    title: "Creative Workspace",
-    description: "AI-powered creative composition platform",
+    title: "Creative Workspace - Build Websites Before Your Coffee Cools",
+    description: "No code. No drama. AI-powered website builder that brings your ideas to life.",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Creative Workspace",
-    description: "AI-powered creative composition platform",
-  },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -35,8 +30,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

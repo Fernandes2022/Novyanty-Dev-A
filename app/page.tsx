@@ -156,277 +156,105 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* 🎬 HERO SECTION - VIDEO NOW 100% VISIBLE */}
+      {/* 🎬 HERO SECTION */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 md:pt-20 overflow-hidden">
-        
-        {/* VIDEO BACKGROUND - MAXIMUM VISIBILITY */}
         <div className="absolute inset-0 overflow-hidden">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="absolute min-w-full min-h-full object-cover"
-            style={{ opacity: 0.9 }}
-          >
+          <video autoPlay loop muted playsInline className="absolute min-w-full min-h-full object-cover opacity-50">
             <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
             <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
           </video>
-          
-          {/* SUPER LIGHT OVERLAY - VIDEO SHOWS THROUGH */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/20"
-            style={{ 
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.2) 100%)'
-            }}
-          ></div>
+          <div className="absolute inset-0 video-overlay bg-gradient-to-b from-black/30 via-black/40 to-black/70"></div>
         </div>
 
-        {/* Floating particles - reduced opacity */}
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(8)].map((_, i) => (
+          {[...Array(15)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 md:w-2 md:h-2 bg-purple-400 rounded-full"
-              style={{ 
-                left: `${Math.random() * 100}%`, 
-                top: `${Math.random() * 100}%`,
-                opacity: 0.3
-              }}
-              animate={{ 
-                y: [0, -30, 0], 
-                opacity: [0.1, 0.3, 0.1], 
-                scale: [1, 1.5, 1] 
-              }}
-              transition={{ 
-                duration: 3 + Math.random() * 2, 
-                repeat: Infinity, 
-                delay: Math.random() * 2 
-              }}
+              className="absolute w-1 h-1 md:w-2 md:h-2 bg-purple-500 rounded-full"
+              style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+              animate={{ y: [0, -30, 0], opacity: [0.2, 0.8, 0.2], scale: [1, 1.5, 1] }}
+              transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2 }}
             />
           ))}
         </div>
 
-        <motion.div 
-          className="absolute inset-0 grid-bg" 
-          style={{ opacity: 0.03 }}
-          animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }} 
-          transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
-        ></motion.div>
+        <motion.div className="absolute inset-0 grid-bg opacity-5" animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }} transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}></motion.div>
 
-        {/* CONTENT - POSITIONED TO NOT BLOCK VIDEO */}
         <motion.div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }} 
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-            transition={{ duration: 1 }} 
-            className="space-y-6 md:space-y-8"
-          >
+          <motion.div initial={{ opacity: 0, y: 50 }} animate={isHeroInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="space-y-6 md:space-y-8">
             
-            {/* Badge - with backdrop */}
-            <motion.div 
-              initial={{ scale: 0, rotate: -180 }} 
-              animate={isHeroInView ? { scale: 1, rotate: 0 } : {}} 
-              transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} 
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
-              style={{
-                background: 'rgba(0, 0, 0, 0.6)',
-                backdropFilter: 'blur(20px)'
-              }}
-            >
-              <motion.div 
-                animate={{ rotate: 360, scale: [1, 1.2, 1] }} 
-                transition={{ 
-                  rotate: { duration: 3, ease: "linear", repeat: Infinity }, 
-                  scale: { duration: 2, repeat: Infinity } 
-                }}
-              >
+            <motion.div initial={{ scale: 0, rotate: -180 }} animate={isHeroInView ? { scale: 1, rotate: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl shadow-lg shadow-purple-500/20">
+              <motion.div animate={{ rotate: 360, scale: [1, 1.2, 1] }} transition={{ rotate: { duration: 3, ease: "linear", repeat: Infinity }, scale: { duration: 2, repeat: Infinity } }}>
                 <Sparkles className="h-4 w-4 text-purple-400" />
               </motion.div>
-              <span className="text-sm font-bold text-white">
+              <span className="text-sm font-bold">
                 <Tooltip content="Real-time layout & color tuning">
                   <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
                 </Tooltip>
               </span>
             </motion.div>
 
-            {/* Main Headline - with text shadows for readability */}
-            <motion.h1 
-              initial={{ opacity: 0, y: 50, scale: 0.9 }} 
-              animate={isHeroInView ? { opacity: 1, y: 0, scale: 1 } : {}} 
-              transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 100 }} 
-              className="text-hero px-4"
-              style={{
-                textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 4px 40px rgba(0,0,0,0.6), 0 0 80px rgba(0,0,0,0.4)'
-              }}
-            >
-              <motion.span 
-                className="block mb-2 text-white" 
-                initial={{ x: -50, opacity: 0 }} 
-                animate={isHeroInView ? { x: 0, opacity: 1 } : {}} 
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
+            <motion.h1 initial={{ opacity: 0, y: 50, scale: 0.9 }} animate={isHeroInView ? { opacity: 1, y: 0, scale: 1 } : {}} transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 100 }} className="text-hero px-4 hero-text-shadow">
+              <motion.span className="block mb-2" initial={{ x: -50, opacity: 0 }} animate={isHeroInView ? { x: 0, opacity: 1 } : {}} transition={{ duration: 0.8, delay: 0.6 }}>
                 Build a website
               </motion.span>
-              <motion.span 
-                className="block mb-2 text-white" 
-                initial={{ x: 50, opacity: 0 }} 
-                animate={isHeroInView ? { x: 0, opacity: 1 } : {}} 
-                transition={{ duration: 0.8, delay: 0.7 }}
-              >
+              <motion.span className="block mb-2" initial={{ x: 50, opacity: 0 }} animate={isHeroInView ? { x: 0, opacity: 1 } : {}} transition={{ duration: 0.8, delay: 0.7 }}>
                 before your
               </motion.span>
-              <motion.span 
-                className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" 
-                style={{ 
-                  backgroundSize: "200% 200%",
-                  filter: 'drop-shadow(0 0 30px rgba(34, 211, 238, 0.8))'
-                }} 
-                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} 
-                transition={{ duration: 5, ease: "linear", repeat: Infinity }} 
-                initial={{ scale: 0 }} 
-                whileInView={{ scale: 1 }} 
-                viewport={{ once: true }}
-              >
+              <motion.span className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" style={{ backgroundSize: "200% 200%" }} animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} transition={{ duration: 5, ease: "linear", repeat: Infinity }} initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}>
                 coffee cools
-                <motion.span 
-                  animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }} 
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
+                <motion.span animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }}>
                   <Coffee className="h-12 w-12 md:h-16 md:w-16" />
                 </motion.span>
               </motion.span>
             </motion.h1>
 
-            {/* Subtext - with backdrop */}
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-              transition={{ duration: 0.8, delay: 0.9 }} 
-              className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
-              style={{
-                background: 'rgba(0, 0, 0, 0.5)',
-                backdropFilter: 'blur(15px)',
-                textShadow: '0 2px 10px rgba(0,0,0,0.8)'
-              }}
-            >
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={isHeroInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.9 }} className="text-body max-w-3xl mx-auto font-medium leading-relaxed glass-dark rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/10">
               No code. No drama. Just say what you want and watch the magic happen.
             </motion.p>
 
-            {/* CTAs */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }} 
-              animate={isHeroInView ? { opacity: 1, scale: 1 } : {}} 
-              transition={{ duration: 0.8, delay: 1.1, type: "spring", stiffness: 150 }} 
-              className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-4 md:pt-6 px-4"
-            >
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={isHeroInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.8, delay: 1.1, type: "spring", stiffness: 150 }} className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-4 md:pt-6 px-4">
               <Link href="/workspace" className="w-full sm:w-auto">
-                <motion.button 
-                  whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(139, 92, 246, 0.6)" }} 
-                  whileTap={{ scale: 0.95 }} 
-                  animate={{ 
-                    boxShadow: [
-                      "0 0 20px rgba(139, 92, 246, 0.3)", 
-                      "0 0 40px rgba(139, 92, 246, 0.5)", 
-                      "0 0 20px rgba(139, 92, 246, 0.3)"
-                    ] 
-                  }} 
-                  transition={{ boxShadow: { duration: 2, repeat: Infinity } }} 
-                  className="w-full sm:w-auto btn-primary group relative overflow-hidden"
-                >
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" 
-                    animate={{ x: ["-100%", "100%"] }} 
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }} 
-                  />
+                <motion.button whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(139, 92, 246, 0.6)" }} whileTap={{ scale: 0.95 }} animate={{ boxShadow: ["0 0 20px rgba(139, 92, 246, 0.3)", "0 0 40px rgba(139, 92, 246, 0.5)", "0 0 20px rgba(139, 92, 246, 0.3)"] }} transition={{ boxShadow: { duration: 2, repeat: Infinity } }} className="w-full sm:w-auto btn-primary group relative overflow-hidden">
+                  <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" animate={{ x: ["-100%", "100%"] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
                   <span className="relative z-10">
                     <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
                     <span className="sm:hidden">Build It for Me</span>
                   </span>
-                  <motion.div 
-                    className="inline-block ml-2 relative z-10" 
-                    animate={{ x: [0, 5, 0] }} 
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
+                  <motion.div className="inline-block ml-2 relative z-10" animate={{ x: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
                     <ArrowRight className="h-5 w-5" />
                   </motion.div>
                 </motion.button>
               </Link>
-              <motion.button 
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }} 
-                onClick={() => setShowDemoVideo(true)} 
-                className="w-full sm:w-auto btn-secondary group"
-              >
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setShowDemoVideo(true)} className="w-full sm:w-auto btn-secondary group">
                 <Play className="inline-block mr-2 h-5 w-5" />
                 <span className="hidden sm:inline">Show Me the Demo</span>
                 <span className="sm:hidden">Demo</span>
               </motion.button>
             </motion.div>
 
-            {/* Stats - with backdrop */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }} 
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-              transition={{ duration: 1, delay: 1.3 }} 
-              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto pt-6 md:pt-8 px-4"
-            >
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={isHeroInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, delay: 1.3 }} className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto pt-6 md:pt-8 px-4">
               {[
                 { icon: Star, value: "4.98", label: "50K+ users" },
                 { icon: Zap, value: "2 min", label: "Build Time" },
                 { icon: Rocket, value: "99.9%", label: "Uptime" }
               ].map((stat, i) => (
-                <motion.div 
-                  key={i} 
-                  initial={{ scale: 0, rotate: -180 }} 
-                  animate={isHeroInView ? { scale: 1, rotate: 0, y: [0, -10, 0] } : {}} 
-                  transition={{ 
-                    scale: { duration: 0.6, delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 }, 
-                    rotate: { duration: 0.6, delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 }, 
-                    y: { duration: 3, repeat: Infinity, delay: i * 0.3 } 
-                  }} 
-                  whileHover={{ scale: 1.1, y: -5, transition: { duration: 0.2 } }} 
-                  className="rounded-xl p-3 md:p-4 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    backdropFilter: 'blur(20px)'
-                  }}
-                >
-                  <motion.div 
-                    animate={{ rotate: [0, 360] }} 
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  >
+                <motion.div key={i} initial={{ scale: 0, rotate: -180 }} animate={isHeroInView ? { scale: 1, rotate: 0, y: [0, -10, 0] } : {}} transition={{ scale: { duration: 0.6, delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 }, rotate: { duration: 0.6, delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 }, y: { duration: 3, repeat: Infinity, delay: i * 0.3 } }} whileHover={{ scale: 1.1, y: -5, transition: { duration: 0.2 } }} className="glass-dark rounded-xl p-3 md:p-4 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors">
+                  <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }}>
                     <stat.icon className="h-6 w-6 md:h-7 md:w-7 text-purple-400 mx-auto mb-2" />
                   </motion.div>
                   <div className="text-xl md:text-2xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-xs text-white opacity-80 mt-1">{stat.label}</div>
+                  <div className="text-xs opacity-80 mt-1">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
 
-            {/* Audio Experience */}
             <AudioExperience />
 
-            {/* Scroll Indicator */}
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              transition={{ delay: 2 }} 
-              className="pt-6 md:pt-8"
-            >
-              <motion.div 
-                animate={{ y: [0, 10, 0] }} 
-                transition={{ duration: 2, repeat: Infinity }} 
-                className="text-small text-white opacity-70 flex flex-col items-center gap-2"
-                style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}
-              >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="pt-6 md:pt-8">
+              <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-small opacity-70 flex flex-col items-center gap-2">
                 <span>Scroll to explore</span>
-                <motion.div 
-                  animate={{ opacity: [0.3, 1, 0.3] }} 
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  ↓
-                </motion.div>
+                <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, repeat: Infinity }}>↓</motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -435,7 +263,7 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* REST OF SECTIONS - Keeping as is */}
+      {/* 📜 HOW IT WORKS */}
       <section ref={storyRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 50 }} animate={isStoryInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="text-center mb-12 md:mb-16">
@@ -471,6 +299,7 @@ export default function Home() {
 
       <GradientDivider />
 
+      {/* 🧩 WHY WE'RE DIFFERENT */}
       <section ref={uspRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 50 }} animate={isUspInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="text-center mb-12 md:mb-16">
@@ -507,6 +336,7 @@ export default function Home() {
 
       <GradientDivider />
 
+      {/* 🪩 TRY IT LIVE */}
       <section ref={demoRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 50 }} animate={isDemoInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="text-center mb-10 md:mb-12">
@@ -533,7 +363,7 @@ export default function Home() {
               
               <Tooltip content="Generates absurd previews (Easter egg)">
                 <motion.button onClick={() => { setChaosMode(!chaosMode); if (demoInput.trim()) { setShowPreview(true); } }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className={`px-4 md:px-6 py-3 rounded-xl font-bold transition-all ${chaosMode ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white' : 'glass border-2 border-white/20 hover:bg-white/10'}`}>
-                  {chaosMode ? "🎪 Chaos ON" : "🎭 Chaos Mode"}
+                  {chaosMode ? "🎪 Chaos ON" : "�� Chaos Mode"}
                 </motion.button>
               </Tooltip>
             </div>
@@ -556,6 +386,7 @@ export default function Home() {
 
       <GradientDivider />
 
+      {/* 🎥 LOVED BY CREATORS */}
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="text-center mb-12 md:mb-16">
@@ -592,6 +423,7 @@ export default function Home() {
 
       <GradientDivider />
 
+      {/* 💸 STILL SCROLLING? */}
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div initial={{ opacity: 0, scale: 0.8, y: 50 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: false, amount: 0.3 }} transition={{ duration: 1 }}>
@@ -635,6 +467,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 🦶 FOOTER */}
       <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="border-t border-white/10 py-8 md:py-12 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">

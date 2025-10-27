@@ -1,53 +1,48 @@
 "use client";
-import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from 'react';
+import { Moon, Sun } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true); // DEFAULT TO DARK
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored) {
-      const darkMode = stored === "dark";
-      setIsDark(darkMode);
-      document.documentElement.classList.toggle("light", !darkMode);
-    } else {
-      // DEFAULT TO DARK if no stored preference
-      localStorage.setItem("theme", "dark");
-      document.documentElement.classList.remove("light");
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      document.body.style.backgroundColor = savedTheme === 'light' ? '#ffffff' : '#000000';
+      document.body.style.color = savedTheme === 'light' ? '#000000' : '#ffffff';
     }
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    localStorage.setItem("theme", newTheme ? "dark" : "light");
-    document.documentElement.classList.toggle("light", !newTheme);
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    document.body.style.backgroundColor = newTheme === 'light' ? '#ffffff' : '#000000';
+    document.body.style.color = newTheme === 'light' ? '#000000' : '#ffffff';
   };
 
   return (
     <motion.button
       onClick={toggleTheme}
-      className="relative w-14 h-8 rounded-full bg-gray-700 flex items-center px-1 transition-colors"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className="p-2 rounded-lg glass border border-white/20 hover:border-purple-500/50 transition-all"
+      aria-label="Toggle theme"
     >
       <motion.div
-        className="w-6 h-6 rounded-full bg-white flex items-center justify-center"
-        animate={{
-          x: isDark ? 0 : 24
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 500,
-          damping: 30
-        }}
+        initial={false}
+        animate={{ rotate: theme === 'dark' ? 0 : 180 }}
+        transition={{ duration: 0.3 }}
       >
-        {isDark ? (
-          <Moon className="h-4 w-4 text-gray-900" />
+        {theme === 'dark' ? (
+          <Sun className="h-5 w-5 text-yellow-400" />
         ) : (
-          <Sun className="h-4 w-4 text-yellow-500" />
+          <Moon className="h-5 w-5 text-purple-600" />
         )}
       </motion.div>
     </motion.button>
