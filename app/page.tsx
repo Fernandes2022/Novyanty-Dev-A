@@ -113,7 +113,6 @@ export default function Home() {
         </motion.div>
       )}
 
-      {/* HEADER - STAYS EXACTLY AS IS */}
       <motion.nav 
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -176,10 +175,9 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* HERO - TEXT MOVED TO BOTTOM HALF */}
-      <section ref={heroRef} className="relative min-h-screen flex items-end pt-16 md:pt-20 overflow-hidden">
+      {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
+      <section ref={heroRef} className="relative min-h-screen overflow-hidden pt-16 md:pt-20">
         
-        {/* VIDEO - TOP HALF */}
         <div className="absolute inset-0 overflow-hidden">
           <video 
             ref={videoRef}
@@ -226,128 +224,129 @@ export default function Home() {
           ))}
         </div>
 
-        {/* ALL TEXT - BOTTOM HALF */}
-        <motion.div 
-          className="relative z-10 w-full pb-8 md:pb-12"
-          initial={{ opacity: 0, y: 50 }} 
-          animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-          transition={{ duration: 0.8 }}
-        >
-          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-6 md:space-y-8">
-            
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }} 
+        {/* CONTENT WITH TOP MARGIN TO PUSH TO LOWER HALF */}
+        <div className="relative z-10 min-h-screen flex flex-col justify-center">
+          <div className="mt-[50vh]">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }} 
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
-              transition={{ duration: 0.8, delay: 0.2 }} 
-              className="text-hero px-4"
-              style={{
-                textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
-              }}
+              transition={{ duration: 0.8 }}
+              className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-6 md:space-y-8"
             >
-              <span className="block mb-2 text-white">Build a website</span>
-              <span className="block mb-2 text-white">before your</span>
-              <span 
-                className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" 
-                style={{ 
-                  backgroundSize: "200% 200%",
-                  filter: 'drop-shadow(0 0 40px rgba(34, 211, 238, 0.9))'
+              
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }} 
+                animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
+                transition={{ duration: 0.8, delay: 0.2 }} 
+                className="text-hero px-4"
+                style={{
+                  textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
               >
-                coffee cools
-                <Coffee className="h-12 w-12 md:h-16 md:w-16" />
-              </span>
-            </motion.h1>
+                <span className="block mb-2 text-white">Build a website</span>
+                <span className="block mb-2 text-white">before your</span>
+                <span 
+                  className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" 
+                  style={{ 
+                    backgroundSize: "200% 200%",
+                    filter: 'drop-shadow(0 0 40px rgba(34, 211, 238, 0.9))'
+                  }}
+                >
+                  coffee cools
+                  <Coffee className="h-12 w-12 md:h-16 md:w-16" />
+                </span>
+              </motion.h1>
 
-            <motion.p 
-              initial={{ opacity: 0 }} 
-              animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.4 }} 
-              className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
-              style={{
-                background: 'rgba(0, 0, 0, 0.6)',
-                backdropFilter: 'blur(15px)',
-                textShadow: '0 2px 10px rgba(0,0,0,0.8)'
-              }}
-            >
-              No code. No drama. Just say what you want and watch the magic happen.
-            </motion.p>
+              <motion.p 
+                initial={{ opacity: 0 }} 
+                animate={isHeroInView ? { opacity: 1 } : {}} 
+                transition={{ duration: 0.6, delay: 0.4 }} 
+                className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.6)',
+                  backdropFilter: 'blur(15px)',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.8)'
+                }}
+              >
+                No code. No drama. Just say what you want and watch the magic happen.
+              </motion.p>
 
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.6 }} 
-              className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
-            >
-              <Link href="/workspace" className="w-full sm:w-auto">
+              <motion.div 
+                initial={{ opacity: 0 }} 
+                animate={isHeroInView ? { opacity: 1 } : {}} 
+                transition={{ duration: 0.6, delay: 0.6 }} 
+                className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
+              >
+                <Link href="/workspace" className="w-full sm:w-auto">
+                  <motion.button 
+                    whileHover={{ scale: 1.05 }} 
+                    whileTap={{ scale: 0.95 }} 
+                    className="w-full sm:w-auto btn-primary"
+                  >
+                    <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
+                    <span className="sm:hidden">Build It for Me</span>
+                    <ArrowRight className="inline-block ml-2 h-5 w-5" />
+                  </motion.button>
+                </Link>
                 <motion.button 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  className="w-full sm:w-auto btn-primary"
+                  onClick={() => setShowDemoVideo(true)} 
+                  className="w-full sm:w-auto btn-secondary"
                 >
-                  <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
-                  <span className="sm:hidden">Build It for Me</span>
-                  <ArrowRight className="inline-block ml-2 h-5 w-5" />
+                  <Play className="inline-block mr-2 h-5 w-5" />
+                  <span className="hidden sm:inline">Show Me the Demo</span>
+                  <span className="sm:hidden">Demo</span>
                 </motion.button>
-              </Link>
-              <motion.button 
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }} 
-                onClick={() => setShowDemoVideo(true)} 
-                className="w-full sm:w-auto btn-secondary"
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0 }} 
+                animate={isHeroInView ? { opacity: 1 } : {}} 
+                transition={{ duration: 0.6, delay: 0.8 }} 
+                className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-4"
               >
-                <Play className="inline-block mr-2 h-5 w-5" />
-                <span className="hidden sm:inline">Show Me the Demo</span>
-                <span className="sm:hidden">Demo</span>
-              </motion.button>
-            </motion.div>
+                {[
+                  { icon: Star, value: "4.98", label: "50K+ users" },
+                  { icon: Zap, value: "2 min", label: "Build Time" },
+                  { icon: Rocket, value: "99.9%", label: "Uptime" }
+                ].map((stat, i) => (
+                  <motion.div 
+                    key={i} 
+                    whileHover={{ scale: 1.05, y: -5 }} 
+                    className="rounded-xl p-3 md:p-4 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.6)',
+                      backdropFilter: 'blur(20px)'
+                    }}
+                  >
+                    <stat.icon className="h-6 w-6 md:h-7 md:w-7 text-purple-400 mx-auto mb-2" />
+                    <div className="text-xl md:text-2xl font-bold gradient-text">{stat.value}</div>
+                    <div className="text-xs text-white opacity-80 mt-1">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={isHeroInView ? { opacity: 1 } : {}} 
-              transition={{ duration: 0.6, delay: 0.8 }} 
-              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-4"
-            >
-              {[
-                { icon: Star, value: "4.98", label: "50K+ users" },
-                { icon: Zap, value: "2 min", label: "Build Time" },
-                { icon: Rocket, value: "99.9%", label: "Uptime" }
-              ].map((stat, i) => (
-                <motion.div 
-                  key={i} 
-                  whileHover={{ scale: 1.05, y: -5 }} 
-                  className="rounded-xl p-3 md:p-4 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    backdropFilter: 'blur(20px)'
-                  }}
-                >
-                  <stat.icon className="h-6 w-6 md:h-7 md:w-7 text-purple-400 mx-auto mb-2" />
-                  <div className="text-xl md:text-2xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-xs text-white opacity-80 mt-1">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
+              <AudioExperience />
 
-            <AudioExperience />
-
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              transition={{ delay: 1.2 }} 
-              className="pt-4"
-            >
-              <div className="text-small text-white opacity-70 flex flex-col items-center gap-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-                <span>Scroll to explore</span>
-                <span>↓</span>
-              </div>
+              <motion.div 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }} 
+                transition={{ delay: 1.2 }} 
+                className="pt-4 pb-8"
+              >
+                <div className="text-small text-white opacity-70 flex flex-col items-center gap-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                  <span>Scroll to explore</span>
+                  <span>↓</span>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       <GradientDivider />
 
-      {/* ALL OTHER SECTIONS UNCHANGED */}
       <section ref={storyRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
