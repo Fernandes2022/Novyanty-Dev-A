@@ -63,7 +63,6 @@ export default function Home() {
       <CursorTrail />
       <GlowLayer />
 
-      {/* Demo Video Modal */}
       {showDemoVideo && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -96,15 +95,15 @@ export default function Home() {
                   <div className="space-y-2 text-sm md:text-base text-white">
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="flex items-start gap-2">
                       <span className="text-purple-400 font-bold">1.</span>
-                      <span>Say what you want (we actually listen, unlike your ex)</span>
+                      <span>Say what you want</span>
                     </motion.p>
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="flex items-start gap-2">
                       <span className="text-blue-400 font-bold">2.</span>
-                      <span>Sit back. Pretend you're productive</span>
+                      <span>Sit back and watch</span>
                     </motion.p>
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }} className="flex items-start gap-2">
                       <span className="text-cyan-400 font-bold">3.</span>
-                      <span>One click and boom — you're a founder</span>
+                      <span>Launch your site</span>
                     </motion.p>
                   </div>
                 </motion.div>
@@ -114,7 +113,6 @@ export default function Home() {
         </motion.div>
       )}
 
-      {/* Navigation */}
       <motion.nav 
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -123,7 +121,6 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex h-16 md:h-20 items-center justify-between">
-            {/* Left - Logo + Name */}
             <Link href="/" className="flex items-center gap-2 md:gap-3 group">
               <motion.div 
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -135,7 +132,6 @@ export default function Home() {
               <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
             </Link>
 
-            {/* Center - Adaptive Engine Badge */}
             <motion.div 
               initial={{ scale: 0 }} 
               animate={{ scale: 1 }} 
@@ -148,25 +144,20 @@ export default function Home() {
             >
               <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-purple-400" />
               <span className="text-xs md:text-sm font-bold text-white">
-                <Tooltip content="Real-time layout & color tuning">
-                  <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
-                </Tooltip>
+                Adaptive Engine
               </span>
             </motion.div>
 
-            {/* Right - Menu */}
             <div className="hidden md:flex items-center gap-8">
               <Link href="/faq" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity">
                 FAQ
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
               <Link href="/about" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity">
                 About
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
               <ThemeToggle />
               <Link href="/workspace">
-                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }} className="btn-primary">
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary">
                   Get Started
                 </motion.button>
               </Link>
@@ -184,10 +175,9 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* 🎬 HERO SECTION - TEXT WAY DOWN AT BOTTOM */}
-      <section ref={heroRef} className="relative h-screen flex items-end pt-16 md:pt-20 overflow-hidden">
+      {/* HERO - TEXT AT ABSOLUTE BOTTOM */}
+      <section ref={heroRef} className="relative h-screen flex flex-col justify-end pt-20 overflow-hidden">
         
-        {/* VIDEO BACKGROUND */}
         <div className="absolute inset-0 overflow-hidden">
           <video 
             ref={videoRef}
@@ -207,12 +197,9 @@ export default function Home() {
             <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
           </video>
           
-          <div 
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50"
-          ></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60"></div>
         </div>
 
-        {/* Particles */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(4)].map((_, i) => (
             <motion.div
@@ -237,47 +224,45 @@ export default function Home() {
           ))}
         </div>
 
-        {/* CONTENT AT VERY BOTTOM - NO LOGO, NO BADGE */}
+        {/* ALL CONTENT AT ABSOLUTE BOTTOM */}
         <motion.div 
-          className="relative z-10 w-full pb-4 md:pb-8"
+          className="relative z-10 w-full pb-2 md:pb-4"
           initial={{ opacity: 0, y: 50 }} 
           animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
           transition={{ duration: 0.8 }}
         >
-          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-3 md:space-y-5">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-2 md:space-y-3">
             
-            {/* Main Headline - LOWER */}
             <motion.h1 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
+              initial={{ opacity: 0 }} 
+              animate={isHeroInView ? { opacity: 1 } : {}} 
               transition={{ duration: 0.8, delay: 0.2 }} 
-              className="text-hero px-4"
+              className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight px-4"
               style={{
-                textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
+                textShadow: '0 2px 30px rgba(0,0,0,1), 0 4px 50px rgba(0,0,0,0.8)'
               }}
             >
-              <span className="block mb-2 text-white">Build a website</span>
-              <span className="block mb-2 text-white">before your</span>
+              <span className="block text-white mb-1">Build a website</span>
+              <span className="block text-white mb-1">before your</span>
               <span 
-                className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" 
+                className="block gradient-text-neon flex items-center justify-center gap-2 md:gap-3 flex-wrap" 
                 style={{ 
                   backgroundSize: "200% 200%",
                   filter: 'drop-shadow(0 0 40px rgba(34, 211, 238, 0.9))'
                 }}
               >
                 coffee cools
-                <Coffee className="h-12 w-12 md:h-16 md:w-16" />
+                <Coffee className="h-10 w-10 md:h-14 md:w-14" />
               </span>
             </motion.h1>
 
-            {/* Subtext */}
             <motion.p 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
               transition={{ duration: 0.6, delay: 0.4 }} 
-              className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
+              className="text-sm md:text-lg max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-6 py-2 md:py-3 border border-white/20 text-white"
               style={{
-                background: 'rgba(0, 0, 0, 0.6)',
+                background: 'rgba(0, 0, 0, 0.7)',
                 backdropFilter: 'blur(15px)',
                 textShadow: '0 2px 10px rgba(0,0,0,0.8)'
               }}
@@ -285,42 +270,40 @@ export default function Home() {
               No code. No drama. Just say what you want and watch the magic happen.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
               transition={{ duration: 0.6, delay: 0.6 }} 
-              className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
+              className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center items-center px-4"
             >
               <Link href="/workspace" className="w-full sm:w-auto">
                 <motion.button 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  className="w-full sm:w-auto btn-primary"
+                  className="w-full sm:w-auto btn-primary text-sm md:text-base px-4 md:px-6 py-2 md:py-3"
                 >
                   <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
                   <span className="sm:hidden">Build It for Me</span>
-                  <ArrowRight className="inline-block ml-2 h-5 w-5" />
+                  <ArrowRight className="inline-block ml-2 h-4 w-4 md:h-5 md:w-5" />
                 </motion.button>
               </Link>
               <motion.button 
                 whileHover={{ scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }} 
                 onClick={() => setShowDemoVideo(true)} 
-                className="w-full sm:w-auto btn-secondary"
+                className="w-full sm:w-auto btn-secondary text-sm md:text-base px-4 md:px-6 py-2 md:py-3"
               >
-                <Play className="inline-block mr-2 h-5 w-5" />
+                <Play className="inline-block mr-2 h-4 w-4 md:h-5 md:w-5" />
                 <span className="hidden sm:inline">Show Me the Demo</span>
                 <span className="sm:hidden">Demo</span>
               </motion.button>
             </motion.div>
 
-            {/* Stats */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={isHeroInView ? { opacity: 1 } : {}} 
               transition={{ duration: 0.6, delay: 0.8 }} 
-              className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-4"
+              className="grid grid-cols-3 gap-2 md:gap-3 max-w-2xl mx-auto px-4"
             >
               {[
                 { icon: Star, value: "4.98", label: "50K+ users" },
@@ -329,30 +312,29 @@ export default function Home() {
               ].map((stat, i) => (
                 <motion.div 
                   key={i} 
-                  whileHover={{ scale: 1.05, y: -5 }} 
-                  className="rounded-xl p-3 md:p-4 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
+                  whileHover={{ scale: 1.05 }} 
+                  className="rounded-lg md:rounded-xl p-2 md:p-3 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.6)',
+                    background: 'rgba(0, 0, 0, 0.7)',
                     backdropFilter: 'blur(20px)'
                   }}
                 >
-                  <stat.icon className="h-6 w-6 md:h-7 md:w-7 text-purple-400 mx-auto mb-2" />
-                  <div className="text-xl md:text-2xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-xs text-white opacity-80 mt-1">{stat.label}</div>
+                  <stat.icon className="h-5 w-5 md:h-6 md:w-6 text-purple-400 mx-auto mb-1 md:mb-2" />
+                  <div className="text-lg md:text-xl font-bold gradient-text">{stat.value}</div>
+                  <div className="text-xs text-white opacity-80">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
 
             <AudioExperience />
 
-            {/* Scroll Indicator */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
               transition={{ delay: 1.2 }} 
-              className="pt-2"
+              className="pt-1"
             >
-              <div className="text-small text-white opacity-70 flex flex-col items-center gap-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+              <div className="text-xs md:text-sm text-white opacity-70 flex flex-col items-center gap-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
                 <span>Scroll to explore</span>
                 <span>↓</span>
               </div>
@@ -363,7 +345,6 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* REST OF SECTIONS - UNCHANGED */}
       <section ref={storyRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
@@ -426,28 +407,27 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { icon: Palette, title: "Adaptive Engine", desc: "AI that vibes with your aesthetic.", tooltip: "Real-time layout & color tuning" },
-              { icon: Rocket, title: "Instant Deploy", desc: "Goes live faster than your 5G.", tooltip: "Auto SSL + CDN deploy" },
-              { icon: Users, title: "Team Collab", desc: "Multiple brains, one vibe.", tooltip: "Real-time sync workspace" },
-              { icon: Lock, title: "Privacy Lock", desc: "We gatekeep your data (for good reasons).", tooltip: "AES-256 encryption + GDPR ready" },
-              { icon: Coffee, title: "No Code", desc: "Because typing is overrated.", tooltip: "Voice + prompt-based control" },
-              { icon: Clock, title: "Lightning Fast", desc: "Seriously, it's stupid fast.", tooltip: "Edge-optimized CDN delivery" }
+              { icon: Palette, title: "Adaptive Engine", desc: "AI that vibes with your aesthetic." },
+              { icon: Rocket, title: "Instant Deploy", desc: "Goes live faster than your 5G." },
+              { icon: Users, title: "Team Collab", desc: "Multiple brains, one vibe." },
+              { icon: Lock, title: "Privacy Lock", desc: "We gatekeep your data (for good reasons)." },
+              { icon: Coffee, title: "No Code", desc: "Because typing is overrated." },
+              { icon: Clock, title: "Lightning Fast", desc: "Seriously, it's stupid fast." }
             ].map((feature, i) => (
-              <Tooltip key={i} content={feature.tooltip}>
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }} 
-                  animate={isUspInView ? { opacity: 1, scale: 1 } : {}} 
-                  transition={{ duration: 0.4, delay: i * 0.08 }} 
-                  whileHover={{ scale: 1.03 }} 
-                  className="card-dark group cursor-pointer"
-                >
-                  <div className="w-12 h-12 md:w-13 md:h-13 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center mb-4">
-                    <feature.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="text-card-title mb-2">{feature.title}</h3>
-                  <p className="text-body opacity-80 leading-relaxed">{feature.desc}</p>
-                </motion.div>
-              </Tooltip>
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }} 
+                animate={isUspInView ? { opacity: 1, scale: 1 } : {}} 
+                transition={{ duration: 0.4, delay: i * 0.08 }} 
+                whileHover={{ scale: 1.03 }} 
+                className="card-dark group cursor-pointer"
+              >
+                <div className="w-12 h-12 md:w-13 md:h-13 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center mb-4">
+                  <feature.icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-card-title mb-2">{feature.title}</h3>
+                <p className="text-body opacity-80 leading-relaxed">{feature.desc}</p>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -495,16 +475,14 @@ export default function Home() {
                 {isGenerating ? "Generating..." : "🎨 Generate Preview"}
               </motion.button>
               
-              <Tooltip content="Generates absurd previews (Easter egg)">
-                <motion.button 
-                  onClick={() => { setChaosMode(!chaosMode); if (demoInput.trim()) { setShowPreview(true); } }} 
-                  whileHover={{ scale: 1.03 }} 
-                  whileTap={{ scale: 0.97 }} 
-                  className={`px-4 md:px-6 py-3 rounded-xl font-bold transition-all ${chaosMode ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white' : 'glass border-2 border-white/20 hover:bg-white/10'}`}
-                >
-                  {chaosMode ? "🎪 Chaos ON" : "🎭 Chaos Mode"}
-                </motion.button>
-              </Tooltip>
+              <motion.button 
+                onClick={() => { setChaosMode(!chaosMode); if (demoInput.trim()) { setShowPreview(true); } }} 
+                whileHover={{ scale: 1.03 }} 
+                whileTap={{ scale: 0.97 }} 
+                className={`px-4 md:px-6 py-3 rounded-xl font-bold transition-all ${chaosMode ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white' : 'glass border-2 border-white/20 hover:bg-white/10'}`}
+              >
+                {chaosMode ? "🎪 Chaos ON" : "🎭 Chaos Mode"}
+              </motion.button>
             </div>
 
             {showPreview && demoInput.trim() && (
