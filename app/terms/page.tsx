@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
-import { ThemeToggle } from "../theme-toggle";
-
 export default function TermsOfService() {
   return (
     <main className="min-h-screen bg-white dark:bg-gray-950">
@@ -15,7 +13,7 @@ export default function TermsOfService() {
               </div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">Creative Workspace</span>
             </Link>
-            <ThemeToggle />
+            
           </div>
         </div>
       </nav>

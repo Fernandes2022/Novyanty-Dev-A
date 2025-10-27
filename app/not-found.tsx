@@ -2,13 +2,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Home, Search, ArrowLeft } from "lucide-react";
-import { ThemeToggle } from "./theme-toggle";
-
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 flex items-center justify-center p-6">
       <div className="absolute top-6 right-6">
-        <ThemeToggle />
+        
       </div>
 
       <motion.div

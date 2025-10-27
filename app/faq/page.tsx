@@ -3,8 +3,6 @@ import Link from "next/link";
 import { Sparkles, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeToggle } from "../theme-toggle";
-
 const faqs = [
   {
     question: "What is Creative Workspace?",
@@ -46,7 +44,7 @@ export default function FAQ() {
               </div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">Creative Workspace</span>
             </Link>
-            <ThemeToggle />
+            
           </div>
         </div>
       </nav>
