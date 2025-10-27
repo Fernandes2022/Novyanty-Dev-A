@@ -1,29 +1,79 @@
 "use client";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play } from "lucide-react";
-import { useRef, useState } from "react";
+import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Coffee, Palette, Lock, Clock, Heart, Star } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 import { ThemeToggle } from "./theme-toggle";
-import { ParticleBackground } from "./components/ParticleBackground";
-import { 
-  fadeInUp, 
-  staggerContainer, 
-  staggerItem,
-  scaleIn
-} from "./utils/animations";
+import { CursorTrail } from "./components/CursorTrail";
+import { GlowLayer } from "./components/GlowLayer";
+import { GradientDivider } from "./components/GradientDivider";
+import { Tooltip } from "./components/Tooltip";
+import { SoundManager } from "./components/SoundManager";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  
-  const ctaRef = useRef(null);
-  const isCtaInView = useInView(ctaRef, { once: false, amount: 0.3 });
-  
   const [showDemoVideo, setShowDemoVideo] = useState(false);
+  const [chaosMode, setChaosMode] = useState(false);
+  const [demoText, setDemoText] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  
+  const heroRef = useRef(null);
+  const storyRef = useRef(null);
+  const uspRef = useRef(null);
+  const demoRef = useRef(null);
+  
+  const isHeroInView = useInView(heroRef, { once: false, amount: 0.3 });
+  const isStoryInView = useInView(storyRef, { once: true, amount: 0.2 });
+  const isUspInView = useInView(uspRef, { once: true, amount: 0.2 });
+  const isDemoInView = useInView(demoRef, { once: true, amount: 0.2 });
+
+  const handleGenerate = () => {
+    setIsGenerating(true);
+    const messages = [
+      "Brewing pixels ☕",
+      "Negotiating with servers 🕊️",
+      "Summoning design gods ⚡",
+      "Making it pop 🎨",
+      "Adding magic dust ✨"
+    ];
+    
+    let index = 0;
+    const interval = setInterval(() => {
+      setDemoText(messages[index]);
+      index++;
+      if (index >= messages.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsGenerating(false);
+          setDemoText("🎉 Your site is ready!");
+        }, 500);
+      }
+    }, 800);
+  };
+
+  const handleChaosMode = () => {
+    setChaosMode(!chaosMode);
+    const absurdPreviews = [
+      "🌈 Rainbow explosion mode activated!",
+      "🦄 Unicorn-powered design incoming...",
+      "🎪 Circus theme? Why not!",
+      "🌮 Taco Tuesday aesthetic loading...",
+      "🎭 Drama queen mode: ON"
+    ];
+    setDemoText(absurdPreviews[Math.floor(Math.random() * absurdPreviews.length)]);
+  };
+
+  useEffect(() => {
+    console.info("🔥 Welcome to Secret Dev Mode vibes");
+    console.log("👀 Looking under the hood? Same.");
+  }, []);
 
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
+      <CursorTrail />
+      <GlowLayer />
+      <SoundManager />
+
       {/* Demo Video Modal */}
       {showDemoVideo && (
         <motion.div
@@ -73,7 +123,7 @@ export default function Home() {
                       className="flex items-start gap-3"
                     >
                       <span className="text-purple-400 font-bold">1.</span>
-                      <span>Describe what you want to create in simple words</span>
+                      <span>Say what you want (we actually listen, unlike your ex)</span>
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -82,7 +132,7 @@ export default function Home() {
                       className="flex items-start gap-3"
                     >
                       <span className="text-blue-400 font-bold">2.</span>
-                      <span>Our AI generates your composition instantly</span>
+                      <span>Sit back. Pretend you're productive</span>
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -91,7 +141,7 @@ export default function Home() {
                       className="flex items-start gap-3"
                     >
                       <span className="text-cyan-400 font-bold">3.</span>
-                      <span>Customize, edit, and deploy with one click</span>
+                      <span>One click and boom — you're a founder</span>
                     </motion.p>
                   </div>
                 </motion.div>
@@ -118,7 +168,7 @@ export default function Home() {
               >
                 <Sparkles className="h-6 w-6 text-white" />
               </motion.div>
-              <span className="text-2xl font-bold">Creative Workspace</span>
+              <span className="text-2xl font-bold hidden sm:block">Creative Workspace</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-8">
@@ -149,9 +199,9 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* Hero Section - ADJUSTED SPACING */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        {/* VIDEO BACKGROUND - VISIBLE */}
+      {/* 🎬 HERO CINEMATIC SECTION */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        {/* VIDEO BACKGROUND */}
         <div className="absolute inset-0 overflow-hidden">
           <video
             autoPlay
@@ -178,50 +228,22 @@ export default function Home() {
             repeatType: "reverse"
           }}
         ></motion.div>
-        
-        <motion.div 
-          className="absolute top-1/4 -left-20 w-96 h-96 bg-purple-600/15 rounded-full blur-[120px]"
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 8,
-            ease: "easeInOut",
-            repeat: Infinity
-          }}
-        ></motion.div>
-        <motion.div 
-          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-600/15 rounded-full blur-[120px]"
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 10,
-            ease: "easeInOut",
-            repeat: Infinity,
-            delay: 1
-          }}
-        ></motion.div>
 
-        {/* MAIN CONTENT - ADDED TOP SPACING */}
         <motion.div 
-          style={{ y, opacity: heroOpacity }}
-          className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center z-10 mt-12"
+          className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center z-10"
         >
           <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 50 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1 }}
             className="space-y-8"
           >
-            {/* Badge - ADDED SPACING FROM TOP */}
+            {/* Badge */}
             <motion.div
-              variants={staggerItem}
-              className="inline-flex items-center gap-2 px-6 py-3 glass rounded-full border border-purple-500/50 bg-black/40 backdrop-blur-xl mt-8"
+              initial={{ scale: 0 }}
+              animate={isHeroInView ? { scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-6 py-3 glass rounded-full border border-purple-500/50 bg-black/40 backdrop-blur-xl"
             >
               <motion.div
                 animate={{ rotate: 360 }}
@@ -229,24 +251,27 @@ export default function Home() {
               >
                 <Sparkles className="h-4 w-4 text-purple-400" />
               </motion.div>
-              <span className="text-sm font-semibold">Adaptive Composition Platform</span>
+              <span className="text-sm font-semibold">
+                <Tooltip content="Real-time layout & color tuning">
+                  <span className="border-b border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
+                </Tooltip>
+              </span>
             </motion.div>
 
             {/* Main Headline */}
             <motion.h1 
-              variants={staggerItem}
-              className="text-6xl md:text-8xl lg:text-9xl font-black leading-none"
+              initial={{ opacity: 0, y: 50 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-5xl md:text-7xl lg:text-8xl font-black leading-none"
             >
               <motion.span 
                 className="block text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
               >
-                Create Without
+                Build a website before
               </motion.span>
               <motion.span 
-                className="block gradient-text-neon drop-shadow-[0_0_40px_rgba(34,211,238,0.8)]"
+                className="block gradient-text-neon drop-shadow-[0_0_40px_rgba(34,211,238,0.8)] flex items-center justify-center gap-4"
                 style={{
                   backgroundSize: "200% 200%"
                 }}
@@ -259,30 +284,40 @@ export default function Home() {
                   repeat: Infinity
                 }}
               >
-                Limits
+                your coffee cools
+                <motion.span
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Coffee className="h-16 w-16 md:h-20 md:w-20" />
+                </motion.span>
               </motion.span>
             </motion.h1>
 
+            {/* Subtext */}
             <motion.p 
-              variants={staggerItem}
+              initial={{ opacity: 0 }}
+              animate={isHeroInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.5 }}
               className="text-xl md:text-2xl text-white max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] bg-black/20 backdrop-blur-sm rounded-2xl px-8 py-4"
             >
-              Transform your ideas into stunning digital experiences with our adaptive composition engine.
-              No code required.
+              No code. No drama. Just say what you want and watch the magic happen.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTAs */}
             <motion.div 
-              variants={staggerItem}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.7 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
             >
               <Link href="/workspace">
                 <motion.button
                   whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(139, 92, 246, 0.6)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary group"
+                  className="btn-primary group text-lg px-8 py-4"
                 >
-                  <span>Start Creating</span>
+                  <span>I'm Feeling Lazy — Build It for Me</span>
                   <motion.div
                     className="inline-block ml-2"
                     animate={{ x: [0, 5, 0] }}
@@ -296,305 +331,395 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowDemoVideo(true)}
-                className="btn-secondary group"
+                className="btn-secondary group text-lg px-8 py-4"
               >
                 <Play className="inline-block mr-2 h-5 w-5" />
-                Watch Demo
+                Show Me the Demo (I Don't Trust You Yet)
               </motion.button>
             </motion.div>
 
-            {/* USP HIGHLIGHTS */}
+            {/* Stats */}
             <motion.div
-              variants={staggerItem}
-              className="pt-8"
-            >
-              <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-                {[
-                  { icon: "⚡", text: "Deploy in Seconds" },
-                  { icon: "🎨", text: "No Coding Needed" },
-                  { icon: "🔒", text: "Bank-Level Security" },
-                  { icon: "♾️", text: "Unlimited Revisions" }
-                ].map((usp, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.5 + i * 0.1 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    className="flex items-center gap-2 px-6 py-3 glass bg-black/50 backdrop-blur-xl rounded-full border border-white/20"
-                  >
-                    <span className="text-2xl">{usp.icon}</span>
-                    <span className="text-sm font-bold text-white">{usp.text}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Stats - CLEAN LAYOUT (NO FLOATING BUTTONS) */}
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.9 }}
               className="grid grid-cols-3 gap-6 max-w-2xl mx-auto pt-12"
             >
               {[
-                { value: "10K+", label: "Projects Created" },
-                { value: "50K+", label: "Active Users" },
-                { value: "99.9%", label: "Uptime" }
+                { icon: Star, value: "4.98", label: "Rating from 50K+ users" },
+                { icon: Zap, value: "2 min", label: "Average Build Time" },
+                { icon: Rocket, value: "99.9%", label: "Uptime" }
               ].map((stat, i) => (
                 <motion.div 
-                  key={i} 
-                  variants={staggerItem}
+                  key={i}
+                  initial={{ scale: 0 }}
+                  animate={isHeroInView ? { scale: 1 } : {}}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: 1 + i * 0.1,
+                    type: "spring",
+                    stiffness: 200
+                  }}
                   className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-white/10"
                 >
-                  <motion.div 
-                    className="text-3xl md:text-4xl font-bold gradient-text drop-shadow-lg"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: 1 + i * 0.2,
-                      type: "spring",
-                      stiffness: 200
-                    }}
-                  >
-                    {stat.value}
-                  </motion.div>
-                  <div className="text-xs md:text-sm text-gray-300 mt-2">{stat.label}</div>
+                  <stat.icon className="h-8 w-8 text-purple-400 mx-auto mb-2" />
+                  <div className="text-3xl font-bold gradient-text">{stat.value}</div>
+                  <div className="text-xs text-gray-300 mt-2">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
         </motion.div>
-
-        {/* REMOVED SCROLL INDICATOR - This was the floating button! */}
       </section>
 
-      {/* Features Section */}
-      <section className="py-32 px-6 lg:px-8 relative bg-black">
+      <GradientDivider />
+
+      {/* 📜 SCROLL STORY FLOW */}
+      <section ref={storyRef} className="py-32 px-6 lg:px-8 relative bg-black">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
+            initial={{ opacity: 0, y: 50 }}
+            animate={isStoryInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1 }}
             className="text-center mb-20"
           >
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
-              Built for <span className="gradient-text">Creators</span>
+              How It <span className="gradient-text">Works</span>
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Everything you need to bring your vision to life, all in one powerful platform.
+              Three steps to your dream website. Seriously, that's it.
             </p>
           </motion.div>
 
-          <motion.div 
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: Zap,
-                title: "Lightning Fast",
-                description: "Compose and deploy in seconds with our adaptive rendering engine.",
-                color: "from-yellow-500 to-orange-500"
-              },
-              {
-                icon: Rocket,
-                title: "Deploy Instantly",
-                description: "Go live with one click. Custom domains and SSL included.",
+                step: "1️⃣",
+                title: "Say It",
+                desc: "Use your voice. We actually listen (unlike your ex).",
+                icon: Coffee,
                 color: "from-purple-500 to-pink-500"
               },
               {
-                icon: Shield,
-                title: "Enterprise Security",
-                description: "Bank-level encryption and compliance built in from day one.",
+                step: "2️⃣",
+                title: "Watch It Build",
+                desc: "Sit back. Pretend you're productive.",
+                icon: Zap,
                 color: "from-blue-500 to-cyan-500"
               },
               {
-                icon: Users,
-                title: "Team Collaboration",
-                description: "Work together in real-time with your entire creative team.",
+                step: "3️⃣",
+                title: "Launch It",
+                desc: "One click and boom — you're a founder.",
+                icon: Rocket,
                 color: "from-green-500 to-emerald-500"
-              },
-              {
-                icon: Sparkles,
-                title: "AI-Powered",
-                description: "Intelligent suggestions and auto-optimization for perfect results.",
-                color: "from-indigo-500 to-purple-500"
-              },
-              {
-                icon: Zap,
-                title: "No Code Required",
-                description: "Describe what you want, we'll build it. Simple as that.",
-                color: "from-pink-500 to-rose-500"
               }
-            ].map((feature, i) => (
+            ].map((item, i) => (
               <motion.div
                 key={i}
-                variants={staggerItem}
+                initial={{ opacity: 0, y: 50 }}
+                animate={isStoryInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: i * 0.2 }}
                 whileHover={{ 
                   scale: 1.05,
                   y: -10,
                   transition: { duration: 0.3 }
                 }}
-                className="card-dark group cursor-pointer"
+                className="card-dark group cursor-pointer relative overflow-hidden"
               >
-                <motion.div 
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6`}
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <feature.icon className="h-7 w-7 text-white" />
-                </motion.div>
-                <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
+                  style={{
+                    background: `linear-gradient(135deg, ${item.color})`
+                  }}
+                />
+                
+                <div className="relative z-10">
+                  <motion.div 
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-6`}
+                    whileHover={{ rotate: 360, scale: 1.2 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <item.icon className="h-8 w-8 text-white" />
+                  </motion.div>
+                  
+                  <div className="text-4xl mb-4">{item.step}</div>
+                  <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <GradientDivider />
+
+      {/* 🧩 USP WALL */}
+      <section ref={uspRef} className="py-32 px-6 lg:px-8 relative bg-black">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isUspInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1 }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              Why We're <span className="gradient-text">Different</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Loved by designers · hated by procrastination
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Palette,
+                title: "Adaptive Engine",
+                desc: "AI that vibes with your aesthetic.",
+                tooltip: "Real-time layout & color tuning"
+              },
+              {
+                icon: Rocket,
+                title: "Instant Deploy",
+                desc: "Goes live faster than your 5G.",
+                tooltip: "Auto SSL + CDN deploy"
+              },
+              {
+                icon: Users,
+                title: "Team Collab",
+                desc: "Multiple brains, one vibe.",
+                tooltip: "Real-time sync workspace"
+              },
+              {
+                icon: Lock,
+                title: "Privacy Lock",
+                desc: "We gatekeep your data (for good reasons).",
+                tooltip: "AES-256 encryption + GDPR ready"
+              },
+              {
+                icon: Coffee,
+                title: "No Code",
+                desc: "Because typing is overrated.",
+                tooltip: "Voice + prompt-based control"
+              },
+              {
+                icon: Clock,
+                title: "Lightning Fast",
+                desc: "Seriously, it's stupid fast.",
+                tooltip: "Edge-optimized CDN delivery"
+              }
+            ].map((feature, i) => (
+              <Tooltip key={i} content={feature.tooltip}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isUspInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: i * 0.1,
+                    type: "spring",
+                    stiffness: 200
+                  }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    rotateY: 5,
+                    rotateX: 5,
+                    transition: { duration: 0.3 }
+                  }}
+                  className="card-dark group cursor-pointer"
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  <motion.div
+                    className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center mb-6"
+                    whileHover={{ rotate: 360, scale: 1.2 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <feature.icon className="h-7 w-7 text-white" />
+                  </motion.div>
+                  <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{feature.desc}</p>
+                </motion.div>
+              </Tooltip>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <GradientDivider />
+
+      {/* 🪩 LIVE DEMO SECTION */}
+      <section ref={demoRef} className="py-32 px-6 lg:px-8 relative bg-black">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isDemoInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              Try It <span className="gradient-text">Live</span>
+            </h2>
+            <p className="text-xl text-gray-400">
+              Type or speak. Watch the magic happen.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isDemoInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="card-dark space-y-6"
+          >
+            <textarea
+              placeholder="Try: 'Make me a portfolio site with a dark theme'"
+              className="w-full h-32 px-6 py-4 glass bg-black/40 border-2 border-white/10 rounded-2xl text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none resize-none text-lg"
+            />
+
+            <div className="flex gap-4">
+              <motion.button
+                onClick={handleGenerate}
+                disabled={isGenerating}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex-1 btn-primary disabled:opacity-50"
+              >
+                {isGenerating ? "Generating..." : "🎨 Generate Preview"}
+              </motion.button>
+              
+              <Tooltip content="Generates absurd previews (Easter egg)">
+                <motion.button
+                  onClick={handleChaosMode}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-6 py-3 rounded-xl font-bold transition-all ${
+                    chaosMode 
+                      ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white' 
+                      : 'glass border-2 border-white/20 text-white hover:bg-white/10'
+                  }`}
+                >
+                  {chaosMode ? "🎪 Chaos ON" : "🎭 Chaos Mode"}
+                </motion.button>
+              </Tooltip>
+            </div>
+
+            {demoText && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-6 glass rounded-xl border border-purple-500/30 text-center"
+              >
+                <p className="text-lg font-semibold">{demoText}</p>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section ref={ctaRef} className="py-32 px-6 lg:px-8 relative overflow-hidden">
-        <ParticleBackground />
-        
-        <motion.div 
-          className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)"
-            ]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        ></motion.div>
+      <GradientDivider />
 
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isCtaInView ? 1 : 0 }}
-          transition={{ duration: 1 }}
-        >
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-purple-500/20"
-              initial={{ width: 0, height: 0, opacity: 0 }}
-              animate={isCtaInView ? {
-                width: [0, 600, 1200],
-                height: [0, 600, 1200],
-                opacity: [0.5, 0.3, 0]
-              } : {}}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: i * 1,
-                ease: "easeOut"
-              }}
-            />
-          ))}
-        </motion.div>
+      {/* 🎥 COMMUNITY ZONE */}
+      <section className="py-32 px-6 lg:px-8 relative bg-black">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              Loved by <span className="gradient-text">50,000+</span> Creators
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              #BuiltWithUs
+            </p>
+          </motion.div>
 
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: "I built my agency site in 2 minutes. Seriously.",
+                author: "Sarah Chen",
+                role: "Designer",
+                rating: 5
+              },
+              {
+                quote: "Wait... it actually works??",
+                author: "Mike Torres",
+                role: "Founder",
+                rating: 5
+              },
+              {
+                quote: "My clients think I'm a wizard now.",
+                author: "Alex Kumar",
+                role: "Developer",
+                rating: 5
+              }
+            ].map((testimonial, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.2 }}
+                whileHover={{ y: -10 }}
+                className="card-dark"
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-lg mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                <div>
+                  <div className="font-bold">{testimonial.author}</div>
+                  <div className="text-sm text-gray-400">{testimonial.role}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <GradientDivider />
+
+      {/* 💸 PRICING TEASER + FINAL CTA */}
+      <section className="py-32 px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 50 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
-            transition={{ 
-              duration: 1,
-              ease: [0.22, 1, 0.36, 1]
-            }}
+            transition={{ duration: 1 }}
           >
-            <div className="relative mb-12">
-              <motion.div
-                className="absolute -top-12 -left-12 md:-left-24"
+            <h2 className="text-5xl md:text-7xl font-bold mb-8">
+              <span className="block">Still scrolling?</span>
+              <motion.span 
+                className="block gradient-text-neon"
                 animate={{
-                  y: [0, -20, 0],
-                  rotate: [0, 10, 0]
+                  textShadow: [
+                    "0 0 20px rgba(34, 211, 238, 0.3)",
+                    "0 0 40px rgba(34, 211, 238, 0.6)",
+                    "0 0 20px rgba(34, 211, 238, 0.3)"
+                  ]
                 }}
                 transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
+                  duration: 2,
+                  repeat: Infinity
                 }}
               >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center opacity-80">
-                  <Zap className="h-8 w-8 text-white" />
-                </div>
-              </motion.div>
+                That's not building.
+              </motion.span>
+            </h2>
 
-              <motion.div
-                className="absolute -top-12 -right-12 md:-right-24"
-                animate={{
-                  y: [0, -25, 0],
-                  rotate: [0, -10, 0]
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5
-                }}
-              >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center opacity-80">
-                  <Rocket className="h-8 w-8 text-white" />
-                </div>
-              </motion.div>
-
-              <motion.h2 
-                className="text-5xl md:text-7xl font-bold mb-8"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <span className="block">Ready to</span>
-                <motion.span 
-                  className="block gradient-text-neon"
-                  animate={{
-                    textShadow: [
-                      "0 0 20px rgba(34, 211, 238, 0.3)",
-                      "0 0 40px rgba(34, 211, 238, 0.6)",
-                      "0 0 20px rgba(34, 211, 238, 0.3)"
-                    ]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  Create?
-                </motion.span>
-              </motion.h2>
-            </div>
-
-            <motion.p 
-              className="text-xl text-gray-300 mb-12"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Join thousands of creators building the future of digital experiences.
-            </motion.p>
+            <p className="text-xl text-gray-300 mb-12">
+              Let's fix that ⬇️
+            </p>
 
             <Link href="/workspace">
               <motion.button
                 className="relative group"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: false }}
-                transition={{ duration: 0.6, delay: 0.6 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -606,23 +731,12 @@ export default function Home() {
                   }}
                   transition={{
                     duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
+                    repeat: Infinity
                   }}
                 />
 
-                <span className="relative btn-primary text-lg px-12 py-5 inline-flex items-center gap-3">
-                  <motion.span
-                    animate={{
-                      scale: [1, 1.05, 1]
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity
-                    }}
-                  >
-                    Start Building Now
-                  </motion.span>
+                <span className="relative btn-primary text-xl px-16 py-6 inline-flex items-center gap-3">
+                  Build My Site (Before I Overthink It)
                   <motion.div
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
@@ -638,12 +752,12 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
             >
               {[
                 { icon: Shield, text: "Secure" },
                 { icon: Zap, text: "Fast" },
-                { icon: Users, text: "Trusted" }
+                { icon: Heart, text: "Loved" }
               ].map((item, i) => (
                 <motion.div
                   key={i}
