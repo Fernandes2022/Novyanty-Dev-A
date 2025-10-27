@@ -2,44 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Mobile text optimization */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Prevent text from being too large on small screens */
+@media (max-width: 480px) {
+  h1 {
+    font-size: clamp(1.5rem, 8vw, 3rem) !important;
+    line-height: 1.2 !important;
+  }
+  
+  h2 {
+    font-size: clamp(1.25rem, 6vw, 2rem) !important;
+    line-height: 1.3 !important;
+  }
+  
+  p {
+    font-size: clamp(0.875rem, 4vw, 1rem) !important;
+    line-height: 1.5 !important;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #1a1a1a;
+/* Glass effect utility */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
+/* Ensure buttons are readable on mobile */
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

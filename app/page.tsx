@@ -3,7 +3,7 @@ import Link from "next/link";
 import { motion, useScroll, useInView } from "framer-motion";
 import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Coffee, Palette, Lock, Clock, Heart, Star, Shuffle } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
-import { ThemeToggle } from "./theme-toggle";
+
 import { CursorTrail } from "./components/CursorTrail";
 import { GlowLayer } from "./components/GlowLayer";
 import { GradientDivider } from "./components/GradientDivider";
@@ -151,7 +151,7 @@ export default function Home() {
                 About
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
-              <ThemeToggle />
+              
               <Link href="/workspace">
                 <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary">
                   Get Started
@@ -160,7 +160,7 @@ export default function Home() {
             </div>
 
             <div className="md:hidden flex items-center gap-3">
-              <ThemeToggle />
+              
               <Link href="/workspace">
                 <motion.button whileTap={{ scale: 0.95 }} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm">
                   Start
@@ -195,10 +195,10 @@ export default function Home() {
 
         <motion.div className="absolute inset-0 grid-bg opacity-5" animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }} transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}></motion.div>
 
-        <motion.div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center z-10 pt-[45vh] sm:pt-[50vh] md:pt-[55vh]">
+        <motion.div className="relative max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center z-10 pt-[35vh] sm:pt-[45vh] md:pt-[50vh] lg:pt-[55vh]">
           <motion.div initial={{ opacity: 0, y: 50 }} animate={isHeroInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="space-y-4 md:space-y-8">
             
-            <motion.div initial={{ scale: 0, rotate: -180 }} animate={isHeroInView ? { scale: 1, rotate: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl text-sm shadow-lg shadow-purple-500/20">
+            <motion.div initial={{ scale: 0, rotate: -180 }} animate={isHeroInView ? { scale: 1, rotate: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} className="inline-flex items-center gap-2 px-3 md:px-5 py-1.5 md:py-2.5 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl text-xs md:text-sm shadow-lg shadow-purple-500/20">
               <motion.div animate={{ rotate: 360, scale: [1, 1.2, 1] }} transition={{ rotate: { duration: 3, ease: "linear", repeat: Infinity }, scale: { duration: 2, repeat: Infinity } }}>
                 <Sparkles className="h-4 w-4 text-purple-400" />
               </motion.div>
