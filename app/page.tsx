@@ -86,7 +86,9 @@ export default function Home() {
             muted
             playsInline
             loop
+            preload="auto"
             className="absolute inset-0 w-full h-full object-cover opacity-40"
+            style={{ pointerEvents: 'none' }}
           >
                 <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
               </video>
