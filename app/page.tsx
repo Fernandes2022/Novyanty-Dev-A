@@ -113,6 +113,7 @@ export default function Home() {
         </motion.div>
       )}
 
+      {/* HEADER - STAYS EXACTLY AS IS */}
       <motion.nav 
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -175,8 +176,10 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 md:pt-20 overflow-hidden">
+      {/* HERO - TEXT MOVED TO BOTTOM HALF */}
+      <section ref={heroRef} className="relative min-h-screen flex items-end pt-16 md:pt-20 overflow-hidden">
         
+        {/* VIDEO - TOP HALF */}
         <div className="absolute inset-0 overflow-hidden">
           <video 
             ref={videoRef}
@@ -223,8 +226,9 @@ export default function Home() {
           ))}
         </div>
 
+        {/* ALL TEXT - BOTTOM HALF */}
         <motion.div 
-          className="relative z-10 w-full"
+          className="relative z-10 w-full pb-8 md:pb-12"
           initial={{ opacity: 0, y: 50 }} 
           animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
           transition={{ duration: 0.8 }}
@@ -343,6 +347,7 @@ export default function Home() {
 
       <GradientDivider />
 
+      {/* ALL OTHER SECTIONS UNCHANGED */}
       <section ref={storyRef} className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
