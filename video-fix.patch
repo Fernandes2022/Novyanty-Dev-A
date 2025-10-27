@@ -1,0 +1,14 @@
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -185,7 +185,7 @@
+       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 md:pt-20 overflow-hidden">
+         <div className="absolute inset-0 overflow-hidden">
+-          <video autoPlay loop muted playsInline className="absolute min-w-full min-h-full object-cover md:opacity-60 opacity-80">
++          <video autoPlay loop muted playsInline className="absolute min-w-full min-h-full object-cover object-[center_20%] md:opacity-60 opacity-80">
+             <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
+             <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
+           </video>
+@@ -193,7 +193,7 @@
+-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/60 md:from-black/40 md:via-black/30 md:to-black/50"></div>
++          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70"></div>
+         </div>

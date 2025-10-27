@@ -1,50 +1,50 @@
 "use client";
-import { useState, useEffect } from 'react';
-import { Moon, Sun } from 'lucide-react';
-import { motion } from 'framer-motion';
+
+import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isDark, setIsDark] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      document.body.style.backgroundColor = savedTheme === 'light' ? '#ffffff' : '#000000';
-      document.body.style.color = savedTheme === 'light' ? '#000000' : '#ffffff';
-    }
+    setMounted(true);
+    // Check localStorage and system preference
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldBeDark = stored === 'dark' || (!stored && prefersDark);
+    
+    setIsDark(shouldBeDark);
+    document.documentElement.classList.toggle('dark', shouldBeDark);
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    document.body.style.backgroundColor = newTheme === 'light' ? '#ffffff' : '#000000';
-    document.body.style.color = newTheme === 'light' ? '#000000' : '#ffffff';
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', newTheme);
+    
+    // Update body background
+    if (newTheme) {
+      document.body.style.backgroundColor = '#000000';
+    } else {
+      document.body.style.backgroundColor = '#ffffff';
+    }
   };
 
+  if (!mounted) return null;
+
   return (
-    <motion.button
+    <button
       onClick={toggleTheme}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className="p-2 rounded-lg glass border border-white/20 hover:border-purple-500/50 transition-all"
+      className="relative w-10 h-10 md:w-12 md:h-12 rounded-full glass flex items-center justify-center group hover:scale-110 transition-transform"
       aria-label="Toggle theme"
     >
-      <motion.div
-        initial={false}
-        animate={{ rotate: theme === 'dark' ? 0 : 180 }}
-        transition={{ duration: 0.3 }}
-      >
-        {theme === 'dark' ? (
-          <Sun className="h-5 w-5 text-yellow-400" />
-        ) : (
-          <Moon className="h-5 w-5 text-purple-600" />
-        )}
-      </motion.div>
-    </motion.button>
+      {isDark ? (
+        <Sun className="h-5 w-5 text-yellow-400 group-hover:rotate-90 transition-transform" />
+      ) : (
+        <Moon className="h-5 w-5 text-purple-400 group-hover:-rotate-12 transition-transform" />
+      )}
+    </button>
   );
 }
