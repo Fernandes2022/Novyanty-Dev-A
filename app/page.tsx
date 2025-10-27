@@ -193,20 +193,46 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* 🎬 HERO SECTION */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+      {/* 🎬 HERO SECTION - MOBILE WOW FACTOR */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 md:pt-20 overflow-hidden">
+        {/* VIDEO BACKGROUND - MUCH MORE VISIBLE ON MOBILE */}
         <div className="absolute inset-0 overflow-hidden">
           <video
             autoPlay
             loop
             muted
-            playsInLine
-            className="absolute min-w-full min-h-full object-cover opacity-60"
+            playsInline
+            className="absolute min-w-full min-h-full object-cover md:opacity-60 opacity-80"
           >
             <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
             <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50"></div>
+          {/* LIGHTER OVERLAY ON MOBILE - VIDEO SHOWS THROUGH */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/60 md:from-black/40 md:via-black/30 md:to-black/50"></div>
+        </div>
+
+        {/* Animated floating particles - WOW FACTOR */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 md:w-2 md:h-2 bg-purple-500 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.2, 0.8, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
         </div>
 
         <motion.div 
@@ -222,6 +248,7 @@ export default function Home() {
           }}
         ></motion.div>
 
+        {/* CONTENT - POSITIONED TO SHOW VIDEO */}
         <motion.div 
           className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center z-10"
         >
@@ -229,40 +256,70 @@ export default function Home() {
             initial={{ opacity: 0, y: 50 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1 }}
-            className="space-y-6 md:space-y-8"
+            className="space-y-4 md:space-y-8"
           >
+            {/* Badge - WITH STUNNING ANIMATION */}
             <motion.div
-              initial={{ scale: 0 }}
-              animate={isHeroInView ? { scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 glass rounded-full border border-purple-500/50 bg-black/40 backdrop-blur-xl text-sm"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={isHeroInView ? { scale: 1, rotate: 0 } : {}}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.2,
+                type: "spring",
+                stiffness: 200
+              }}
+              className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl text-sm shadow-lg shadow-purple-500/20"
             >
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3, ease: "linear", repeat: Infinity }}
+                animate={{ 
+                  rotate: 360,
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{ 
+                  rotate: { duration: 3, ease: "linear", repeat: Infinity },
+                  scale: { duration: 2, repeat: Infinity }
+                }}
               >
                 <Sparkles className="h-4 w-4 text-purple-400" />
               </motion.div>
-              <span className="font-semibold">
+              <span className="font-bold text-white">
                 <Tooltip content="Real-time layout & color tuning">
-                  <span className="border-b border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
+                  <span className="border-b-2 border-dashed border-purple-400 cursor-help">Adaptive Engine</span>
                 </Tooltip>
               </span>
             </motion.div>
 
+            {/* Main Headline - POSITIONED TO NOT BLOCK VIDEO */}
             <motion.h1 
-              initial={{ opacity: 0, y: 50 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-4xl md:text-7xl lg:text-8xl font-black leading-tight md:leading-none"
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              animate={isHeroInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ 
+                duration: 1, 
+                delay: 0.4,
+                type: "spring",
+                stiffness: 100
+              }}
+              className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-tight px-4"
             >
+              {/* MOBILE: Compact layout to show more video */}
               <motion.span 
-                className="block text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
+                className="block text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)] mb-2"
+                initial={{ x: -50, opacity: 0 }}
+                animate={isHeroInView ? { x: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.6 }}
               >
-                Build a website before
+                Build a website
               </motion.span>
               <motion.span 
-                className="block gradient-text-neon drop-shadow-[0_0_40px_rgba(34,211,238,0.8)] flex items-center justify-center gap-3 md:gap-4 flex-wrap"
+                className="block text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)] mb-2"
+                initial={{ x: 50, opacity: 0 }}
+                animate={isHeroInView ? { x: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
+                before your
+              </motion.span>
+              <motion.span 
+                className="block gradient-text-neon drop-shadow-[0_0_40px_rgba(34,211,238,0.8)] flex items-center justify-center gap-2 md:gap-4 flex-wrap"
                 style={{
                   backgroundSize: "200% 200%"
                 }}
@@ -274,42 +331,81 @@ export default function Home() {
                   ease: "linear",
                   repeat: Infinity
                 }}
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
               >
-                your coffee cools
+                coffee cools
                 <motion.span
-                  animate={{ rotate: [0, 10, -10, 0] }}
+                  animate={{ 
+                    rotate: [0, 10, -10, 0],
+                    scale: [1, 1.1, 1]
+                  }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  <Coffee className="h-12 w-12 md:h-20 md:w-20" />
+                  <Coffee className="h-10 w-10 md:h-20 md:w-20" />
                 </motion.span>
               </motion.span>
             </motion.h1>
 
+            {/* Subtext - MINIMAL BACKGROUND TO SHOW VIDEO */}
             <motion.p 
-              initial={{ opacity: 0 }}
-              animate={isHeroInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-base md:text-2xl text-white max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] bg-black/20 backdrop-blur-sm rounded-xl md:rounded-2xl px-4 md:px-8 py-3 md:py-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="text-sm sm:text-lg md:text-2xl text-white max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)] bg-black/10 backdrop-blur-sm rounded-xl md:rounded-2xl px-4 md:px-8 py-2 md:py-4 border border-white/10"
             >
               No code. No drama. Just say what you want and watch the magic happen.
             </motion.p>
 
+            {/* CTAs - STUNNING ENTRANCE */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-6 md:pt-8"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ 
+                duration: 0.8, 
+                delay: 1.1,
+                type: "spring",
+                stiffness: 150
+              }}
+              className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-4 md:pt-8 px-4"
             >
               <Link href="/workspace" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(139, 92, 246, 0.6)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full sm:w-auto btn-primary group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                  animate={{
+                    boxShadow: [
+                      "0 0 20px rgba(139, 92, 246, 0.3)",
+                      "0 0 40px rgba(139, 92, 246, 0.5)",
+                      "0 0 20px rgba(139, 92, 246, 0.3)"
+                    ]
+                  }}
+                  transition={{
+                    boxShadow: {
+                      duration: 2,
+                      repeat: Infinity
+                    }
+                  }}
+                  className="w-full sm:w-auto btn-primary group text-sm sm:text-base md:text-lg px-6 md:px-8 py-3 md:py-4 relative overflow-hidden"
                 >
-                  <span className="hidden md:inline">I'm Feeling Lazy — Build It for Me</span>
-                  <span className="md:hidden">Build It for Me</span>
                   <motion.div
-                    className="inline-block ml-2"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{
+                      x: ["-100%", "100%"]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                  />
+                  <span className="relative z-10">
+                    <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
+                    <span className="sm:hidden">Build It for Me</span>
+                  </span>
+                  <motion.div
+                    className="inline-block ml-2 relative z-10"
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
@@ -321,42 +417,91 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowDemoVideo(true)}
-                className="w-full sm:w-auto btn-secondary group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                className="w-full sm:w-auto btn-secondary group text-sm sm:text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
               >
                 <Play className="inline-block mr-2 h-5 w-5" />
-                <span className="hidden md:inline">Show Me the Demo</span>
-                <span className="md:hidden">Demo</span>
+                <span className="hidden sm:inline">Show Me the Demo</span>
+                <span className="sm:hidden">Demo</span>
               </motion.button>
             </motion.div>
 
+            {/* Stats - FLOATING ANIMATION */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="grid grid-cols-3 gap-3 md:gap-6 max-w-2xl mx-auto pt-8 md:pt-12"
+              transition={{ duration: 1, delay: 1.3 }}
+              className="grid grid-cols-3 gap-3 md:gap-6 max-w-2xl mx-auto pt-6 md:pt-12 px-4"
             >
               {[
-                { icon: Star, value: "4.98", label: "Rating from 50K+ users" },
-                { icon: Zap, value: "2 min", label: "Average Build Time" },
+                { icon: Star, value: "4.98", label: "50K+ users" },
+                { icon: Zap, value: "2 min", label: "Build Time" },
                 { icon: Rocket, value: "99.9%", label: "Uptime" }
               ].map((stat, i) => (
                 <motion.div 
                   key={i}
-                  initial={{ scale: 0 }}
-                  animate={isHeroInView ? { scale: 1 } : {}}
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={isHeroInView ? { scale: 1, rotate: 0 } : {}}
                   transition={{ 
-                    duration: 0.5, 
-                    delay: 1 + i * 0.1,
+                    duration: 0.6, 
+                    delay: 1.5 + i * 0.1,
                     type: "spring",
                     stiffness: 200
                   }}
-                  className="bg-black/40 backdrop-blur-xl rounded-xl md:rounded-2xl p-3 md:p-6 border border-white/10"
+                  whileHover={{
+                    scale: 1.1,
+                    y: -5,
+                    transition: { duration: 0.2 }
+                  }}
+                  animate={{
+                    y: [0, -10, 0]
+                  }}
+                  transition={{
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: i * 0.3
+                    }
+                  }}
+                  className="bg-black/40 backdrop-blur-xl rounded-xl md:rounded-2xl p-3 md:p-6 border-2 border-white/20 shadow-lg hover:border-purple-500/50 transition-colors"
                 >
-                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 text-purple-400 mx-auto mb-2" />
+                  <motion.div
+                    animate={{
+                      rotate: [0, 360]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                  >
+                    <stat.icon className="h-6 w-6 md:h-8 md:w-8 text-purple-400 mx-auto mb-2" />
+                  </motion.div>
                   <div className="text-2xl md:text-3xl font-bold gradient-text">{stat.value}</div>
                   <div className="text-xs text-gray-300 mt-1 md:mt-2">{stat.label}</div>
                 </motion.div>
               ))}
+            </motion.div>
+
+            {/* Scroll Indicator - ANIMATED */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2 }}
+              className="pt-8 md:pt-12"
+            >
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-gray-400 text-sm flex flex-col items-center gap-2"
+              >
+                <span>Scroll to explore</span>
+                <motion.div
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  ↓
+                </motion.div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -364,6 +509,7 @@ export default function Home() {
 
       <GradientDivider />
 
+      {/* REST OF SECTIONS REMAIN THE SAME */}
       {/* 📜 SCROLL STORY FLOW */}
       <section ref={storyRef} className="py-20 md:py-32 px-4 md:px-6 lg:px-8 relative bg-black">
         <div className="max-w-7xl mx-auto">
@@ -446,7 +592,9 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* �� USP WALL */}
+      {/* Continue with other sections... (USP, Demo, Community, CTA, Footer) */}
+      {/* I'll keep them as they were since they're working well */}
+
       <section ref={uspRef} className="py-20 md:py-32 px-4 md:px-6 lg:px-8 relative bg-black">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -539,7 +687,6 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* 🪩 LIVE DEMO - ACTUALLY GENERATES! */}
       <section ref={demoRef} className="py-20 md:py-32 px-4 md:px-6 lg:px-8 relative bg-black">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -628,7 +775,6 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* 🎥 COMMUNITY ZONE */}
       <section className="py-20 md:py-32 px-4 md:px-6 lg:px-8 relative bg-black">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -694,7 +840,6 @@ export default function Home() {
 
       <GradientDivider />
 
-      {/* 💸 FINAL CTA */}
       <section className="py-20 md:py-32 px-4 md:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
@@ -784,7 +929,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <motion.footer 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
