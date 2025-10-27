@@ -20,6 +20,7 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   
   const heroRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement>(null)
   const storyRef = useRef(null);
   const uspRef = useRef(null);
   const demoRef = useRef(null);
@@ -80,6 +81,7 @@ export default function Home() {
 
             <div className="relative aspect-video bg-gradient-to-br from-purple-900/20 to-blue-900/20">
               <video
+            ref={videoRef}
             autoPlay
             muted
             playsInline
