@@ -127,6 +127,21 @@ export default function Home() {
               <span className="text-lg md:text-2xl font-bold hidden sm:block">Creative Workspace</span>
             </Link>
 
+            {/* Adaptive Engine Badge - Center of Nav */}
+            <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex">
+              <motion.div 
+                initial={{ scale: 0, rotate: -180 }} 
+                animate={{ scale: 1, rotate: 0 }} 
+                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} 
+                className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl text-xs shadow-lg shadow-purple-500/20"
+              >
+                <motion.div animate={{ rotate: 360, scale: [1, 1.2, 1] }} transition={{ rotate: { duration: 3, ease: "linear", repeat: Infinity }, scale: { duration: 2, repeat: Infinity } }}>
+                  <Sparkles className="h-3 w-3 text-purple-400" />
+                </motion.div>
+                <span className="font-bold text-white text-xs">Adaptive Engine</span>
+              </motion.div>
+            </div>
+
             <div className="hidden md:flex items-center gap-8">
               <Link href="/faq" className="text-gray-300 hover:text-white transition-colors font-medium relative group">
                 FAQ
@@ -183,7 +198,7 @@ export default function Home() {
         <motion.div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center z-10 pt-[45vh] sm:pt-[50vh] md:pt-[55vh]">
           <motion.div initial={{ opacity: 0, y: 50 }} animate={isHeroInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="space-y-4 md:space-y-8">
             
-            <motion.div initial={{ scale: 0, rotate: -180 }} animate={isHeroInView ? { scale: 1, rotate: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl text-sm shadow-lg shadow-purple-500/20 absolute top-24 md:top-28 left-1/2 -translate-x-1/2 z-30">
+            <motion.div initial={{ scale: 0, rotate: -180 }} animate={isHeroInView ? { scale: 1, rotate: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }} className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 glass rounded-full border-2 border-purple-500/70 bg-black/20 backdrop-blur-xl text-sm shadow-lg shadow-purple-500/20">
               <motion.div animate={{ rotate: 360, scale: [1, 1.2, 1] }} transition={{ rotate: { duration: 3, ease: "linear", repeat: Infinity }, scale: { duration: 2, repeat: Infinity } }}>
                 <Sparkles className="h-4 w-4 text-purple-400" />
               </motion.div>
