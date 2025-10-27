@@ -79,7 +79,13 @@ export default function Home() {
             </button>
 
             <div className="relative aspect-video bg-gradient-to-br from-purple-900/20 to-blue-900/20">
-              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+              <video
+            autoPlay
+            muted
+            playsInline
+            loop
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+          >
                 <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
               </video>
               
