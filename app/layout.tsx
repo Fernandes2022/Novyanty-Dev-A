@@ -25,3 +25,4 @@ export default function RootLayout({
     </html>
   );
 }
+// Deployment trigger - Mon Oct 27 10:13:17 UTC 2025
