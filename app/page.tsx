@@ -136,7 +136,7 @@ export default function Home() {
               initial={{ scale: 0 }} 
               animate={{ scale: 1 }} 
               transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-              className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-40 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
+              className="hidden md:flex absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
               style={{
                 background: 'rgba(0, 0, 0, 0.6)',
                 backdropFilter: 'blur(20px)'
