@@ -188,8 +188,6 @@ export default function Home() {
                 </motion.button>
               </Link>
             </div>
-              </Link>
-            </div>
           </div>
         </div>
       </motion.nav>
