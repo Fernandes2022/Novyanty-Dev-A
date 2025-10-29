@@ -5,34 +5,40 @@ import { motion } from 'framer-motion';
 export function GradientDivider() {
   return (
     <div className="relative h-14 md:h-16 overflow-hidden">
-      {/* Main flowing gradient - EXACT from Vercel */}
+      {/* Subtle background blend - nearly invisible */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-transparent" />
+      
+      {/* Moving wave line - THIS is what's visible */}
       <motion.div
-        className="absolute inset-0"
+        className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-[3px]"
         style={{
-          background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.35) 0%, rgba(236, 72, 153, 0.4) 25%, rgba(139, 92, 246, 0.4) 50%, rgba(6, 182, 212, 0.35) 75%, rgba(139, 92, 246, 0.35) 100%)',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.8) 20%, rgba(236, 72, 153, 0.9) 40%, rgba(139, 92, 246, 0.9) 60%, rgba(6, 182, 212, 0.8) 80%, transparent 100%)',
           backgroundSize: '200% 100%',
+          filter: 'blur(1px)',
         }}
         animate={{
           backgroundPosition: ['0% 50%', '100% 50%'],
         }}
         transition={{
-          duration: 10,
+          duration: 8,
           repeat: Infinity,
           ease: 'linear',
         }}
       />
       
-      {/* Soft glow pulse */}
+      {/* Glowing pulse on the wave */}
       <motion.div
-        className="absolute inset-0"
+        className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-[2px]"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(236, 72, 153, 0.25) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(236, 72, 153, 0.6) 0%, transparent 50%)',
+          backgroundSize: '50% 100%',
         }}
         animate={{
-          opacity: [0.5, 0.8, 0.5],
+          opacity: [0.4, 0.9, 0.4],
+          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
         }}
         transition={{
-          duration: 3,
+          duration: 4,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
