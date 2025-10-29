@@ -62,22 +62,23 @@ export function VideoBackground() {
   if (prefersReducedMotion) return null;
 
   const isLight = theme === 'light';
-  const opacity = isMobile ? (isLight ? 0.4 : 0.35) : (isLight ? 0.45 : 0.3);
+  // FIXED: Keep opacity CONSTANT - no fade during scroll
+  const opacity = isMobile ? (isLight ? 0.45 : 0.4) : (isLight ? 0.5 : 0.35);
   const filter = isMobile
-    ? (isLight ? 'brightness(1.1) contrast(1.15) saturate(1.2)' : 'brightness(0.9) contrast(1.1) saturate(1.15)')
-    : (isLight ? 'brightness(1.15) contrast(1.2) saturate(1.25)' : 'brightness(0.85) contrast(1.15) saturate(1.1)');
+    ? (isLight ? 'brightness(1.15) contrast(1.2) saturate(1.25)' : 'brightness(0.95) contrast(1.15) saturate(1.2)')
+    : (isLight ? 'brightness(1.2) contrast(1.25) saturate(1.3)' : 'brightness(0.9) contrast(1.15) saturate(1.15)');
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <video
         ref={videoRef}
         key={currentIndex}
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{
           opacity,
           filter,
           transform: 'translate3d(0,0,0)',
-          willChange: 'opacity',
+          willChange: 'auto',
         }}
         muted
         playsInline
