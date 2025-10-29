@@ -18,35 +18,30 @@ export function VoiceGreeting({
   const { enabled, isPlaying, isSupported, toggleVoice, playGreeting, replay } = useVoiceAssist();
   const prefersReducedMotion = useReducedMotion();
   const [showReplay, setShowReplay] = useState(false);
-  const [userInteracted, setUserInteracted] = useState(false);
+  const [hasPlayed, setHasPlayed] = useState(false);
 
   useEffect(() => {
-    if (!autoPlay || !enabled || !isSupported) return;
+    if (!autoPlay || !enabled || !isSupported || hasPlayed) return;
 
-    // CRITICAL: Wait for ANY user interaction (Vercel requirement)
-    const playAfterInteraction = () => {
-      if (!userInteracted) {
-        setUserInteracted(true);
-        // Play after user proves they're human
-        setTimeout(() => {
-          playGreeting();
-          setTimeout(() => setShowReplay(true), 10000);
-        }, 500);
+    // Play on ANY click/touch ANYWHERE on screen
+    const playOnAnyInteraction = () => {
+      if (!hasPlayed) {
+        console.log('🎤 User clicked - playing voice!');
+        setHasPlayed(true);
+        playGreeting();
+        setTimeout(() => setShowReplay(true), 10000);
       }
     };
 
-    // Listen for FIRST interaction
-    const events = ['click', 'touchstart', 'touchend', 'scroll', 'keydown', 'mousemove'];
-    events.forEach(event => {
-      document.addEventListener(event, playAfterInteraction, { once: true, passive: true });
-    });
+    // Listen for clicks/touches ANYWHERE
+    document.addEventListener('click', playOnAnyInteraction, { once: true });
+    document.addEventListener('touchstart', playOnAnyInteraction, { once: true });
 
     return () => {
-      events.forEach(event => {
-        document.removeEventListener(event, playAfterInteraction);
-      });
+      document.removeEventListener('click', playOnAnyInteraction);
+      document.removeEventListener('touchstart', playOnAnyInteraction);
     };
-  }, [autoPlay, enabled, isSupported, playGreeting, userInteracted]);
+  }, [autoPlay, enabled, isSupported, playGreeting, hasPlayed]);
 
   if (!isSupported) return null;
 
@@ -54,26 +49,20 @@ export function VoiceGreeting({
 
   return (
     <div className={`fixed ${positionClasses} z-50 flex flex-col gap-3`}>
-      {/* Pulsing indicator when ready to play */}
-      {!userInteracted && enabled && (
+      {/* Pulsing hint when ready */}
+      {!hasPlayed && enabled && (
         <motion.div
-          className="absolute -top-16 left-0 px-3 py-2 bg-purple-600/90 backdrop-blur-sm rounded-lg text-xs text-white shadow-lg"
+          className="absolute -top-16 left-0 px-3 py-2 bg-purple-600/90 backdrop-blur-sm rounded-lg text-xs text-white shadow-lg whitespace-nowrap"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
         >
-          👆 Click anywhere to hear intro
+          👆 Tap anywhere for intro
         </motion.div>
       )}
 
       <motion.button
-        onClick={() => {
-          toggleVoice();
-          if (!userInteracted) {
-            setUserInteracted(true);
-            playGreeting();
-          }
-        }}
+        onClick={toggleVoice}
         className={`group relative w-14 h-14 rounded-full backdrop-blur-xl flex items-center justify-center transition-all duration-200 shadow-xl ${
           enabled 
             ? 'bg-gradient-to-br from-purple-600 to-pink-600 shadow-purple-500/50' 
@@ -116,7 +105,7 @@ export function VoiceGreeting({
       </motion.button>
 
       <AnimatePresence>
-        {showReplay && enabled && userInteracted && (
+        {showReplay && enabled && hasPlayed && (
           <motion.button
             onClick={() => {
               replay();
