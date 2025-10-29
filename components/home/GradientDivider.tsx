@@ -1,14 +1,42 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
 export function GradientDivider() {
   return (
-    <div className="relative h-32 md:h-40 pointer-events-none overflow-hidden">
-      {/* Subtle gradient blend - Violet to Cyan transition */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/8 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-violet-600/5 via-cyan-600/5 to-transparent" />
+    <div className="relative h-24 md:h-32 overflow-hidden">
+      {/* Main animated gradient bar - EXACT from screenshot */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.3) 0%, rgba(236, 72, 153, 0.4) 25%, rgba(139, 92, 246, 0.4) 50%, rgba(6, 182, 212, 0.3) 75%, rgba(139, 92, 246, 0.3) 100%)',
+          backgroundSize: '200% 100%',
+        }}
+        animate={{
+          backgroundPosition: ['0% 0%', '100% 0%'],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      />
       
-      {/* Soft wave effect */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+      {/* Glowing pulse overlay */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(90deg, transparent 0%, rgba(236, 72, 153, 0.4) 50%, transparent 100%)',
+        }}
+        animate={{
+          opacity: [0.6, 1, 0.6],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
     </div>
   );
 }

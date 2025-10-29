@@ -1,59 +1,69 @@
-"use client";
-/* eslint-disable react/no-unknown-property */
-import { motion, useScroll, useTransform } from 'framer-motion';
+'use client';
+
+import { useEffect, useRef } from 'react';
 
 export function GlowLayer() {
-  const { scrollYProgress } = useScroll();
-  
-  const hue1 = useTransform(scrollYProgress, [0, 1], [260, 180]);
-  const hue2 = useTransform(scrollYProgress, [0, 1], [200, 280]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    let animationId: number;
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 300);
+      gradient.addColorStop(0, 'rgba(139, 92, 246, 0.15)');
+      gradient.addColorStop(0.5, 'rgba(236, 72, 153, 0.08)');
+      gradient.addColorStop(1, 'rgba(139, 92, 246, 0)');
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      <motion.div
-        className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px]"
-        style={{
-          background: useTransform(
-            hue1,
-            h => `hsl(${h}, 70%, 50%)`
-          ),
-          opacity: 0.15,
-          mixBlendMode: 'overlay'
-        }}
-        animate={{
-          x: [0, 100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.2, 1]
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] rounded-full blur-[150px]"
-        style={{
-          background: useTransform(
-            hue2,
-            h => `hsl(${h}, 70%, 50%)`
-          ),
-          opacity: 0.15,
-          mixBlendMode: 'overlay'
-        }}
-        animate={{
-          x: [0, -100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.3, 1]
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-      />
-    </div>
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-[9999]"
+      style={{ mixBlendMode: 'screen' }}
+      suppressHydrationWarning
+    />
   );
 }
+
+export default GlowLayer;

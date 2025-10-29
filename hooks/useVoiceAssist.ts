@@ -16,7 +16,7 @@ const voiceScripts = [
 export function useVoiceAssist() {
   const [config, setConfig] = useState<VoiceConfig>({
     enabled: true,
-    volume: 0.85,
+    volume: 0.9,
   });
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -36,6 +36,14 @@ export function useVoiceAssist() {
     }
 
     setIsSupported('speechSynthesis' in window);
+
+    // Load voices
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
   }, []);
 
   const saveConfig = useCallback((newConfig: Partial<VoiceConfig>) => {
@@ -55,7 +63,7 @@ export function useVoiceAssist() {
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.volume = config.volume;
-    utterance.rate = 0.93;
+    utterance.rate = 0.95;
     utterance.pitch = 1.05;
 
     const voices = window.speechSynthesis.getVoices();
@@ -63,26 +71,38 @@ export function useVoiceAssist() {
       (voice) =>
         voice.name.includes('Female') ||
         voice.name.includes('Samantha') ||
-        voice.name.includes('Google') ||
+        voice.name.includes('Zira') ||
+        voice.name.includes('Google US English Female') ||
         (voice.lang.includes('en') && voice.name.toLowerCase().includes('female'))
-    ) || voices.find(voice => voice.lang.includes('en'));
+    ) || voices.find(voice => voice.lang.includes('en-US')) || voices[0];
     
     if (femaleVoice) utterance.voice = femaleVoice;
 
-    utterance.onstart = () => setIsPlaying(true);
-    utterance.onend = () => setIsPlaying(false);
-    utterance.onerror = () => setIsPlaying(false);
+    utterance.onstart = () => {
+      console.log('🎤 Voice started');
+      setIsPlaying(true);
+    };
+    utterance.onend = () => {
+      console.log('🎤 Voice ended');
+      setIsPlaying(false);
+    };
+    utterance.onerror = (e) => {
+      console.error('🎤 Voice error:', e);
+      setIsPlaying(false);
+    };
 
+    console.log('🎤 Speaking:', text.substring(0, 50) + '...');
     window.speechSynthesis.speak(utterance);
   }, [config.enabled, config.volume, isSupported]);
 
   const playGreeting = useCallback(() => {
-    if (!hasPlayedOnce && config.enabled) {
+    if (!hasPlayedOnce && config.enabled && isSupported) {
       const randomScript = voiceScripts[Math.floor(Math.random() * voiceScripts.length)];
+      console.log('🎤 Playing greeting');
       speak(randomScript);
       setHasPlayedOnce(true);
     }
-  }, [config.enabled, speak, hasPlayedOnce]);
+  }, [config.enabled, isSupported, speak, hasPlayedOnce]);
 
   const toggleVoice = useCallback(() => {
     const newEnabled = !config.enabled;
