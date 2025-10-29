@@ -177,13 +177,17 @@ export default function Home() {
                 </MagneticButton>
               </Link>
             </div>
-
-            <div className="md:hidden flex items-center gap-2">
+            <div className="md:hidden flex items-center gap-1.5">
               <ThemeToggle />
-              <Link href="/workspace">
-                <motion.button whileTap={{ scale: 0.95 }} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm text-white">
-                  Start
+              <Link href="/workspace" className="flex-shrink-0">
+                <motion.button 
+                  whileTap={{ scale: 0.95 }} 
+                  className="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-xs text-white shadow-lg whitespace-nowrap"
+                >
+                  Sign In
                 </motion.button>
+              </Link>
+            </div>
               </Link>
             </div>
           </div>
