@@ -1,0 +1,130 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Volume2, VolumeX, RotateCcw } from 'lucide-react';
+import { useVoiceAssist } from '@/hooks/useVoiceAssist';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+
+interface VoiceGreetingProps {
+  autoPlay?: boolean;
+  position?: 'bottom-left' | 'bottom-right';
+}
+
+export function VoiceGreeting({ 
+  autoPlay = true,
+  position = 'bottom-left'
+}: VoiceGreetingProps) {
+  const { enabled, isPlaying, isSupported, toggleVoice, playGreeting, replay } = useVoiceAssist();
+  const prefersReducedMotion = useReducedMotion();
+  const [showReplay, setShowReplay] = useState(false);
+  const [attemptedPlay, setAttemptedPlay] = useState(false);
+
+  useEffect(() => {
+    if (!autoPlay || !enabled || !isSupported || attemptedPlay) return;
+
+    const playVoice = () => {
+      playGreeting();
+      setAttemptedPlay(true);
+      setTimeout(() => setShowReplay(true), 10000);
+    };
+
+    // Desktop: Try playing after delay
+    const desktopTimer = setTimeout(playVoice, 2000);
+
+    // Mobile: Play on ANY user interaction
+    const handleFirstInteraction = () => {
+      if (!attemptedPlay) {
+        playVoice();
+      }
+    };
+
+    const events = ['click', 'touchstart', 'touchend', 'scroll', 'keydown'];
+    events.forEach(event => {
+      window.addEventListener(event, handleFirstInteraction, { once: true, passive: true });
+    });
+
+    return () => {
+      clearTimeout(desktopTimer);
+      events.forEach(event => {
+        window.removeEventListener(event, handleFirstInteraction);
+      });
+    };
+  }, [autoPlay, enabled, isSupported, playGreeting, attemptedPlay]);
+
+  if (!isSupported) return null;
+
+  const positionClasses = position === 'bottom-left' ? 'bottom-6 left-6' : 'bottom-6 right-6';
+
+  return (
+    <div className={`fixed ${positionClasses} z-50 flex flex-col gap-3`}>
+      <motion.button
+        onClick={toggleVoice}
+        className={`group relative w-14 h-14 rounded-full backdrop-blur-xl flex items-center justify-center transition-all duration-300 shadow-xl ${
+          enabled 
+            ? 'bg-gradient-to-br from-purple-600 to-pink-600 shadow-purple-500/50' 
+            : 'bg-white/10 border-2 border-white/20'
+        }`}
+        whileHover={!prefersReducedMotion ? { scale: 1.1 } : {}}
+        whileTap={!prefersReducedMotion ? { scale: 0.9 } : {}}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, duration: 0.5, type: 'spring' }}
+      >
+        {isPlaying && !prefersReducedMotion && (
+          <>
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-600 to-pink-600"
+              animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: 'easeOut' }}
+            />
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-600 to-purple-600"
+              animate={{ scale: [1, 1.8], opacity: [0.4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut', delay: 0.2 }}
+            />
+          </>
+        )}
+
+        <div className="relative z-10">
+          {enabled ? (
+            <motion.div animate={isPlaying && !prefersReducedMotion ? { scale: [1, 1.15, 1] } : {}} transition={{ duration: 0.6, repeat: isPlaying ? Infinity : 0 }}>
+              <Volume2 className="w-6 h-6 text-white drop-shadow-lg" />
+            </motion.div>
+          ) : (
+            <VolumeX className="w-6 h-6 text-white/70" />
+          )}
+        </div>
+
+        <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-3 py-2 bg-black/90 backdrop-blur-sm rounded-lg text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
+          {enabled ? '🔇 Mute voice' : '🔊 Enable voice'}
+        </div>
+      </motion.button>
+
+      <AnimatePresence>
+        {showReplay && enabled && (
+          <motion.button
+            onClick={() => {
+              replay();
+              setShowReplay(false);
+              setTimeout(() => setShowReplay(true), 10000);
+            }}
+            className="group relative w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border-2 border-white/20 flex items-center justify-center hover:bg-white/20 transition-all duration-300 shadow-lg"
+            initial={{ opacity: 0, scale: 0, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0, y: 20 }}
+            whileHover={!prefersReducedMotion ? { scale: 1.1 } : {}}
+            whileTap={!prefersReducedMotion ? { scale: 0.9 } : {}}
+          >
+            <RotateCcw className="w-5 h-5 text-white/80" />
+            <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-3 py-2 bg-black/90 backdrop-blur-sm rounded-lg text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
+              🔁 Replay intro
+            </div>
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export default VoiceGreeting;

@@ -1,16 +1,29 @@
 "use client";
+import "./performance.css";
 import Link from "next/link";
 import { motion, useScroll, useInView } from "framer-motion";
 import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Coffee, Palette, Lock, Clock, Heart, Star, Shuffle } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { ThemeToggle } from "./theme-toggle";
-import { CursorTrail } from "./components/CursorTrail";
 import { GlowLayer } from "./components/GlowLayer";
-import { GradientDivider } from "./components/GradientDivider";
 import { Tooltip } from "./components/Tooltip";
 import { AudioExperience } from "./components/AudioExperience";
 import { LivePreviewGenerator } from "./components/LivePreviewGenerator";
 
+// CINEMATIC COMPONENTS
+import { HeroParallax } from "@/components/home/HeroParallax";
+import { MagneticButton } from "@/components/home/MagneticButton";
+import { AnimatedCounter } from "@/components/home/AnimatedCounter";
+import { TestimonialSlider } from "@/components/home/TestimonialSlider";
+import { CursorTrail } from "@/components/home/CursorTrail";
+import { GradientDivider } from "@/components/home/GradientDivider";
+import { VoiceGreeting } from "@/components/home/VoiceGreeting";
+import { ScrollEasterEgg } from "@/components/home/ScrollEasterEgg";
+import { FloatingFeedback } from "@/components/home/FloatingFeedback";
+
+import { QuickStartTemplates } from "@/components/home/QuickStartTemplates";
+import { VideoBackground } from "@/components/home/VideoBackground";
+import { shouldDisableHeavyEffects } from "@/lib/utils";
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const [showDemoVideo, setShowDemoVideo] = useState(false);
@@ -32,10 +45,8 @@ export default function Home() {
 
   const handleGenerate = () => {
     if (!demoInput.trim()) return;
-    
     setIsGenerating(true);
     setShowPreview(false);
-    
     setTimeout(() => {
       setIsGenerating(false);
       setShowPreview(true);
@@ -58,9 +69,13 @@ export default function Home() {
     }
   }, []);
 
+  const disableHeavy = typeof window !== "undefined" && shouldDisableHeavyEffects();
   return (
     <main className="min-h-screen transition-colors duration-300">
-      <CursorTrail />
+      <CursorTrail enabled={!disableHeavy} color="#7B5CFF" particleCount={1} />
+      <VoiceGreeting autoPlay={!disableHeavy} position="bottom-left" />
+      {!disableHeavy && <ScrollEasterEgg />}
+      {!disableHeavy && <FloatingFeedback />}
       <GlowLayer />
 
       {showDemoVideo && (
@@ -157,9 +172,9 @@ export default function Home() {
               </Link>
               <ThemeToggle />
               <Link href="/workspace">
-                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary">
+                <MagneticButton variant="primary" size="md">
                   Get Started
-                </motion.button>
+                </MagneticButton>
               </Link>
             </div>
 
@@ -176,38 +191,23 @@ export default function Home() {
       </motion.nav>
 
       {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
-      <section ref={heroRef} className="relative min-h-screen overflow-hidden pt-16 md:pt-20">
+      <HeroParallax>
+        <VideoBackground />
+      <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-16 md:pt-20">
         
-        <div className="absolute inset-0 overflow-hidden">
-          <video 
-            ref={videoRef}
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            preload="auto"
-            controls={false}
-            className="absolute min-w-full min-h-full object-cover"
-            style={{ 
-              opacity: 0.9,
-              pointerEvents: 'none'
-            }}
-          >
-            <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
-            <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
-          </video>
-          
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"></div>
-        </div>
-
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(4)].map((_, i) => (
+          {[
+            { left: "15%", top: "20%" },
+            { left: "85%", top: "15%" },
+            { left: "25%", top: "70%" },
+            { left: "75%", top: "60%" }
+          ].map((pos, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 md:w-2 md:h-2 bg-purple-400 rounded-full"
               style={{ 
-                left: `${Math.random() * 100}%`, 
-                top: `${Math.random() * 100}%`,
+                left: pos.left, 
+                top: pos.top,
                 opacity: 0.2
               }}
               animate={{ 
@@ -223,8 +223,6 @@ export default function Home() {
             />
           ))}
         </div>
-
-        {/* CONTENT WITH TOP MARGIN TO PUSH TO LOWER HALF */}
         <div className="relative z-10 min-h-screen flex flex-col justify-center">
           <div className="mt-[50vh]">
             <motion.div 
@@ -240,6 +238,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4"
                 style={{
+                  fontSize: 'clamp(2.5rem, 8vw, 5rem)',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
               >
@@ -275,18 +274,14 @@ export default function Home() {
                 initial={{ opacity: 0 }} 
                 animate={isHeroInView ? { opacity: 1 } : {}} 
                 transition={{ duration: 0.6, delay: 0.6 }} 
-                className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
+                className="hero-cta-buttons hero-cta-container flex flex-col sm:flex-row gap-3 justify-center items-center px-4"
               >
                 <Link href="/workspace" className="w-full sm:w-auto">
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }} 
-                    whileTap={{ scale: 0.95 }} 
-                    className="w-full sm:w-auto btn-primary"
-                  >
+                  <MagneticButton variant="primary" size="lg" onClick={() => window.location.href="/workspace"}>
                     <span className="hidden sm:inline">I'm Feeling Lazy — Build It for Me</span>
                     <span className="sm:hidden">Build It for Me</span>
                     <ArrowRight className="inline-block ml-2 h-5 w-5" />
-                  </motion.button>
+                  </MagneticButton>
                 </Link>
                 <motion.button 
                   whileHover={{ scale: 1.05 }} 
@@ -307,9 +302,9 @@ export default function Home() {
                 className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-4"
               >
                 {[
-                  { icon: Star, value: "4.98", label: "50K+ users" },
-                  { icon: Zap, value: "2 min", label: "Build Time" },
-                  { icon: Rocket, value: "99.9%", label: "Uptime" }
+                  { icon: Star, value: 4.98, suffix: "", label: "50K+ users", decimals: 2 },
+                  { icon: Zap, value: 2, suffix: " min", label: "Build Time", decimals: 0 },
+                  { icon: Rocket, value: 99.9, suffix: "%", label: "Uptime", decimals: 1 }
                 ].map((stat, i) => (
                   <motion.div 
                     key={i} 
@@ -321,8 +316,15 @@ export default function Home() {
                     }}
                   >
                     <stat.icon className="h-6 w-6 md:h-7 md:w-7 text-purple-400 mx-auto mb-2" />
-                    <div className="text-xl md:text-2xl font-bold gradient-text">{stat.value}</div>
-                    <div className="text-xs text-white opacity-80 mt-1">{stat.label}</div>
+                    <AnimatedCounter
+                      duration={1.5} 
+                      to={stat.value} 
+                      suffix={stat.suffix}
+                      decimals={stat.decimals}
+                      className="text-xl md:text-2xl font-bold gradient-text"
+                      sparkles={!disableHeavy}
+                    />
+                    <div className="text-small opacity-70 mt-2">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
@@ -344,6 +346,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      </HeroParallax>
 
       <GradientDivider />
 
@@ -459,7 +463,16 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2 }} 
             className="card-dark space-y-6"
           >
+            <div className="sm:hidden mb-4">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <span className="text-2xl">✨</span> Compose Your Website
+              </h3>
+              <p className="text-sm text-white/70 mt-1">Describe what you want below, then tap Compose</p>
+            </div>
+
+            <QuickStartTemplates onSelect={(prompt) => setDemoInput(prompt)} />
             <textarea
+
               value={demoInput}
               onChange={(e) => setDemoInput(e.target.value)}
               placeholder="Try: 'Make me a portfolio site with a dark theme'"
@@ -474,7 +487,7 @@ export default function Home() {
                 whileTap={{ scale: 0.97 }} 
                 className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isGenerating ? "Generating..." : "🎨 Generate Preview"}
+                {isGenerating ? (<><span className="animate-pulse">⚡</span> Generating...</>) : (<><span className="hidden sm:inline">🎨 Generate Preview</span><span className="sm:hidden">✨ Compose</span></>)}
               </motion.button>
               
               <motion.button 
@@ -532,34 +545,14 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {[
-              { quote: "I built my agency site in 2 minutes. Seriously.", author: "Sarah Chen", role: "Designer", rating: 5 },
-              { quote: "Wait... it actually works??", author: "Mike Torres", role: "Founder", rating: 5 },
-              { quote: "My clients think I'm a wizard now.", author: "Alex Kumar", role: "Developer", rating: 5 }
-            ].map((testimonial, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, y: 30 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ duration: 0.5, delay: i * 0.1 }} 
-                whileHover={{ y: -5 }} 
-                className="card-dark"
-              >
-                <div className="flex gap-1 mb-3">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-body mb-4 leading-relaxed">"{testimonial.quote}"</p>
-                <div>
-                  <div className="text-small font-bold">{testimonial.author}</div>
-                  <div className="text-small opacity-70">{testimonial.role}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <TestimonialSlider
+            testimonials={[
+              { quote: "I built my agency site in 2 minutes. Seriously.", author: "Sarah Chen", role: "Designer", rating: 5, emoji: "🎨" },
+              { quote: "Wait... it actually works??", author: "Mike Torres", role: "Founder", rating: 5, emoji: "🚀" },
+              { quote: "My clients think I'm a wizard now.", author: "Alex Kumar", role: "Developer", rating: 5, emoji: "⚡" }
+            ]}
+            autoPlayInterval={5000}
+          />
         </div>
       </section>
 

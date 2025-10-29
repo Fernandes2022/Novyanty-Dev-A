@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unknown-property */
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function GlowLayer() {

@@ -394,12 +394,11 @@ export default function Workspace() {
               </h2>
               
               <div className="space-y-6">
-                <motion.textarea
+                <textarea
                   value={directive}
                   onChange={(e) => setDirective(e.target.value)}
                   placeholder="Describe what you want to create..."
                   className="w-full h-48 md:h-56 px-6 py-4 glass bg-black/40 border-2 border-white/10 rounded-2xl text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none resize-none text-base md:text-lg leading-relaxed transition-all"
-                  whileFocus={{ scale: 1.01 }}
                 />
 
                 <TierSelector selected={selectedTier} onChange={setSelectedTier} />

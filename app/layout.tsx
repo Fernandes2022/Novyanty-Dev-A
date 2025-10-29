@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SuppressHydrationWarning } from "./suppressHydration";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
+        <SuppressHydrationWarning />
         {children}
       </body>
     </html>

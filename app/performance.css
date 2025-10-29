@@ -1,0 +1,227 @@
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for animated elements */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimize scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Hardware acceleration */
+canvas,
+video {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Professional polish */
+.gradient-text {
+  will-change: background-position;
+}
+
+.card-dark {
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-dark:hover {
+  transform: translateY(-4px);
+}
+
+/* Faster button interactions */
+button, a {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth section transitions */
+section {
+  will-change: opacity, transform;
+}
+
+/* Optimize text rendering */
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+}
+
+p, span {
+  text-rendering: optimizeSpeed;
+}
+
+/* Mobile landscape fixes */
+@media (max-height: 500px) and (orientation: landscape) {
+  /* Ensure buttons are visible on mobile landscape */
+  .hero-cta-buttons {
+    margin-top: 1rem !important;
+    padding: 0.5rem !important;
+    position: relative;
+    z-index: 50;
+  }
+  
+  /* Reduce hero padding on landscape */
+  section[class*="min-h-screen"] {
+    min-height: auto !important;
+    padding-top: 4rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  /* Make buttons more compact */
+  button, a > button {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Ensure CTAs are always clickable */
+.hero-cta-container {
+  position: relative;
+  z-index: 30;
+  pointer-events: auto;
+}
+
+/* Video performance optimizations */
+video {
+  will-change: opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Reduce repaints */
+.hero-section {
+  contain: layout style paint;
+}
+
+/* Smooth transitions */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* GPU acceleration for moving elements */
+[class*="motion"],
+[class*="animate"] {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Mobile performance boost */
+@media (max-width: 768px) {
+  /* Reduce animations on mobile */
+  * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.2s !important;
+  }
+  
+  /* Simplify effects */
+  .card-dark {
+    backdrop-filter: blur(10px) !important;
+  }
+  
+  /* Optimize video rendering */
+  video {
+    image-rendering: optimizeSpeed;
+  }
+  
+  /* Reduce motion blur */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Hardware acceleration for interactive elements */
+  button, input, textarea {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* ULTRA PERFORMANCE MODE */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Instant button feedback */
+button, a {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+}
+
+/* Force GPU acceleration */
+video, canvas, [class*="motion"] {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Zero layout shift */
+img, video {
+  content-visibility: auto;
+}
+
+/* Smooth scrolling optimization */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Reduce motion for accessibility but keep smooth */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Faster transitions on mobile */
+  button, a, [class*="card"] {
+    transition-duration: 0.15s !important;
+  }
+}
