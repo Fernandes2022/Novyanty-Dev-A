@@ -1,55 +1,84 @@
-/* Professional smooth scrolling */
+/* Ultra-smooth scrolling like Runway ML */
 html {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
-/* Video performance */
-video {
-  will-change: opacity;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
+body {
+  overflow-x: hidden;
 }
 
-/* Smooth transitions */
+/* Smooth momentum scrolling */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Fast button feedback */
+/* Video performance - zero lag */
+video {
+  will-change: opacity;
+  transform: translate3d(0, 0, 0);
+  backfaceVisibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Instant button feedback */
 button, a {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button:active, a:active {
   transform: scale(0.97);
 }
 
-/* GPU acceleration */
-[class*="motion"], video, canvas {
+/* GPU acceleration for smooth animations */
+[class*="motion"], video, canvas, [class*="card"] {
   transform: translateZ(0);
-  will-change: transform, opacity;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Smooth section rendering */
+section {
+  position: relative;
+  contain: layout style;
+}
+
+/* Remove jank from animations */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
-  * {
-    -webkit-tap-highlight-color: transparent;
+  /* Faster transitions on mobile */
+  button, a, [class*="card"] {
+    transition-duration: 0.15s;
   }
   
-  button, a, [class*="card"] {
-    transition-duration: 0.2s;
+  /* Prevent overscroll bounce on mobile */
+  html, body {
+    overscroll-behavior: none;
   }
-}
-
-/* Smooth section transitions */
-section {
-  position: relative;
 }
 
 /* Hero section containment */
 .hero-section {
   contain: layout style paint;
+}
+
+/* Smooth gradient transitions */
+[class*="gradient"] {
+  transition: opacity 0.3s ease-out;
+}
+
+/* Remove layout shift */
+img, video {
+  content-visibility: auto;
 }
