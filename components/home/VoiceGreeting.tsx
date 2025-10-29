@@ -23,23 +23,31 @@ export function VoiceGreeting({
   useEffect(() => {
     if (!autoPlay || !enabled || !isSupported || hasPlayed) return;
 
-    // Play on ANY click/touch ANYWHERE on screen
     const playOnAnyInteraction = () => {
       if (!hasPlayed) {
-        console.log('🎤 User clicked - playing voice!');
+        console.log('🎤 User interacted - playing voice!');
         setHasPlayed(true);
-        playGreeting();
-        setTimeout(() => setShowReplay(true), 10000);
+        setTimeout(() => {
+          playGreeting();
+          setTimeout(() => setShowReplay(true), 10000);
+        }, 100);
       }
     };
 
-    // Listen for clicks/touches ANYWHERE
-    document.addEventListener('click', playOnAnyInteraction, { once: true });
-    document.addEventListener('touchstart', playOnAnyInteraction, { once: true });
+    // MOBILE: Listen to ALL touch and click events
+    const events = ['touchstart', 'touchend', 'click', 'pointerdown'];
+    
+    // Capture on window AND document for maximum coverage
+    events.forEach(event => {
+      window.addEventListener(event, playOnAnyInteraction, { once: true, passive: true, capture: true });
+      document.addEventListener(event, playOnAnyInteraction, { once: true, passive: true, capture: true });
+    });
 
     return () => {
-      document.removeEventListener('click', playOnAnyInteraction);
-      document.removeEventListener('touchstart', playOnAnyInteraction);
+      events.forEach(event => {
+        window.removeEventListener(event, playOnAnyInteraction);
+        document.removeEventListener(event, playOnAnyInteraction);
+      });
     };
   }, [autoPlay, enabled, isSupported, playGreeting, hasPlayed]);
 
@@ -49,20 +57,26 @@ export function VoiceGreeting({
 
   return (
     <div className={`fixed ${positionClasses} z-50 flex flex-col gap-3`}>
-      {/* Pulsing hint when ready */}
+      {/* Mobile-friendly hint */}
       {!hasPlayed && enabled && (
         <motion.div
           className="absolute -top-16 left-0 px-3 py-2 bg-purple-600/90 backdrop-blur-sm rounded-lg text-xs text-white shadow-lg whitespace-nowrap"
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
+          animate={{ opacity: [0, 1, 1, 0.7, 1] }}
+          transition={{ delay: 1, duration: 2, repeat: Infinity }}
         >
-          👆 Tap anywhere for intro
+          👆 Tap screen for intro
         </motion.div>
       )}
 
       <motion.button
-        onClick={toggleVoice}
+        onClick={() => {
+          toggleVoice();
+          if (!hasPlayed) {
+            setHasPlayed(true);
+            playGreeting();
+          }
+        }}
         className={`group relative w-14 h-14 rounded-full backdrop-blur-xl flex items-center justify-center transition-all duration-200 shadow-xl ${
           enabled 
             ? 'bg-gradient-to-br from-purple-600 to-pink-600 shadow-purple-500/50' 
