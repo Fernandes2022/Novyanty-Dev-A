@@ -3,48 +3,88 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light mode improvements - CLIENT REQUIREMENT */
   body {
     @apply transition-colors duration-300;
   }
   
-  body:not(.dark) {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
-    color: #1a1a1a;
+  /* DARK THEME - Beautiful & vibrant */
+  body.dark {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a0a1f 50%, #0a0a0f 100%);
+    color: #e9edef;
   }
   
-  body.dark {
-    background: #0a0a0f;
-    color: #f8f9fa;
+  body.dark .glass {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  body.dark h1,
+  body.dark h2,
+  body.dark h3 {
+    color: #ffffff;
+  }
+  
+  body.dark p,
+  body.dark span {
+    color: #e9edef;
+  }
+  
+  /* LIGHT THEME - WhatsApp style (clean & readable) */
+  body:not(.dark) {
+    background: #f0f2f5;
+    color: #111b21;
   }
   
   body:not(.dark) .glass {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
   body:not(.dark) h1, 
   body:not(.dark) h2, 
   body:not(.dark) h3 {
-    color: #0a0a0a;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #111b21;
+    font-weight: 700;
   }
   
-  body:not(.dark) p {
-    color: #2a2a2a;
+  body:not(.dark) p,
+  body:not(.dark) span {
+    color: #3b4a54;
+    font-weight: 500;
+  }
+  
+  body:not(.dark) .text-white {
+    color: #111b21 !important;
+    font-weight: 600;
   }
   
   body:not(.dark) .gradient-text {
-    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #06b6d4 100%);
+    background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #0891b2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-weight: 700;
   }
   
   body:not(.dark) button {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+    color: #111b21;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  
+  /* Light theme card backgrounds */
+  body:not(.dark) section {
+    background: transparent;
+  }
+  
+  body:not(.dark) [class*="card"],
+  body:not(.dark) [class*="glass"] {
+    background: #ffffff;
+    border: 1px solid #e9edef;
   }
 }
 
@@ -56,8 +96,12 @@ html {
   width: 10px;
 }
 
-::-webkit-scrollbar-track {
+body.dark ::-webkit-scrollbar-track {
   background: transparent;
+}
+
+body:not(.dark) ::-webkit-scrollbar-track {
+  background: #f0f2f5;
 }
 
 ::-webkit-scrollbar-thumb {
