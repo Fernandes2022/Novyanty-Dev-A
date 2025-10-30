@@ -61,12 +61,12 @@ export function VideoBackground() {
 
   if (prefersReducedMotion) return null;
 
+  // CLIENT REQUIREMENT: 15% opacity for overlay
+  const opacity = 0.15;
   const isLight = theme === 'light';
-  // FIXED: Keep opacity CONSTANT - no fade during scroll
-  const opacity = isMobile ? (isLight ? 0.45 : 0.4) : (isLight ? 0.5 : 0.35);
   const filter = isMobile
-    ? (isLight ? 'brightness(1.15) contrast(1.2) saturate(1.25)' : 'brightness(0.95) contrast(1.15) saturate(1.2)')
-    : (isLight ? 'brightness(1.2) contrast(1.25) saturate(1.3)' : 'brightness(0.9) contrast(1.15) saturate(1.15)');
+    ? (isLight ? 'brightness(1.2) contrast(1.1) saturate(1.2)' : 'brightness(0.95) contrast(1.1) saturate(1.15)')
+    : (isLight ? 'brightness(1.25) contrast(1.15) saturate(1.25)' : 'brightness(0.9) contrast(1.1) saturate(1.1)');
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">

@@ -238,35 +238,27 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }} 
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
                 transition={{ duration: 0.8, delay: 0.2 }} 
-                className="text-hero px-4"
+                className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
-                  fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+                  fontSize: 'clamp(3rem, 10vw, 7rem)',
+                  lineHeight: '1.1',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
               >
-                <span className="block mb-2 text-white">Build a website</span>
-                <span className="block mb-2 text-white">before your</span>
-                <span 
-                  className="block gradient-text-neon flex items-center justify-center gap-3 flex-wrap" 
-                  style={{ 
-                    backgroundSize: "200% 200%",
-                    filter: 'drop-shadow(0 0 40px rgba(34, 211, 238, 0.9))'
-                  }}
-                >
-                  coffee cools
-                  <Coffee className="h-12 w-12 md:h-16 md:w-16" />
+                <span className="block text-white leading-tight">
+                  Build a website before your coffee cools
                 </span>
               </motion.h1>
-
               <motion.p 
                 initial={{ opacity: 0 }} 
                 animate={isHeroInView ? { opacity: 1 } : {}} 
                 transition={{ duration: 0.6, delay: 0.4 }} 
-                className="text-body max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-3 md:py-4 border border-white/20 text-white"
+                className="text-xl md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-4 md:py-5 border border-white/30 text-white"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.6)',
+                  background: 'rgba(0, 0, 0, 0.4)',
                   backdropFilter: 'blur(15px)',
-                  textShadow: '0 2px 10px rgba(0,0,0,0.8)'
+                  color: '#ffffff',
+                  fontWeight: '500'
                 }}
               >
                 No code. No drama. Just say what you want and watch the magic happen.
