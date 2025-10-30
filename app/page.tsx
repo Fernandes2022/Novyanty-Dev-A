@@ -76,7 +76,7 @@ export default function Home() {
     <>
       <VoiceIntro />
     <main className="min-h-screen transition-colors duration-300">
-      <CursorTrail enabled={!disableHeavy} color="#7B5CFF" particleCount={1} />
+      <CursorTrail enabled={!disableHeavy} color="#7B5CFF" particleCount={0} />
       <VoiceGreeting autoPlay={!disableHeavy} position="bottom-left" onPlayingChange={setIsVoicePlaying} />
       {!disableHeavy && <ScrollEasterEgg />}
       {!disableHeavy && <FloatingFeedback />}
@@ -209,7 +209,7 @@ export default function Home() {
       {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
       <HeroParallax>
         <VideoBackground />
-      <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-16 md:pt-20">
+      <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-28 md:pt-32">
         
         <div className="absolute inset-0 pointer-events-none">
           {[
@@ -519,25 +519,6 @@ export default function Home() {
       </section>
 
       <GradientDivider />
-
-      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6 }} 
-            className="text-center mb-12 md:mb-16"
-          >
-            <h2 className="text-section-title mb-3 md:mb-4">
-              Loved by <span className="gradient-text">50,000+</span> Creators
-            </h2>
-            <p className="text-body opacity-80 max-w-2xl mx-auto">
-              #BuiltWithUs
-            </p>
-          </motion.div>
-
-        </div>
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
@@ -566,10 +547,7 @@ export default function Home() {
           />
         </div>
       </section>
-      <GradientDivider />
-      </section>
 
-      <GradientDivider />
 
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
