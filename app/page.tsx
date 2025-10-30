@@ -87,13 +87,13 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1a1d29]/95 p-4"
           onClick={() => setShowDemoVideo(false)}
         >
           <motion.div
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
-            className="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden border-2 border-purple-500/50"
+            className="relative w-full max-w-4xl bg-[#1a1d29] rounded-3xl overflow-hidden border-2 border-purple-500/50"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -467,7 +467,7 @@ export default function Home() {
               value={demoInput}
               onChange={(e) => setDemoInput(e.target.value)}
               placeholder="Try: 'Make me a portfolio site with a dark theme'"
-              className="w-full h-32 px-4 md:px-6 py-3 md:py-4 glass bg-black/40 border-2 border-white/10 rounded-xl placeholder-opacity-50 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none resize-none text-body"
+              className="w-full h-32 px-4 md:px-6 py-3 md:py-4 glass bg-[#14161f]/60 border-2 border-white/10 rounded-xl placeholder-opacity-50 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none resize-none text-body"
             />
 
             <div className="flex flex-col sm:flex-row gap-3">
