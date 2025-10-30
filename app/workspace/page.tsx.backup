@@ -583,6 +583,7 @@ export default function Workspace() {
                 </ul>
               </div>
             </motion.div>
+                initial={{ opacity: 0, scale: 0.95 }}
             {/* Editable Blocks */}
             {blocks.length > 0 && (
               <motion.div 
@@ -698,20 +699,6 @@ export default function Workspace() {
                       scale: [1, 1.2, 1],
                       rotate: [0, 10, -10, 0]
                     }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity
-                    }}
-                  >
-                    ⚡
-                  </motion.span>
-                  Live Updates
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  Your changes appear instantly in real-time
-                </p>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
