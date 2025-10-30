@@ -7,31 +7,52 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 const easterEggMessages = [
   { trigger: 95, message: "🎉 Congrats! You found the bottom of the internet!", action: "Go back up" },
-  { trigger: 50, message: "👀 Still here? We appreciate the dedication!", action: null },
-  { trigger: 75, message: "🚀 Almost there! The end is near...", action: null },
 ];
 
 export function ScrollEasterEgg() {
   const [activeEgg, setActiveEgg] = useState<number | null>(null);
-  const [triggeredEggs, setTriggeredEggs] = useState<Set<number>>(new Set());
+  const [hasShownPopup, setHasShownPopup] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
+  useEffect(() => {
+    // Check if already shown this session
+    const shownBefore = sessionStorage.getItem('easterEggShown');
+    if (shownBefore) {
+      setHasShownPopup(true);
+      return;
+    }
+
+    // Show popup after 3 minutes (180 seconds), ONCE per session
+    const timer = setTimeout(() => {
+      if (!hasShownPopup) {
+        setActiveEgg(0);
+        setHasShownPopup(true);
+        sessionStorage.setItem('easterEggShown', 'true');
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => setActiveEgg(null), 5000);
+      }
+    }, 180000); // 3 minutes
+
+    return () => clearTimeout(timer);
+  }, [hasShownPopup]);
+
+  // Also show if user scrolls to 95% (bottom)
   useEffect(() => {
     const handleScroll = () => {
       const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
 
-      easterEggMessages.forEach((egg, index) => {
-        if (scrollPercentage >= egg.trigger && !triggeredEggs.has(index)) {
-          setActiveEgg(index);
-          setTriggeredEggs((prev) => new Set(prev).add(index));
-          setTimeout(() => setActiveEgg(null), 3000);
-        }
-      });
+      if (scrollPercentage >= 95 && !hasShownPopup) {
+        setActiveEgg(0);
+        setHasShownPopup(true);
+        sessionStorage.setItem('easterEggShown', 'true');
+        setTimeout(() => setActiveEgg(null), 5000);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [triggeredEggs]);
+  }, [hasShownPopup]);
 
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

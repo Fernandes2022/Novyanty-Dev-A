@@ -135,41 +135,48 @@ export default function Home() {
         className="fixed top-0 left-0 right-0 z-50 glass-dark"
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex h-16 md:h-20 items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 md:gap-3 group">
-              <motion.div 
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
-              >
-                <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
-              </motion.div>
-              <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
-            </Link>
-
+          <div className="flex h-16 md:h-20 items-center relative">
+            {/* Logo - Far Left */}
+            <div className="flex-none">
+              <Link href="/" className="flex items-center gap-2 md:gap-3 group">
+                <motion.div 
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
+                >
+                  <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                </motion.div>
+                <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
+              </Link>
+            </div>
+            
+            {/* Center Group - FAQ | Adaptive Engine | About */}
             <motion.div 
               initial={{ scale: 0 }} 
               animate={{ scale: 1 }} 
               transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-              className="hidden md:flex absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
-              style={{
-                background: 'rgba(0, 0, 0, 0.6)',
-                backdropFilter: 'blur(20px)'
-              }}
+              className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6"
             >
-              <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-purple-400" />
-              <span className="text-xs md:text-sm font-bold text-white">
-                Adaptive Engine
-              </span>
-            </motion.div>
-
-            <div className="hidden md:flex items-center gap-8">
-              <Link href="/faq" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity">
+              <Link href="/faq" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity whitespace-nowrap">
                 FAQ
               </Link>
-              <Link href="/about" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity">
+              <motion.div 
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.6)',
+                  backdropFilter: 'blur(20px)'
+                }}
+              >
+                <Sparkles className="h-4 w-4 text-purple-400" />
+                <span className="text-sm font-bold text-white whitespace-nowrap">Adaptive Engine</span>
+              </motion.div>
+              <Link href="/about" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity whitespace-nowrap">
                 About
               </Link>
+            </motion.div>
+            
+            {/* Sign In - Far Right */}
+            <div className="hidden md:flex items-center gap-4 ml-auto">
               <ThemeToggle />
               <Link href="/workspace">
                 <MagneticButton variant="primary" size="md">
@@ -177,7 +184,9 @@ export default function Home() {
                 </MagneticButton>
               </Link>
             </div>
-            <div className="md:hidden flex items-center gap-1.5">
+            
+            {/* Mobile */}
+            <div className="md:hidden flex items-center gap-1.5 ml-auto">
               <ThemeToggle />
               <Link href="/workspace" className="flex-shrink-0">
                 <motion.button 
@@ -541,9 +550,12 @@ export default function Home() {
 
           <TestimonialSlider
             testimonials={[
-              { quote: "I built my agency site in 2 minutes. Seriously.", author: "Sarah Chen", role: "Designer", rating: 5, emoji: "🎨" },
-              { quote: "Wait... it actually works??", author: "Mike Torres", role: "Founder", rating: 5, emoji: "🚀" },
-              { quote: "My clients think I'm a wizard now.", author: "Alex Kumar", role: "Developer", rating: 5, emoji: "⚡" }
+              { quote: "Built my portfolio in under a minute. This is witchcraft!", author: "Amara Okafor", role: "Designer, Lagos", rating: 5, emoji: "🎨" },
+              { quote: "Finally, a tool that gets me. No code, no stress.", author: "Lars Bergström", role: "Founder, Stockholm", rating: 4.5, emoji: "🚀" },
+              { quote: "My clients think I hired a whole dev team.", author: "Priya Malhotra", role: "Freelancer, Mumbai", rating: 5, emoji: "⚡" },
+              { quote: "Insanely fast. I had time left for coffee.", author: "Carlos Mendoza", role: "Startup Owner, São Paulo", rating: 4.5, emoji: "☕" },
+              { quote: "This saved my weekend. Literally magical.", author: "Yuki Tanaka", role: "Creative, Tokyo", rating: 5, emoji: "✨" },
+              { quote: "I showed my boss. Now everyone wants one.", author: "Maya Johnson", role: "Marketing Lead, NYC", rating: 4.5, emoji: "💼" }
             ]}
             autoPlayInterval={5000}
           />
