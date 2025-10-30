@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion, useScroll, useInView } from "framer-motion";
 import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Mic, Keyboard, Palette, Lock, Clock, Heart, Star, Shuffle } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
-import { ThemeToggle } from "./theme-toggle";
 import { GlowLayer } from "./components/GlowLayer";
 import { Tooltip } from "./components/Tooltip";
 import { AudioExperience } from "./components/AudioExperience";
@@ -14,7 +13,6 @@ import { LivePreviewGenerator } from "./components/LivePreviewGenerator";
 import { HeroParallax } from "@/components/home/HeroParallax";
 import { MagneticButton } from "@/components/home/MagneticButton";
 import { AnimatedCounter } from "@/components/home/AnimatedCounter";
-import { TestimonialSlider } from "@/components/home/TestimonialSlider";
 import { CursorTrail } from "@/components/home/CursorTrail";
 import { GradientDivider } from "@/components/home/GradientDivider";
 import { VoiceGreeting } from "@/components/home/VoiceGreeting";
@@ -141,8 +139,9 @@ export default function Home() {
         className="fixed top-0 left-0 right-0 z-50 glass-dark"
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex h-16 md:h-20 items-center relative">
             {/* Logo - Far Left */}
+          <div className="flex h-16 md:h-20 items-center justify-between w-full px-4 md:px-6">
+            {/* Logo - Far Left Edge */}
             <div className="flex-none">
               <Link href="/" className="flex items-center gap-2 md:gap-3 group">
                 <motion.div 
@@ -155,19 +154,21 @@ export default function Home() {
                 <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
               </Link>
             </div>
+            </div>
             
-            {/* Center Group - FAQ | Adaptive Engine | About */}
+            {/* Center Group - Adaptive Engine (centered) with FAQ & About around it */}
             <motion.div 
               initial={{ scale: 0 }} 
               animate={{ scale: 1 }} 
               transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-              className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6"
+              className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8"
             >
-              <Link href="/faq" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity whitespace-nowrap">
+              <Link href="/faq" className="text-sm font-bold hover:text-purple-400 transition-colors whitespace-nowrap">
                 FAQ
               </Link>
+              
               <motion.div 
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
                 style={{
                   background: 'rgba(0, 0, 0, 0.6)',
                   backdropFilter: 'blur(20px)'
@@ -176,14 +177,14 @@ export default function Home() {
                 <Sparkles className="h-4 w-4 text-purple-400" />
                 <span className="text-sm font-bold text-white whitespace-nowrap">Adaptive Engine</span>
               </motion.div>
-              <Link href="/about" className="text-sm font-medium relative group opacity-90 hover:opacity-100 transition-opacity whitespace-nowrap">
+              
+              <Link href="/about" className="text-sm font-bold hover:text-purple-400 transition-colors whitespace-nowrap">
                 About
               </Link>
             </motion.div>
             
-            {/* Sign In - Far Right */}
-            <div className="hidden md:flex items-center gap-4 ml-auto">
-              <ThemeToggle />
+            {/* Get Started - Far Right Edge */}
+            <div className="hidden md:flex items-center gap-4 flex-none">
               <Link href="/workspace">
                 <MagneticButton variant="primary" size="md">
                   Get Started
@@ -191,19 +192,17 @@ export default function Home() {
               </Link>
             </div>
             
-            {/* Mobile */}
-            <div className="md:hidden flex items-center gap-1.5 ml-auto">
-              <ThemeToggle />
-              <Link href="/workspace" className="flex-shrink-0">
+            {/* Mobile - Simplified */}
+            <div className="md:hidden flex items-center gap-2">
+              <Link href="/workspace">
                 <motion.button 
                   whileTap={{ scale: 0.95 }} 
-                  className="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-xs text-white shadow-lg whitespace-nowrap"
+                  className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm text-white shadow-lg"
                 >
-                  Sign In
+                  Get Started
                 </motion.button>
               </Link>
             </div>
-          </div>
         </div>
       </motion.nav>
 
@@ -538,17 +537,6 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <TestimonialSlider
-            testimonials={[
-              { quote: "Built my portfolio in under a minute. This is witchcraft!", author: "Amara Okafor", role: "Designer, Lagos", rating: 5, emoji: "🎨" },
-              { quote: "Finally, a tool that gets me. No code, no stress.", author: "Lars Bergström", role: "Founder, Stockholm", rating: 4.5, emoji: "🚀" },
-              { quote: "My clients think I hired a whole dev team.", author: "Priya Malhotra", role: "Freelancer, Mumbai", rating: 5, emoji: "⚡" },
-              { quote: "Insanely fast. I had time left for coffee.", author: "Carlos Mendoza", role: "Startup Owner, São Paulo", rating: 4.5, emoji: "☕" },
-              { quote: "This saved my weekend. Literally magical.", author: "Yuki Tanaka", role: "Creative, Tokyo", rating: 5, emoji: "✨" },
-              { quote: "I showed my boss. Now everyone wants one.", author: "Maya Johnson", role: "Marketing Lead, NYC", rating: 4.5, emoji: "💼" }
-            ]}
-            autoPlayInterval={5000}
-          />
         </div>
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
