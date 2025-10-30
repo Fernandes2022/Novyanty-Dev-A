@@ -691,26 +691,6 @@ export default function Workspace() {
                 }}
               />
 
-              <div className="relative z-10">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <motion.span
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 10, -10, 0]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity
-                    }}
-                  >
-                    ⚡
-                  </motion.span>
-                  Live Updates
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  Your changes appear instantly in real-time
-                </p>
-              </div>
             </motion.div>
           </motion.div>
         </div>

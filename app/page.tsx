@@ -133,78 +133,77 @@ export default function Home() {
       )}
 
       <motion.nav 
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 glass-dark"
-      >
-        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-            {/* Logo - Far Left */}
-          <div className="flex h-16 md:h-20 items-center justify-between w-full px-4 md:px-6">
-            {/* Logo - Far Left Edge */}
-            <div className="flex-none">
-              <Link href="/" className="flex items-center gap-2 md:gap-3 group">
-                <motion.div 
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
-                >
-                  <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                </motion.div>
-                <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
-              </Link>
-            </div>
-            </div>
-            
-            {/* Center Group - Adaptive Engine (centered) with FAQ & About around it */}
-            <motion.div 
-              initial={{ scale: 0 }} 
-              animate={{ scale: 1 }} 
-              transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-              className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8"
-            >
-              <Link href="/faq" className="text-sm font-bold hover:text-purple-400 transition-colors whitespace-nowrap">
-                FAQ
-              </Link>
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="fixed top-0 left-0 right-0 z-50 glass-dark"
+        >
+          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+            <div className="flex h-16 md:h-20 items-center justify-between w-full">
+              {/* Logo - Far Left */}
+              <div className="flex-none">
+                <Link href="/" className="flex items-center gap-2 md:gap-3 group">
+                  <motion.div 
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
+                  >
+                    <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                  </motion.div>
+                  <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
+                </Link>
+              </div>
               
+              {/* Center Nav - All items inline */}
               <motion.div 
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
-                style={{
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  backdropFilter: 'blur(20px)'
-                }}
+                initial={{ scale: 0 }} 
+                animate={{ scale: 1 }} 
+                transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
+                className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8"
               >
-                <Sparkles className="h-4 w-4 text-purple-400" />
-                <span className="text-sm font-bold text-white whitespace-nowrap">Adaptive Engine</span>
+                <motion.div 
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.6)',
+                    backdropFilter: 'blur(20px)'
+                  }}
+                >
+                  <Sparkles className="h-4 w-4 text-purple-400" />
+                  <span className="text-sm lg:text-base font-bold text-white">Adaptive Engine</span>
+                </motion.div>
+
+                <Link href="/faq" className="text-sm lg:text-base font-bold hover:text-purple-400 transition-colors">
+                  FAQ
+                </Link>
+
+                <Link href="/about" className="text-sm lg:text-base font-bold hover:text-purple-400 transition-colors">
+                  About
+                </Link>
               </motion.div>
               
-              <Link href="/about" className="text-sm font-bold hover:text-purple-400 transition-colors whitespace-nowrap">
-                About
-              </Link>
-            </motion.div>
-            
-            {/* Get Started - Far Right Edge */}
-            <div className="hidden md:flex items-center gap-4 flex-none">
-              <Link href="/workspace">
-                <MagneticButton variant="primary" size="md">
-                  Get Started
-                </MagneticButton>
-              </Link>
+              {/* Get Started - Far Right */}
+              <div className="hidden md:flex items-center gap-4 flex-none">
+                <Link href="/workspace">
+                  <MagneticButton variant="primary" size="md">
+                    Get Started
+                  </MagneticButton>
+                </Link>
+              </div>
+              
+              {/* Mobile - Simplified */}
+              <div className="md:hidden flex items-center gap-2">
+                <Link href="/workspace">
+                  <motion.button 
+                    whileTap={{ scale: 0.95 }} 
+                    className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm text-white shadow-lg"
+                  >
+                    Get Started
+                  </motion.button>
+                </Link>
+              </div>
             </div>
-            
-            {/* Mobile - Simplified */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link href="/workspace">
-                <motion.button 
-                  whileTap={{ scale: 0.95 }} 
-                  className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm text-white shadow-lg"
-                >
-                  Get Started
-                </motion.button>
-              </Link>
-            </div>
-        </div>
-      </motion.nav>
+          </div>
+        </motion.nav>
 
       {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
       <HeroParallax>
@@ -525,24 +524,6 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             whileInView={{ opacity: 1, y: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6 }} 
-            className="text-center mb-12 md:mb-16"
-          >
-            <h2 className="text-section-title mb-3 md:mb-4">
-              Loved by <span className="gradient-text">50,000+</span> Creators
-            </h2>
-            <p className="text-body opacity-80 max-w-2xl mx-auto">
-              #BuiltWithUs
-            </p>
-          </motion.div>
-
-        </div>
-      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true, amount: 0.3 }} 
             transition={{ duration: 0.6 }} 
             className="text-center mb-12"
@@ -567,10 +548,6 @@ export default function Home() {
         </div>
       </section>
       <GradientDivider />
-      </section>
-
-      <GradientDivider />
-
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div 
