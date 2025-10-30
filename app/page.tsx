@@ -2,7 +2,7 @@
 import "./performance.css";
 import Link from "next/link";
 import { motion, useScroll, useInView } from "framer-motion";
-import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Coffee, Palette, Lock, Clock, Heart, Star, Shuffle } from "lucide-react";
+import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Mic, Keyboard, Palette, Lock, Clock, Heart, Star, Shuffle } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { GlowLayer } from "./components/GlowLayer";
@@ -363,7 +363,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { step: "1️⃣", title: "Say It", desc: "Use your voice. We actually listen (unlike your ex).", icon: Coffee, color: "from-purple-500 to-pink-500" },
+              { step: "1️⃣", title: "Say It", desc: "Use your voice. We actually listen (unlike your ex).", icon: Mic, color: "from-purple-500 to-pink-500" },
               { step: "2️⃣", title: "Watch It Build", desc: "Sit back. Pretend you're productive.", icon: Zap, color: "from-blue-500 to-cyan-500" },
               { step: "3️⃣", title: "Launch It", desc: "One click and boom — you're a founder.", icon: Rocket, color: "from-green-500 to-emerald-500" }
             ].map((item, i) => (
@@ -411,7 +411,7 @@ export default function Home() {
               { icon: Rocket, title: "Instant Deploy", desc: "Goes live faster than your 5G." },
               { icon: Users, title: "Team Collab", desc: "Multiple brains, one vibe." },
               { icon: Lock, title: "Privacy Lock", desc: "We gatekeep your data (for good reasons)." },
-              { icon: Coffee, title: "No Code", desc: "Because typing is overrated." },
+              { icon: Keyboard, title: "No Code", desc: "Because typing is overrated." },
               { icon: Clock, title: "Lightning Fast", desc: "Seriously, it's stupid fast." }
             ].map((feature, i) => (
               <motion.div 
