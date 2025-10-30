@@ -159,10 +159,10 @@ export default function Home() {
                 initial={{ scale: 0 }} 
                 animate={{ scale: 1 }} 
                 transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-                className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8"
+                className="hidden md:flex flex-1 items-center justify-center gap-4 lg:gap-6"
               >
                 <motion.div 
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-purple-500/70 shadow-lg shadow-purple-500/20"
                   style={{
                     background: 'rgba(0, 0, 0, 0.6)',
                     backdropFilter: 'blur(20px)'
@@ -328,10 +328,10 @@ export default function Home() {
                       to={stat.value} 
                       suffix={stat.suffix}
                       decimals={stat.decimals}
-                      className="text-xl md:text-2xl font-bold gradient-text"
+                      className="text-2xl md:text-3xl font-bold text-white"
                       sparkles={!disableHeavy}
                     />
-                    <div className="text-small opacity-70 mt-2">{stat.label}</div>
+                    <div className="text-sm text-white font-medium mt-2">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
