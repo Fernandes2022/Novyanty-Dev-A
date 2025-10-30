@@ -112,3 +112,18 @@ body:not(.dark) ::-webkit-scrollbar-track {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #7c3aed, #db2777);
 }
+
+/* More clickable button colors */
+.btn-primary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #06b6d4 100%) !important;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(236, 72, 153, 0.2) !important;
+  transition: all 0.3s ease !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #0891b2 100%) !important;
+  box-shadow: 0 6px 30px rgba(139, 92, 246, 0.6), 0 0 60px rgba(236, 72, 153, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
