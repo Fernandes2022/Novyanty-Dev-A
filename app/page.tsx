@@ -26,7 +26,9 @@ import { VideoBackground } from "@/components/home/VideoBackground";
 import { shouldDisableHeavyEffects } from "@/lib/utils";
 import { ScrollingFeatures } from "@/components/home/ScrollingFeatures";
 import { VideoTestimonials } from "@/components/home/VideoTestimonials";
+import { VoiceIntro } from "@/components/home/VoiceIntro";
 export default function Home() {
+  const [isVoicePlaying, setIsVoicePlaying] = useState(false);
   const { scrollYProgress } = useScroll();
   const [showDemoVideo, setShowDemoVideo] = useState(false);
   const [chaosMode, setChaosMode] = useState(false);
@@ -73,9 +75,11 @@ export default function Home() {
 
   const disableHeavy = typeof window !== "undefined" && shouldDisableHeavyEffects();
   return (
+    <>
+      <VoiceIntro />
     <main className="min-h-screen transition-colors duration-300">
       <CursorTrail enabled={!disableHeavy} color="#7B5CFF" particleCount={1} />
-      <VoiceGreeting autoPlay={!disableHeavy} position="bottom-left" />
+      <VoiceGreeting autoPlay={!disableHeavy} position="bottom-left" onPlayingChange={setIsVoicePlaying} />
       {!disableHeavy && <ScrollEasterEgg />}
       {!disableHeavy && <FloatingFeedback />}
       <GlowLayer />
@@ -247,7 +251,7 @@ export default function Home() {
               
               <motion.h1 
                 initial={{ opacity: 0, y: 30 }} 
-                animate={isHeroInView ? { opacity: 1, y: 0 } : {}} 
+                animate={isHeroInView ? { opacity: isVoicePlaying ? 0 : 1, y: 0 } : { opacity: 0 }} 
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
@@ -693,5 +697,6 @@ export default function Home() {
         </div>
       </motion.footer>
     </main>
+    </>
   );
 }

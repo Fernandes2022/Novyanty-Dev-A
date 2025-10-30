@@ -9,16 +9,23 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 interface VoiceGreetingProps {
   autoPlay?: boolean;
   position?: 'bottom-left' | 'bottom-right';
+  onPlayingChange?: (isPlaying: boolean) => void;
 }
 
 export function VoiceGreeting({ 
   autoPlay = true,
-  position = 'bottom-left'
+  position = 'bottom-left',
+  onPlayingChange
 }: VoiceGreetingProps) {
   const { enabled, isPlaying, isSupported, toggleVoice, playGreeting, replay } = useVoiceAssist();
   const prefersReducedMotion = useReducedMotion();
   const [showReplay, setShowReplay] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
+
+  // Notify parent when playing state changes
+  useEffect(() => {
+    onPlayingChange?.(isPlaying && enabled);
+  }, [isPlaying, enabled, onPlayingChange]);
 
   useEffect(() => {
     if (!autoPlay || !enabled || !isSupported || hasPlayed) return;
@@ -34,10 +41,8 @@ export function VoiceGreeting({
       }
     };
 
-    // MOBILE: Listen to ALL touch and click events
     const events = ['touchstart', 'touchend', 'click', 'pointerdown'];
     
-    // Capture on window AND document for maximum coverage
     events.forEach(event => {
       window.addEventListener(event, playOnAnyInteraction, { once: true, passive: true, capture: true });
       document.addEventListener(event, playOnAnyInteraction, { once: true, passive: true, capture: true });
@@ -57,7 +62,6 @@ export function VoiceGreeting({
 
   return (
     <div className={`fixed ${positionClasses} z-50 flex flex-col gap-3`}>
-      {/* Mobile-friendly hint */}
       {!hasPlayed && enabled && (
         <motion.div
           className="absolute -top-16 left-0 px-3 py-2 bg-purple-600/90 backdrop-blur-sm rounded-lg text-xs text-white shadow-lg whitespace-nowrap"
