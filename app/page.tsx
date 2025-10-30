@@ -297,7 +297,7 @@ export default function Home() {
               >
                 {[
                   { icon: Star, value: 4.98, suffix: "", label: "50K+ users", decimals: 2 },
-                  { icon: Zap, value: 2, suffix: " min", label: "Build Time", decimals: 0 },
+                  { icon: Zap, value: 50, suffix: " sec", label: "Build Time", decimals: 0 },
                   { icon: Rocket, value: 99.9, suffix: "%", label: "Uptime", decimals: 1 }
                 ].map((stat, i) => (
                   <motion.div 
