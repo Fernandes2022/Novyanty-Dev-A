@@ -17,7 +17,10 @@ const desktopVideos = [
 
 export function VideoBackground() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [nextIndex, setNextIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const currentVideoRef = useRef<HTMLVideoElement>(null);
+  const nextVideoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
   const { theme } = useTheme();
@@ -31,8 +34,16 @@ export function VideoBackground() {
 
   const videos = isMobile ? mobileVideos : desktopVideos;
 
+  // Preload next video
   useEffect(() => {
-    const video = videoRef.current;
+    const nextVideo = nextVideoRef.current;
+    if (nextVideo) {
+      nextVideo.load();
+    }
+  }, [nextIndex]);
+
+  useEffect(() => {
+    const video = currentVideoRef.current;
     if (!video) return;
 
     const handleCanPlay = () => {
@@ -45,7 +56,21 @@ export function VideoBackground() {
     };
 
     const handleEnded = () => {
-      setCurrentIndex((prev) => (prev + 1) % videos.length);
+      // Start smooth transition
+      setIsTransitioning(true);
+      
+      // Play next video
+      const nextVideo = nextVideoRef.current;
+      if (nextVideo) {
+        nextVideo.play().catch(console.log);
+      }
+
+      // Complete transition after fade
+      setTimeout(() => {
+        setCurrentIndex(nextIndex);
+        setNextIndex((nextIndex + 1) % videos.length);
+        setIsTransitioning(false);
+      }, 1000); // 1 second crossfade
     };
 
     video.addEventListener('canplaythrough', handleCanPlay, { once: true });
@@ -56,13 +81,10 @@ export function VideoBackground() {
       video.removeEventListener('canplaythrough', handleCanPlay);
       video.removeEventListener('ended', handleEnded);
     };
-  }, [currentIndex, videos.length]);
+  }, [currentIndex, nextIndex, videos.length]);
 
   if (prefersReducedMotion) return null;
 
-  // CRYSTAL CLEAR: 100% opacity for maximum visibility
-  const opacity = 1.0;
-  
   const isLight = theme === 'light';
   const filter = isMobile
     ? (isLight ? 'brightness(1.2) contrast(1.1) saturate(1.2)' : 'brightness(0.95) contrast(1.1) saturate(1.15)')
@@ -70,21 +92,42 @@ export function VideoBackground() {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* Current Video */}
       <video
-        ref={videoRef}
-        key={currentIndex}
+        ref={currentVideoRef}
+        key={`current-${currentIndex}`}
         className="absolute inset-0 w-full h-full object-cover"
         style={{
-          opacity,
+          opacity: isTransitioning ? 0 : 1,
           filter,
           transform: 'translate3d(0,0,0)',
-          willChange: 'auto',
+          willChange: 'opacity',
+          transition: 'opacity 1s ease-in-out',
         }}
         muted
         playsInline
         preload="auto"
       >
         <source src={videos[currentIndex]} type="video/mp4" />
+      </video>
+
+      {/* Next Video (for crossfade) */}
+      <video
+        ref={nextVideoRef}
+        key={`next-${nextIndex}`}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{
+          opacity: isTransitioning ? 1 : 0,
+          filter,
+          transform: 'translate3d(0,0,0)',
+          willChange: 'opacity',
+          transition: 'opacity 1s ease-in-out',
+        }}
+        muted
+        playsInline
+        preload="auto"
+      >
+        <source src={videos[nextIndex]} type="video/mp4" />
       </video>
     </div>
   );
