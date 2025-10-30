@@ -24,6 +24,7 @@ import { FloatingFeedback } from "@/components/home/FloatingFeedback";
 import { QuickStartTemplates } from "@/components/home/QuickStartTemplates";
 import { VideoBackground } from "@/components/home/VideoBackground";
 import { shouldDisableHeavyEffects } from "@/lib/utils";
+import { ScrollingFeatures } from "@/components/home/ScrollingFeatures";
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const [showDemoVideo, setShowDemoVideo] = useState(false);
@@ -413,32 +414,16 @@ export default function Home() {
               Loved by designers · hated by procrastination
             </p>
           </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {[
+          <ScrollingFeatures 
+            features={[
               { icon: Palette, title: "Adaptive Engine", desc: "AI that vibes with your aesthetic." },
               { icon: Rocket, title: "Instant Deploy", desc: "Goes live faster than your 5G." },
               { icon: Users, title: "Team Collab", desc: "Multiple brains, one vibe." },
               { icon: Lock, title: "Privacy Lock", desc: "We gatekeep your data (for good reasons)." },
               { icon: Keyboard, title: "No Code", desc: "Because typing is overrated." },
               { icon: Clock, title: "Lightning Fast", desc: "Seriously, it's stupid fast." }
-            ].map((feature, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }} 
-                animate={isUspInView ? { opacity: 1, scale: 1 } : {}} 
-                transition={{ duration: 0.4, delay: i * 0.08 }} 
-                whileHover={{ scale: 1.03 }} 
-                className="card-dark group cursor-pointer"
-              >
-                <div className="w-12 h-12 md:w-13 md:h-13 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center mb-4">
-                  <feature.icon className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-card-title mb-2">{feature.title}</h3>
-                <p className="text-body opacity-80 leading-relaxed">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+            ]}
+          />
         </div>
       </section>
 

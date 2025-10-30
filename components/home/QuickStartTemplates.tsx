@@ -1,5 +1,4 @@
 'use client';
-
 import { motion } from 'framer-motion';
 import { Sparkles, Briefcase, ShoppingBag, Camera, Code, Heart, Rocket } from 'lucide-react';
 
@@ -17,29 +16,49 @@ interface QuickStartTemplatesProps {
 }
 
 export function QuickStartTemplates({ onSelect }: QuickStartTemplatesProps) {
+  // Duplicate for seamless loop
+  const duplicatedTemplates = [...templates, ...templates, ...templates];
+
   return (
     <div className="mb-6">
       <div className="flex items-center gap-2 mb-3">
         <Sparkles className="w-5 h-5 text-purple-400" />
         <h3 className="text-sm font-bold text-white">Quick Start Templates</h3>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-        {templates.map((template, i) => (
-          <motion.button
-            key={i}
-            onClick={() => onSelect(template.prompt)}
-            className={`group relative p-3 rounded-xl bg-gradient-to-br ${template.color} bg-opacity-10 border border-white/10 hover:border-white/30 transition-all overflow-hidden`}
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-          >
-            <div className={`absolute inset-0 bg-gradient-to-br ${template.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
-            <template.icon className="w-6 h-6 text-white mx-auto mb-1" />
-            <div className="text-xs font-medium text-white text-center">{template.name}</div>
-          </motion.button>
-        ))}
+      
+      <div className="relative overflow-hidden">
+        <motion.div
+          className="flex gap-3"
+          animate={{
+            x: [0, -150 * templates.length],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 25,
+              ease: "linear",
+            },
+          }}
+        >
+          {duplicatedTemplates.map((template, i) => (
+            <motion.button
+              key={i}
+              onClick={() => onSelect(template.prompt)}
+              className={`group relative p-4 rounded-xl bg-gradient-to-br ${template.color} bg-opacity-10 border border-white/10 hover:border-white/30 transition-all overflow-hidden flex-shrink-0 w-36`}
+              whileHover={{ scale: 1.08, y: -4 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-br ${template.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
+              <template.icon className="w-8 h-8 text-white mx-auto mb-2" />
+              <div className="text-sm font-medium text-white text-center">{template.name}</div>
+            </motion.button>
+          ))}
+        </motion.div>
+        
+        {/* Gradient fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
       </div>
     </div>
   );
