@@ -1,5 +1,4 @@
 'use client';
-
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
@@ -20,7 +19,7 @@ interface VideoTestimonialsProps {
 export function VideoTestimonials({ testimonials }: VideoTestimonialsProps) {
   // Duplicate for seamless loop
   const duplicated = [...testimonials, ...testimonials, ...testimonials];
-
+  
   return (
     <div className="relative overflow-hidden py-8">
       <motion.div
@@ -32,17 +31,26 @@ export function VideoTestimonials({ testimonials }: VideoTestimonialsProps) {
           x: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: 40,
+            duration: 30, // Faster: 40 -> 30
             ease: "linear",
           },
+        }}
+        style={{
+          willChange: 'transform', // GPU acceleration
         }}
       >
         {duplicated.map((testimonial, i) => (
           <motion.div
-            key={i}
+            key={`${testimonial.id}-${i}`}
             className="relative flex-shrink-0 w-80 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-white/10 backdrop-blur-sm"
-            whileHover={{ scale: 1.05, y: -5 }}
-            transition={{ duration: 0.2 }}
+            whileHover={{ scale: 1.03, y: -3 }} // Reduced for snappier feel
+            transition={{ 
+              duration: 0.15, // Faster: 0.2 -> 0.15
+              ease: "easeOut" 
+            }}
+            style={{
+              willChange: 'transform', // GPU acceleration
+            }}
           >
             {/* Headshot */}
             <div className="relative h-64 overflow-hidden">
@@ -50,6 +58,8 @@ export function VideoTestimonials({ testimonials }: VideoTestimonialsProps) {
                 src={testimonial.thumbnail} 
                 alt={testimonial.author}
                 className="w-full h-full object-cover"
+                loading="lazy" // Lazy load images
+                decoding="async" // Async decoding
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
             </div>
