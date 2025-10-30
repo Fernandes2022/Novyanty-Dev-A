@@ -103,7 +103,7 @@ export default function Home() {
               <span className="text-2xl text-white">×</span>
             </button>
 
-            <div className="relative aspect-video bg-gradient-to-br from-purple-900/20 to-blue-900/20">
+            <div className="relative aspect-video bg-black">
               <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                 <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
               </video>
@@ -268,8 +268,8 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.4 }} 
                 className="text-xl md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed rounded-xl px-4 md:px-8 py-4 md:py-5 border border-white/30 text-white"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
-                  backdropFilter: 'blur(15px)',
+                  background: 'rgba(26, 29, 41, 0.6)',
+                  backdropFilter: 'blur(8px)',
                   color: '#ffffff',
                   fontWeight: '500'
                 }}

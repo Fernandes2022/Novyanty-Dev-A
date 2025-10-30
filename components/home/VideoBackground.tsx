@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useTheme } from 'next-themes';
@@ -61,8 +60,9 @@ export function VideoBackground() {
 
   if (prefersReducedMotion) return null;
 
-  // CLIENT REQUIREMENT: 15% opacity for overlay
-  const opacity = 0.15;
+  // CRYSTAL CLEAR: 100% opacity for maximum visibility
+  const opacity = 1.0;
+  
   const isLight = theme === 'light';
   const filter = isMobile
     ? (isLight ? 'brightness(1.2) contrast(1.1) saturate(1.2)' : 'brightness(0.95) contrast(1.1) saturate(1.15)')
