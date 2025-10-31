@@ -536,8 +536,8 @@ export default function Home() {
               See what creators around the world are saying
             </p>
           <VideoTestimonials testimonials={testimonials} />
-          </motion.div>
         </div>
+      </section>
       </section>
       <GradientDivider />
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
