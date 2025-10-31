@@ -173,7 +173,7 @@ export default function Home() {
 
             <div className="relative aspect-video bg-black">
               <video autoPlay loop muted playsInline className="w-full h-full object-cover hero-video-background">
-                <source src="/videos/VIDEO-2025-10-31-20-16-50.mp4" type="video/mp4" media="(max-width: 768px)" />
+                <source src="/VIDEO-2025-10-31-20-16-50.mp4" type="video/mp4" media="(max-width: 768px)" />
                 <source src="/videos/x-large-vecteezy_young-girl-which-applying-virtual-reality-headset-during_13279729_x-large.mp4" type="video/mp4" />
               </video>
               
