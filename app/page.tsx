@@ -209,10 +209,10 @@ export default function Home() {
           </div>
         </motion.nav>
       {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
-      <HeroParallax / />
         <VideoBackground />
       <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-16 md:pt-20">
         
+        <HeroParallax />
         <div className="absolute inset-0 pointer-events-none">
           {[
             { left: "15%", top: "20%" },
