@@ -535,7 +535,134 @@ export default function Home() {
             <p className="text-body opacity-80 max-w-2xl mx-auto">
               See what creators around the world are saying
             </p>
-  );
+          </motion.div>
+          <VideoTestimonials 
+            testimonials={[
+              { id: "amara-okafor", author: "Amara Okafor", role: "Designer", location: "Lagos", rating: 5, thumbnail: "https://replicate.delivery/xezq/OuCODSdQUZLzAVxLRlOeNskyN4u7URVae8Nhet4RZ2bvkYIrA/out-0.png", quote: "Built my portfolio in under a minute. This is witchcraft!" },
+              { id: "lars-bergstrom", author: "Lars Bergström", role: "Founder", location: "Stockholm", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/ewxftxc46Uu7L0fppY53tTLz8re6lAdt50jbeXZLEskgUihsC/out-0.png", quote: "Finally, a tool that gets me. No code, no stress." },
+              { id: "priya-malhotra", author: "Priya Malhotra", role: "Freelancer", location: "Mumbai", rating: 5, thumbnail: "https://replicate.delivery/xezq/jLppAHJRDy7LJRERkc3HNkzXfPrvTg4ZYUfUZYNUTajmSMkVA/out-0.png", quote: "My clients think I hired a whole dev team." },
+              { id: "carlos-mendoza", author: "Carlos Mendoza", role: "Startup Owner", location: "São Paulo", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/HLoIF6y4i46eUiDU9Lnc1PE7DXc6DL8SxqIHB99XCeQpSMkVA/out-0.png", quote: "Insanely fast. I had time left for coffee." },
+              { id: "yuki-tanaka", author: "Yuki Tanaka", role: "Creative", location: "Tokyo", rating: 5, thumbnail: "https://replicate.delivery/xezq/5NHu6edXzozjJKR0P1r30V8bbeQ0Rn1Th3OvvL0PYiSrSMkVA/out-0.png", quote: "This saved my weekend. Literally magical." },
+              { id: "maya-johnson", author: "Maya Johnson", role: "Marketing Lead", location: "NYC", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/50zBkHTdCabQFRuEH1HCYqfSAPmQDUqRqXlTmiOZYoBXJGyKA/out-0.png", quote: "I showed my boss. Now everyone wants one." }
+            ]}
+          />
+        </div>
+      </section>
+      <GradientDivider />
+      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: false, amount: 0.3 }} 
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-section-title mb-6">
+              <span className="block">Still scrolling?</span>
+              <span className="block gradient-text-neon">That's not building.</span>
+            </h2>
 
+            <p className="text-body opacity-80 mb-8">
+              Let's fix that ⬇️
+            </p>
+
+            <Link href="/workspace">
+              <motion.button 
+                className="relative group" 
+                whileHover={{ scale: 1.05 }} 
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative btn-primary px-8 md:px-12 py-4 md:py-5 inline-flex items-center gap-3">
+                  <span className="hidden md:inline">Build My Site (Before I Overthink It)</span>
+                  <span className="md:hidden">Build My Site Now</span>
+                  <ArrowRight className="h-5 w-5" />
+                </span>
+              </motion.button>
+            </Link>
+
+            <motion.div 
+              className="mt-8 flex items-center justify-center gap-6 flex-wrap" 
+              initial={{ opacity: 0 }} 
+              whileInView={{ opacity: 1 }} 
+              viewport={{ once: false }} 
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              {[
+                { icon: Shield, text: "Secure" },
+                { icon: Zap, text: "Fast" },
+                { icon: Heart, text: "Loved" }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <item.icon className="h-4 w-4 text-purple-400" />
+                  <span className="text-small font-semibold opacity-70">{item.text}</span>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <motion.footer 
+        initial={{ opacity: 0 }} 
+        whileInView={{ opacity: 1 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.6 }} 
+        className="border-t border-white/10 py-8 md:py-12 px-4 md:px-6 lg:px-8"
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                  <Sparkles className="h-4 w-4 text-white" />
+                </div>
+                <span className="font-bold text-sm md:text-base">Creative Workspace</span>
+              </div>
+              <p className="text-small opacity-70">
+                The future of adaptive composition.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-3 text-small">Product</h4>
+              <ul className="space-y-2 text-small">
+                <li><Link href="/workspace" className="opacity-70 hover:opacity-100 transition-opacity">Workspace</Link></li>
+                <li><Link href="/faq" className="opacity-70 hover:opacity-100 transition-opacity">FAQ</Link></li>
+                <li><Link href="/about" className="opacity-70 hover:opacity-100 transition-opacity">About</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-3 text-small">Legal</h4>
+              <ul className="space-y-2 text-small">
+                <li><Link href="/privacy" className="opacity-70 hover:opacity-100 transition-opacity">Privacy</Link></li>
+                <li><Link href="/terms" className="opacity-70 hover:opacity-100 transition-opacity">Terms</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-3 text-small">Connect</h4>
+              <ul className="space-y-2 text-small">
+                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2">
+                  <span>𝕏</span> Twitter
+                </a></li>
+                <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2">
+                  <span>🎵</span> TikTok
+                </a></li>
+                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2">
+                  <span>📸</span> Instagram
+                </a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-small opacity-70 gap-4">
+            <p>© 2025 Creative Workspace. All rights reserved.</p>
+            <p>Built with ❤️ by creators, for creators.</p>
+          </div>
+        </div>
+      </motion.footer>
+    </main>
     </>
   );
+}
