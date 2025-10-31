@@ -696,7 +696,7 @@ export default function Home() {
 
       <GradientDivider />
 
-            {/* Comparison Table */}
+      {/* Comparison Table */}
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -711,21 +711,19 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="glass-card rounded-2xl md:rounded-3xl overflow-hidden overflow-x-auto">
-            {/* Header Row */}
-            <div className="grid grid-cols-3 divide-x divide-white/10 min-w-[600px] md:min-w-0">
-              <div className="p-3 md:p-8 text-center bg-white/5">
-                <h3 className="text-xs md:text-xl font-bold">Metric</h3>
+          <div className="glass-card rounded-3xl overflow-hidden">
+            <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
+              <div className="p-8 text-center bg-white/5">
+                <h3 className="text-xl font-bold mb-6">Metric</h3>
               </div>
-              <div className="p-3 md:p-8 text-center">
-                <h3 className="text-xs md:text-xl font-bold text-red-400">Traditional</h3>
+              <div className="p-8 text-center">
+                <h3 className="text-xl font-bold mb-6 text-red-400">Traditional Development</h3>
               </div>
-              <div className="p-3 md:p-8 text-center bg-gradient-to-br from-purple-500/20 to-pink-500/20">
-                <h3 className="text-xs md:text-xl font-bold gradient-text">Creative Workspace</h3>
+              <div className="p-8 text-center bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                <h3 className="text-xl font-bold mb-6 gradient-text">Creative Workspace</h3>
               </div>
             </div>
 
-            {/* Data Rows */}
             {[
               { metric: "Time to Launch", traditional: "4-8 weeks", workspace: "3 minutes" },
               { metric: "Cost", traditional: "$5,000 - $50,000", workspace: "$9.99/month" },
@@ -739,23 +737,18 @@ export default function Home() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 min-w-[600px] md:min-w-0"
+                className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10 border-t border-white/10"
               >
-                <div className="p-3 md:p-6 font-semibold text-xs md:text-base">{row.metric}</div>
-                <div className="p-3 md:p-6 text-white/60 text-xs md:text-base">{row.traditional}</div>
-                <div className="p-3 md:p-6 text-green-400 font-semibold text-xs md:text-base">{row.workspace}</div>
+                <div className="p-6 font-semibold">{row.metric}</div>
+                <div className="p-6 text-white/60">{row.traditional}</div>
+                <div className="p-6 text-green-400 font-semibold">{row.workspace}</div>
               </motion.div>
             ))}
           </div>
-          
-          {/* Mobile scroll hint */}
-          <p className="text-center text-xs text-white/40 mt-4 md:hidden">
-            ← Swipe to see full table →
-          </p>
         </div>
       </section>
 
-<GradientDivider />
+      <GradientDivider />
 
       {/* Pricing Section */}
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
