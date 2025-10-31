@@ -207,7 +207,7 @@ export default function Home() {
         </motion.nav>
 
       {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
-      <HeroParallax>
+      <HeroParallax / />
         <VideoBackground />
       <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-16 md:pt-20">
         
@@ -354,7 +354,6 @@ export default function Home() {
           </div>
         </div>
 
-      </HeroParallax>
 
       <GradientDivider />
 
