@@ -6,8 +6,9 @@
     "location": "Lagos",
     "gender": "female",
     "age": 28,
-    "thumbnail": "/placeholder-headshot.png",
-    "rating": 5
+    "quote": "Built my portfolio in under a minute. This is witchcraft!",
+    "rating": 5,
+    "thumbnail": "/placeholder-headshot.png"
   },
   {
     "id": "lars-bergstrom",
@@ -16,8 +17,9 @@
     "location": "Stockholm",
     "gender": "male",
     "age": 35,
-    "thumbnail": "/placeholder-headshot.png",
-    "rating": 5
+    "quote": "Finally, a tool that gets me. No code, no stress.",
+    "rating": 5,
+    "thumbnail": "/placeholder-headshot.png"
   },
   {
     "id": "yuki-tanaka",
@@ -26,8 +28,9 @@
     "location": "Tokyo",
     "gender": "female",
     "age": 26,
-    "thumbnail": "/placeholder-headshot.png",
-    "rating": 5
+    "quote": "This saved my weekend. Literally magical.",
+    "rating": 4.5,
+    "thumbnail": "/placeholder-headshot.png"
   },
   {
     "id": "maya-johnson",
@@ -36,8 +39,9 @@
     "location": "NYC",
     "gender": "female",
     "age": 32,
-    "thumbnail": "/placeholder-headshot.png",
-    "rating": 5
+    "quote": "I showed my boss. Now everyone wants one.",
+    "rating": 4.5,
+    "thumbnail": "/placeholder-headshot.png"
   },
   {
     "id": "raj-patel",
@@ -46,8 +50,9 @@
     "location": "Mumbai",
     "gender": "male",
     "age": 29,
-    "thumbnail": "/placeholder-headshot.png",
-    "rating": 5
+    "quote": "From idea to live site in hours—game changer.",
+    "rating": 5,
+    "thumbnail": "/placeholder-headshot.png"
   },
   {
     "id": "sofia-lopez",
@@ -56,7 +61,8 @@
     "location": "Mexico City",
     "gender": "female",
     "age": 31,
-    "thumbnail": "/placeholder-headshot.png",
-    "rating": 5
+    "quote": "So intuitive, even my grandma could use it!",
+    "rating": 5,
+    "thumbnail": "/placeholder-headshot.png"
   }
 ]
