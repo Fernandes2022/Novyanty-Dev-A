@@ -25,6 +25,7 @@ import { shouldDisableHeavyEffects } from "@/lib/utils";
 import { ScrollingFeatures } from "@/components/home/ScrollingFeatures";
 import { VideoTestimonials } from "@/components/home/VideoTestimonials";
 import { VoiceIntro } from "@/components/home/VoiceIntro";
+import testimonials from "@/public/video-testimonials.json";
 export default function Home() {
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -534,16 +535,7 @@ export default function Home() {
             <p className="text-body opacity-80 max-w-2xl mx-auto">
               See what creators around the world are saying
             </p>
-          </motion.div>
-          <VideoTestimonials 
-            testimonials={[
-              { id: "amara-okafor", author: "Amara Okafor", role: "Designer", location: "Lagos", rating: 5, thumbnail: "https://replicate.delivery/xezq/OuCODSdQUZLzAVxLRlOeNskyN4u7URVae8Nhet4RZ2bvkYIrA/out-0.png", quote: "Built my portfolio in under a minute. This is witchcraft!" },
-              { id: "lars-bergstrom", author: "Lars Bergström", role: "Founder", location: "Stockholm", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/ewxftxc46Uu7L0fppY53tTLz8re6lAdt50jbeXZLEskgUihsC/out-0.png", quote: "Finally, a tool that gets me. No code, no stress." },
-              { id: "priya-malhotra", author: "Priya Malhotra", role: "Freelancer", location: "Mumbai", rating: 5, thumbnail: "https://replicate.delivery/xezq/jLppAHJRDy7LJRERkc3HNkzXfPrvTg4ZYUfUZYNUTajmSMkVA/out-0.png", quote: "My clients think I hired a whole dev team." },
-              { id: "carlos-mendoza", author: "Carlos Mendoza", role: "Startup Owner", location: "São Paulo", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/HLoIF6y4i46eUiDU9Lnc1PE7DXc6DL8SxqIHB99XCeQpSMkVA/out-0.png", quote: "Insanely fast. I had time left for coffee." },
-              { id: "yuki-tanaka", author: "Yuki Tanaka", role: "Creative", location: "Tokyo", rating: 5, thumbnail: "https://replicate.delivery/xezq/5NHu6edXzozjJKR0P1r30V8bbeQ0Rn1Th3OvvL0PYiSrSMkVA/out-0.png", quote: "This saved my weekend. Literally magical." },
-              { id: "maya-johnson", author: "Maya Johnson", role: "Marketing Lead", location: "NYC", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/50zBkHTdCabQFRuEH1HCYqfSAPmQDUqRqXlTmiOZYoBXJGyKA/out-0.png", quote: "I showed my boss. Now everyone wants one." }
-            ]}
+          <VideoTestimonials testimonials={testimonials} />
           />
         </div>
       </section>
