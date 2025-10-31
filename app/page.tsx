@@ -74,6 +74,8 @@ export default function Home() {
 
   const disableHeavy = typeof window !== "undefined" && shouldDisableHeavyEffects();
   return (
+      <HeroParallax />
+    
     <>
       <VoiceIntro />
     <main className="min-h-screen transition-colors duration-300">
@@ -205,7 +207,6 @@ export default function Home() {
             </div>
           </div>
         </motion.nav>
-
       {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
       <HeroParallax / />
         <VideoBackground />
