@@ -535,6 +535,7 @@ export default function Home() {
             <p className="text-body opacity-80 max-w-2xl mx-auto">
               See what creators around the world are saying
             </p>
+  );
+
     </>
   );
-          </motion.div>
