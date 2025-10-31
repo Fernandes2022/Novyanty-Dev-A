@@ -25,6 +25,56 @@ import { shouldDisableHeavyEffects } from "@/lib/utils";
 import { ScrollingFeatures } from "@/components/home/ScrollingFeatures";
 import { VideoTestimonials } from "@/components/home/VideoTestimonials";
 import { VoiceIntro } from "@/components/home/VoiceIntro";
+// Testimonials Data
+const testimonials = [
+  {
+    id: "1",
+    author: "Amara Johnson",
+    role: "E-commerce Founder",
+    location: "Nigeria",
+    thumbnail: "/images/testimonials/amara-johnson.png",
+    rating: 5,
+    quote: "Built my entire online store in 3 days. The voice input made it so natural!"
+  },
+  {
+    id: "2",
+    author: "Lars Bergström",
+    role: "Tech Startup CEO",
+    location: "Germany",
+    thumbnail: "/images/testimonials/lars-bergstrom.png",
+    rating: 5,
+    quote: "Revolutionary! No coding skills needed. Just speak and watch your vision come alive."
+  },
+  {
+    id: "3",
+    author: "Maya Johnson",
+    role: "Freelance Designer",
+    location: "USA",
+    thumbnail: "/images/testimonials/maya-johnson.png",
+    rating: 5,
+    quote: "This tool saved me weeks of work. My clients are absolutely blown away!"
+  },
+  {
+    id: "4",
+    author: "Raj Patel",
+    role: "Digital Marketer",
+    location: "India",
+    thumbnail: "/images/testimonials/raj-patel.png",
+    rating: 5,
+    quote: "Game-changer for my agency. We can prototype landing pages in minutes now."
+  },
+  {
+    id: "5",
+    author: "Sofia Lopez",
+    role: "Marketing Strategist",
+    location: "Mexico",
+    thumbnail: "/images/testimonials/sofia-lopez.png",
+    rating: 5,
+    quote: "Amazing AI technology. It understands exactly what I want to create!"
+  }
+];
+
+
 export default function Home() {
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -518,6 +568,7 @@ export default function Home() {
       </section>
 
       <GradientDivider />
+      <VideoTestimonials testimonials={testimonials} />
 
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
@@ -526,3 +577,104 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true, amount: 0.3 }} 
             transition={{ duration: 0.6 }} 
+>
+            <div className="text-center space-y-6">
+              <h2 className="text-section-title">Ready to Get Started?</h2>
+              <p className="text-body max-w-2xl mx-auto">
+                Join thousands of creators transforming their ideas into reality.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      <GradientDivider />
+      
+      {/* CTA Section */}
+      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold">
+              Still scrolling?
+            </h2>
+            <p className="text-xl md:text-2xl text-white/70">
+              That's not building.
+            </p>
+            <p className="text-lg text-white/60">
+              Let's fix that ⬇️
+            </p>
+            <Link href="/workspace">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-bold text-lg shadow-2xl hover:shadow-purple-500/50 transition-all"
+              >
+                Build My Site (Before I Overthink It)
+              </motion.button>
+            </Link>
+            <div className="flex items-center justify-center gap-8 pt-4 flex-wrap">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-sm text-white/60">Secure</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
+                <span className="text-sm text-white/60">Fast</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse" />
+                <span className="text-sm text-white/60">Loved</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* Footer */}
+      <footer className="border-t border-white/10 py-12 px-4 md:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4 gradient-text">Creative Workspace</h3>
+              <p className="text-sm text-white/60">The future of adaptive composition.</p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Product</h4>
+              <ul className="space-y-2 text-sm text-white/60">
+                <li><Link href="/workspace" className="hover:text-purple-400 transition-colors">Workspace</Link></li>
+                <li><Link href="/faq" className="hover:text-purple-400 transition-colors">FAQ</Link></li>
+                <li><Link href="/about" className="hover:text-purple-400 transition-colors">About</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm text-white/60">
+                <li><Link href="/privacy" className="hover:text-purple-400 transition-colors">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-purple-400 transition-colors">Terms</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Connect</h4>
+              <ul className="space-y-2 text-sm text-white/60">
+                <li><a href="#" className="hover:text-purple-400 transition-colors">𝕏 Twitter</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">🎵 TikTok</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">📸 Instagram</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-white/10 text-center text-sm text-white/60">
+            <p>© 2025 Creative Workspace. All rights reserved.</p>
+            <p className="mt-2">Built with ❤️ by creators, for creators.</p>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+    </>
+);
+}
