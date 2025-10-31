@@ -353,7 +353,6 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </section>
 
       </HeroParallax>
 
@@ -399,7 +398,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
 
       <GradientDivider />
 
@@ -429,7 +427,6 @@ export default function Home() {
             ]}
           />
         </div>
-      </section>
 
       <GradientDivider />
 
@@ -516,7 +513,6 @@ export default function Home() {
             )}
           </motion.div>
         </div>
-      </section>
 
       <GradientDivider />
 
@@ -536,15 +532,13 @@ export default function Home() {
               See what creators around the world are saying
             </p>
           <VideoTestimonials testimonials={testimonials} />
+          </motion.div>
         </div>
-      </section>
-      </section>
       <GradientDivider />
       <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
+          </motion.div>
+        </div>
+      </section>
             viewport={{ once: false, amount: 0.3 }} 
             transition={{ duration: 0.6 }}
           >
@@ -591,7 +585,6 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
-      </section>
 
       <motion.footer 
         initial={{ opacity: 0 }} 
