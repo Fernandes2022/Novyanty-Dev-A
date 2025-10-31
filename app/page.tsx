@@ -74,10 +74,11 @@ export default function Home() {
 
   const disableHeavy = typeof window !== "undefined" && shouldDisableHeavyEffects();
   return (
-      <HeroParallax />
     
     <>
       <VoiceIntro />
+      <HeroParallax />
+      <HeroParallax />
     <main className="min-h-screen transition-colors duration-300">
       <CursorTrail enabled={!disableHeavy} color="#7B5CFF" particleCount={1} />
       <VoiceGreeting autoPlay={!disableHeavy} position="bottom-left" onPlayingChange={setIsVoicePlaying} />
