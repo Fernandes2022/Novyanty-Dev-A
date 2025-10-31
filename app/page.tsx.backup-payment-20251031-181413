@@ -26,24 +26,6 @@ import { ScrollingFeatures } from "@/components/home/ScrollingFeatures";
 import { VideoTestimonials } from "@/components/home/VideoTestimonials";
 import { VoiceIntro } from "@/components/home/VoiceIntro";
 // Testimonials Data
-
-  // Payment handler for pricing plans
-  const handlePayment = (plan: 'basic' | 'pro' | 'premium') => {
-    const prices = {
-      basic: 'price_basic_999',  // Replace with your actual Stripe price IDs
-      pro: 'price_pro_2499',
-      premium: 'price_premium_4999'
-    };
-    
-    // Redirect to Stripe Checkout
-    window.location.href = `/api/checkout?plan=${plan}&priceId=${prices[plan]}`;
-  };
-
-  // Contact sales handler
-  const handleContactSales = () => {
-    window.location.href = '/contact-sales';
-  };
-
 const testimonials = [
   {
     id: "1",
@@ -797,7 +779,7 @@ export default function Home() {
                   <span className="text-sm">Email support</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("basic")} className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">
+              <button className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform">
                 Get Started
               </button>
             </motion.div>
@@ -840,7 +822,7 @@ export default function Home() {
                   <span className="text-sm">Priority support</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("pro")} className="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">
+              <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-3 rounded-xl font-semibold hover:scale-105 transition-transform">
                 Get Started
               </button>
             </motion.div>
@@ -880,7 +862,7 @@ export default function Home() {
                   <span className="text-sm">Dedicated account manager</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("basic")} className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">
+              <button className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform">
                 Contact Sales
               </button>
             </motion.div>

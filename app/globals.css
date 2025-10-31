@@ -165,3 +165,26 @@ button:hover, .btn:hover, [role="button"]:hover {
   font-weight: 800 !important;
   filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.5));
 }
+
+/* Hero section mobile optimizations */
+@media (max-width: 768px) {
+  /* Ensure hero content is readable with left-aligned video */
+  .hero-section .relative.z-10 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  /* Adjust hero text for better readability with left video */
+  .hero-section h1,
+  .hero-section .text-5xl,
+  .hero-section .text-6xl {
+    text-align: left;
+    padding-right: 2rem;
+  }
+  
+  /* Video background positioning for mobile */
+  .hero-section > .absolute:has(video) {
+    left: 0 !important;
+    transform: translateX(-10%) !important;
+  }
+}
