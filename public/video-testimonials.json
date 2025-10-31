@@ -4,65 +4,53 @@
     "author": "Amara Okafor",
     "role": "Designer",
     "location": "Lagos",
-    "gender": "female",
-    "age": 28,
-    "quote": "Built my portfolio in under a minute. This is witchcraft!",
-    "rating": 4.5,
-    "thumbnail": {}
+    "rating": 5,
+    "thumbnail": "/images/amara-okafor.png",
+    "quote": "Built my portfolio in under a minute. This is witchcraft!"
   },
   {
     "id": "lars-bergstrom",
     "author": "Lars Bergström",
     "role": "Founder",
     "location": "Stockholm",
-    "gender": "male",
-    "age": 35,
-    "quote": "Finally, a tool that gets me. No code, no stress.",
     "rating": 4.5,
-    "thumbnail": {}
+    "thumbnail": "/images/lars-bergstrom.png",
+    "quote": "Finally, a tool that gets me. No code, no stress."
   },
   {
     "id": "yuki-tanaka",
     "author": "Yuki Tanaka",
     "role": "Creative",
     "location": "Tokyo",
-    "gender": "female",
-    "age": 26,
-    "quote": "This saved my weekend. Literally magical.",
-    "rating": 4.5,
-    "thumbnail": {}
+    "rating": 5,
+    "thumbnail": "/images/yuki-tanaka.png",
+    "quote": "This saved my weekend. Literally magical."
   },
   {
     "id": "maya-johnson",
     "author": "Maya Johnson",
     "role": "Marketing Lead",
     "location": "NYC",
-    "gender": "female",
-    "age": 32,
-    "quote": "I showed my boss. Now everyone wants one.",
-    "rating": 5.5,
-    "thumbnail": {}
+    "rating": 4.5,
+    "thumbnail": "/images/maya-johnson.png",
+    "quote": "I showed my boss. Now everyone wants one."
   },
   {
     "id": "raj-patel",
     "author": "Raj Patel",
     "role": "Developer",
     "location": "Mumbai",
-    "gender": "male",
-    "age": 29,
-    "quote": "From idea to live site in hours—game changer.",
-    "rating": 5.5,
-    "thumbnail": {}
+    "rating": 5,
+    "thumbnail": "/images/raj-patel.png",
+    "quote": "From idea to live site in hours—game changer."
   },
   {
     "id": "sofia-lopez",
     "author": "Sofia Lopez",
     "role": "Artist",
     "location": "Mexico City",
-    "gender": "female",
-    "age": 31,
-    "quote": "So intuitive, even my grandma could use it!",
     "rating": 4.5,
-    "thumbnail": {}
+    "thumbnail": "/images/sofia-lopez.png",
+    "quote": "So intuitive, even my grandma could use it!"
   }
 ]

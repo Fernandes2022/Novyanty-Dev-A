@@ -53,7 +53,7 @@ export function VideoBackground() {
         playsInline
         preload="auto"
       >
-        <source src="/videos/How much FPS.mp4" type="video/mp4" />
+        <source src="/videos/x-large-vecteezy_young-girl-which-applying-virtual-reality-headset-during_13279729_x-large.mp4" type="video/mp4" />
       </video>
     </div>
   );
