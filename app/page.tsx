@@ -536,6 +536,7 @@ export default function Home() {
               See what creators around the world are saying
             </p>
           <VideoTestimonials testimonials={testimonials} />
+          </motion.div>
         </div>
       </section>
       <GradientDivider />
