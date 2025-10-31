@@ -74,11 +74,8 @@ export default function Home() {
 
   const disableHeavy = typeof window !== "undefined" && shouldDisableHeavyEffects();
   return (
-    
     <>
       <VoiceIntro />
-      <HeroParallax />
-      <HeroParallax />
     <main className="min-h-screen transition-colors duration-300">
       <CursorTrail enabled={!disableHeavy} color="#7B5CFF" particleCount={1} />
       <VoiceGreeting autoPlay={!disableHeavy} position="bottom-left" onPlayingChange={setIsVoicePlaying} />
@@ -208,11 +205,12 @@ export default function Home() {
             </div>
           </div>
         </motion.nav>
+
       {/* HERO - TEXT POSITIONED IN LOWER HALF WITH MARGIN-TOP */}
+      <HeroParallax>
         <VideoBackground />
       <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-16 md:pt-20">
         
-        <HeroParallax />
         <div className="absolute inset-0 pointer-events-none">
           {[
             { left: "15%", top: "20%" },
@@ -355,7 +353,9 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+      </section>
 
+      </HeroParallax>
 
       <GradientDivider />
 
@@ -399,6 +399,7 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
 
       <GradientDivider />
 
@@ -428,6 +429,7 @@ export default function Home() {
             ]}
           />
         </div>
+      </section>
 
       <GradientDivider />
 
@@ -514,6 +516,7 @@ export default function Home() {
             )}
           </motion.div>
         </div>
+      </section>
 
       <GradientDivider />
 
@@ -532,14 +535,25 @@ export default function Home() {
             <p className="text-body opacity-80 max-w-2xl mx-auto">
               See what creators around the world are saying
             </p>
-          <VideoTestimonials testimonials={testimonials} />
           </motion.div>
-        </div>
-      <GradientDivider />
-      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
-          </motion.div>
+          <VideoTestimonials 
+            testimonials={[
+              { id: "amara-okafor", author: "Amara Okafor", role: "Designer", location: "Lagos", rating: 5, thumbnail: "https://replicate.delivery/xezq/OuCODSdQUZLzAVxLRlOeNskyN4u7URVae8Nhet4RZ2bvkYIrA/out-0.png", quote: "Built my portfolio in under a minute. This is witchcraft!" },
+              { id: "lars-bergstrom", author: "Lars Bergström", role: "Founder", location: "Stockholm", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/ewxftxc46Uu7L0fppY53tTLz8re6lAdt50jbeXZLEskgUihsC/out-0.png", quote: "Finally, a tool that gets me. No code, no stress." },
+              { id: "priya-malhotra", author: "Priya Malhotra", role: "Freelancer", location: "Mumbai", rating: 5, thumbnail: "https://replicate.delivery/xezq/jLppAHJRDy7LJRERkc3HNkzXfPrvTg4ZYUfUZYNUTajmSMkVA/out-0.png", quote: "My clients think I hired a whole dev team." },
+              { id: "carlos-mendoza", author: "Carlos Mendoza", role: "Startup Owner", location: "São Paulo", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/HLoIF6y4i46eUiDU9Lnc1PE7DXc6DL8SxqIHB99XCeQpSMkVA/out-0.png", quote: "Insanely fast. I had time left for coffee." },
+              { id: "yuki-tanaka", author: "Yuki Tanaka", role: "Creative", location: "Tokyo", rating: 5, thumbnail: "https://replicate.delivery/xezq/5NHu6edXzozjJKR0P1r30V8bbeQ0Rn1Th3OvvL0PYiSrSMkVA/out-0.png", quote: "This saved my weekend. Literally magical." },
+              { id: "maya-johnson", author: "Maya Johnson", role: "Marketing Lead", location: "NYC", rating: 4.5, thumbnail: "https://replicate.delivery/xezq/50zBkHTdCabQFRuEH1HCYqfSAPmQDUqRqXlTmiOZYoBXJGyKA/out-0.png", quote: "I showed my boss. Now everyone wants one." }
+            ]}
+          />
         </div>
       </section>
+      <GradientDivider />
+      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: false, amount: 0.3 }} 
             transition={{ duration: 0.6 }}
           >
@@ -586,6 +600,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
+      </section>
 
       <motion.footer 
         initial={{ opacity: 0 }} 
