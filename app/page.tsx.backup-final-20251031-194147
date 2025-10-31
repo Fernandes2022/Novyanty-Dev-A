@@ -173,8 +173,7 @@ export default function Home() {
 
             <div className="relative aspect-video bg-black">
               <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                <source src="/VIDEO-2025-10-31-20-16-50.mp4" type="video/mp4" media="(max-width: 768px)" />
-              <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
+                <source src="/videos/user-ai-generation-FomhdaM140Cu-1080p.mp4" type="video/mp4" />
               </video>
               
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/90 to-transparent">

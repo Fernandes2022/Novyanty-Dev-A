@@ -194,3 +194,18 @@ button:hover, .btn:hover, [role="button"]:hover {
     transform: none !important;
   }
 }
+
+/* Mobile Video - Use uploaded video */
+@media (max-width: 768px) {
+  .hero-video-background {
+    /* This will be used for the uploaded mobile video */
+    height: 100vh !important;
+    width: auto !important;
+    min-width: 100% !important;
+    object-fit: cover !important;
+    object-position: left center !important;
+    left: 0 !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}
