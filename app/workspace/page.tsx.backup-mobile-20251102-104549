@@ -27,7 +27,6 @@ export default function Workspace() {
   const [directive, setDirective] = useLocalStorage("workspace_directive", "");
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [previewContent, setPreviewContent] = useState<string | null>(null);
   const [isComposing, setIsComposing] = useState(false);

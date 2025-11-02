@@ -2,7 +2,7 @@
 import "./performance.css";
 import Link from "next/link";
 import { motion, useScroll, useInView } from "framer-motion";
-import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Mic, Keyboard, Palette, Lock, Clock, Heart, Star, Shuffle, Eye, Menu, X } from "lucide-react";
+import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Mic, Keyboard, Palette, Lock, Clock, Heart, Star, Shuffle } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { GlowLayer } from "./components/GlowLayer";
 import { Tooltip } from "./components/Tooltip";
@@ -95,7 +95,6 @@ const testimonials = [
 
 export default function Home() {
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const [showDemoVideo, setShowDemoVideo] = useState(false);
   const [chaosMode, setChaosMode] = useState(false);
@@ -252,60 +251,16 @@ export default function Home() {
               
               {/* Mobile - Simplified */}
               <div className="md:hidden flex items-center gap-2">
-                <button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="p-2 text-white hover:text-purple-400 transition-colors"
-                  aria-label="Toggle menu"
-                >
-                  {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </button>
+                <Link href="/workspace">
+                  <motion.button 
+                    whileTap={{ scale: 0.95 }} 
+                    className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-sm text-white shadow-lg"
+                  >
+                    Get Started
+                  </motion.button>
+                </Link>
               </div>
             </div>
-
-            {/* Mobile Menu Dropdown */}
-            {mobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="md:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl"
-              >
-                <div className="px-4 py-6 space-y-4">
-                  <Link
-                    href="/about"
-                    className="block text-white hover:text-purple-400 transition-colors py-2"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                  <a
-                    href="#pricing"
-                    className="block text-white hover:text-purple-400 transition-colors py-2"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Pricing
-                  </a>
-                  <Link
-                    href="/faq"
-                    className="block text-white hover:text-purple-400 transition-colors py-2"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    FAQ
-                  </Link>
-                  <div className="pt-4 border-t border-white/10">
-                    <Link href="/workspace">
-                      <motion.button 
-                        whileTap={{ scale: 0.95 }} 
-                        className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-bold text-white shadow-lg"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        Get Started
-                      </motion.button>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            )}
           </div>
         </motion.nav>
 
@@ -357,8 +312,9 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
-                  fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-                  lineHeight: '1.2',
+                  fontSize: 'clamp(2.5rem, 8vw, 4rem)',
+                  lineHeight: '1.1',
+                  whiteSpace: 'nowrap',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
               >
@@ -414,7 +370,7 @@ export default function Home() {
               >
                 {[
                   { icon: Star, value: 4.98, suffix: "", label: "50K+ users", decimals: 2 },
-                  { icon: Eye, value: 50, suffix: " sec", label: "Build Time", decimals: 0 },
+                  { icon: Zap, value: 50, suffix: " sec", label: "Build Time", decimals: 0 },
                   { icon: Rocket, value: 99.9, suffix: "%", label: "Uptime", decimals: 1 }
                 ].map((stat, i) => (
                   <motion.div 
@@ -481,7 +437,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               { step: "1️⃣", title: "Say It", desc: "Use your voice. We actually listen (unlike your ex).", icon: Mic, color: "from-purple-500 to-pink-500" },
-              { step: "2️⃣", title: "Watch It Build", desc: "Sit back. Pretend you're productive.", icon: Eye, color: "from-blue-500 to-cyan-500" },
+              { step: "2️⃣", title: "Watch It Build", desc: "Sit back. Pretend you're productive.", icon: Zap, color: "from-blue-500 to-cyan-500" },
               { step: "3️⃣", title: "Launch It", desc: "One click and boom — you're a founder.", icon: Rocket, color: "from-green-500 to-emerald-500" }
             ].map((item, i) => (
               <motion.div 

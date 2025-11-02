@@ -278,7 +278,7 @@ export default function Home() {
                   >
                     About
                   </Link>
-                  <a
+                  
                     href="#pricing"
                     className="block text-white hover:text-purple-400 transition-colors py-2"
                     onClick={() => setMobileMenuOpen(false)}
@@ -306,6 +306,8 @@ export default function Home() {
                 </div>
               </motion.div>
             )}
+          </div>
+        </motion.nav>
           </div>
         </motion.nav>
 
@@ -357,8 +359,9 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
-                  fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-                  lineHeight: '1.2',
+                  fontSize: 'clamp(2.5rem, 8vw, 4rem)',
+                  lineHeight: '1.1',
+                  whiteSpace: 'nowrap',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
               >
@@ -414,7 +417,7 @@ export default function Home() {
               >
                 {[
                   { icon: Star, value: 4.98, suffix: "", label: "50K+ users", decimals: 2 },
-                  { icon: Eye, value: 50, suffix: " sec", label: "Build Time", decimals: 0 },
+                  { icon: Zap, value: 50, suffix: " sec", label: "Build Time", decimals: 0 },
                   { icon: Rocket, value: 99.9, suffix: "%", label: "Uptime", decimals: 1 }
                 ].map((stat, i) => (
                   <motion.div 
