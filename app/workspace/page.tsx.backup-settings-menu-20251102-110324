@@ -28,7 +28,6 @@ export default function Workspace() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [previewContent, setPreviewContent] = useState<string | null>(null);
   const [isComposing, setIsComposing] = useState(false);
@@ -271,47 +270,16 @@ export default function Workspace() {
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSettingsMenuOpen(!settingsMenuOpen)}
-                className="p-2.5 glass rounded-xl hover:bg-white/10 transition-colors relative"
+                onClick={() => setShowSettings(true)}
+                className="p-2.5 glass rounded-xl hover:bg-white/10 transition-colors"
               >
                 <Settings className="h-5 w-5" />
-                
-                {/* Settings Dropdown Menu */}
-                {settingsMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-xl border border-white/10 shadow-xl z-50 overflow-hidden"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <button
-                      onClick={() => {
-                        setShowSettings(true);
-                        setSettingsMenuOpen(false);
-                      }}
-                      className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3"
-                    >
-                      <Settings className="h-4 w-4" />
-                      Settings
-                    </button>
-                    <button
-                      onClick={() => {
-                        setShowSignIn(true);
-                        setSettingsMenuOpen(false);
-                      }}
-                      className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3 border-t border-white/10"
-                    >
-                      <Lock className="h-4 w-4" />
-                      Sign In
-                    </button>
-                  </motion.div>
-                )}
               </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowSignIn(true)}
-                className="hidden px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition"
+                className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition"
               >
                 Sign In
               </motion.button>
