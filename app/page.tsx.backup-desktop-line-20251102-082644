@@ -173,7 +173,8 @@ export default function Home() {
 
             <div className="relative aspect-video bg-black">
               <video autoPlay loop muted playsInline className="w-full h-full object-cover hero-video-background">
-                <source src="/videos/How much FPS.mp4" type="video/mp4" />
+                <source src="/videos/VIDEO-2025-10-31-20-16-50.mp4" type="video/mp4" media="(max-width: 768px)" />
+                <source src="/videos/x-large-vecteezy_young-girl-which-applying-virtual-reality-headset-during_13279729_x-large.mp4" type="video/mp4" />
               </video>
               
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/90 to-transparent">
@@ -227,7 +228,7 @@ export default function Home() {
                 initial={{ scale: 0 }} 
                 animate={{ scale: 1 }} 
                 transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-                className="hidden md:flex flex-1 items-center justify-end gap-10"
+                className="hidden md:flex flex-1 items-center justify-end gap-6"
               >
                 
 
@@ -312,7 +313,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
-                  fontSize: 'clamp(3rem, 10vw, 5rem)',
+                  fontSize: 'clamp(3rem, 10vw, 7rem)',
                   lineHeight: '1.1',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}

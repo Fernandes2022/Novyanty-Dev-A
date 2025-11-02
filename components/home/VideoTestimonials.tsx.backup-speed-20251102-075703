@@ -30,7 +30,7 @@ export function VideoTestimonials({ testimonials }: VideoTestimonialsProps) {
           x: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: 45,
+            duration: 25,
             ease: "linear",
           },
         }}

@@ -173,7 +173,8 @@ export default function Home() {
 
             <div className="relative aspect-video bg-black">
               <video autoPlay loop muted playsInline className="w-full h-full object-cover hero-video-background">
-                <source src="/videos/How much FPS.mp4" type="video/mp4" />
+                <source src="/videos/VIDEO-2025-10-31-20-16-50.mp4" type="video/mp4" media="(max-width: 768px)" />
+                <source src="/videos/x-large-vecteezy_young-girl-which-applying-virtual-reality-headset-during_13279729_x-large.mp4" type="video/mp4" />
               </video>
               
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/90 to-transparent">
@@ -227,7 +228,7 @@ export default function Home() {
                 initial={{ scale: 0 }} 
                 animate={{ scale: 1 }} 
                 transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-                className="hidden md:flex flex-1 items-center justify-end gap-10"
+                className="hidden md:flex flex-1 items-center justify-end gap-6"
               >
                 
 
@@ -312,7 +313,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
-                  fontSize: 'clamp(3rem, 10vw, 5rem)',
+                  fontSize: 'clamp(3rem, 10vw, 7rem)',
                   lineHeight: '1.1',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
@@ -706,17 +707,17 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="glass-card rounded-2xl md:rounded-3xl overflow-hidden">
+          <div className="glass-card rounded-2xl md:rounded-3xl overflow-hidden overflow-x-auto">
             {/* Header Row */}
-            <div className="grid grid-cols-3 divide-x divide-white/10">
-              <div className="p-1.5 md:p-8 text-center bg-white/5">
-                <h3 className="text-[10px] md:text-xl font-bold">Metric</h3>
+            <div className="grid grid-cols-3 divide-x divide-white/10 min-w-[600px] md:min-w-0">
+              <div className="p-3 md:p-8 text-center bg-white/5">
+                <h3 className="text-xs md:text-xl font-bold">Metric</h3>
               </div>
-              <div className="p-1.5 md:p-8 text-center">
-                <h3 className="text-[10px] md:text-xl font-bold text-red-400">Traditional</h3>
+              <div className="p-3 md:p-8 text-center">
+                <h3 className="text-xs md:text-xl font-bold text-red-400">Traditional</h3>
               </div>
-              <div className="p-1.5 md:p-8 text-center bg-gradient-to-br from-purple-500/20 to-pink-500/20">
-                <h3 className="text-[10px] md:text-xl font-bold gradient-text">Creative Workspace</h3>
+              <div className="p-3 md:p-8 text-center bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                <h3 className="text-xs md:text-xl font-bold gradient-text">Creative Workspace</h3>
               </div>
             </div>
 
@@ -734,17 +735,19 @@ export default function Home() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="grid grid-cols-3 divide-x divide-white/10 border-t border-white/10"
+                className="grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 min-w-[600px] md:min-w-0"
               >
-                <div className="p-1.5 md:p-6 font-semibold text-[9px] md:text-base leading-tight">{row.metric}</div>
-                <div className="p-1.5 md:p-6 text-white/60 text-[9px] md:text-base leading-tight">{row.traditional}</div>
-                <div className="p-1.5 md:p-6 text-green-400 font-semibold text-[9px] md:text-base leading-tight">{row.workspace}</div>
+                <div className="p-3 md:p-6 font-semibold text-xs md:text-base">{row.metric}</div>
+                <div className="p-3 md:p-6 text-white/60 text-xs md:text-base">{row.traditional}</div>
+                <div className="p-3 md:p-6 text-green-400 font-semibold text-xs md:text-base">{row.workspace}</div>
               </motion.div>
             ))}
           </div>
           
           {/* Mobile scroll hint */}
-          
+          <p className="text-center text-xs text-white/40 mt-4 md:hidden">
+            ← Swipe to see full table →
+          </p>
         </div>
       </section>
 
@@ -772,10 +775,8 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0 }}
-              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform relative border-2 border-blue-500">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-1 rounded-full text-sm font-bold">
-                STARTER
-              </div>
+              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform"
+            >
               <h3 className="text-2xl font-bold mb-2">Basic</h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold">$9.99</span>
@@ -853,10 +854,8 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform relative border-2 border-yellow-500">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-500 px-4 py-1 rounded-full text-sm font-bold">
-                ENTERPRISE
-              </div>
+              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform"
+            >
               <h3 className="text-2xl font-bold mb-2">Premium</h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold">$49.99</span>
@@ -884,7 +883,8 @@ export default function Home() {
                   <span className="text-sm">Dedicated account manager</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("premium")} className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">Get Started
+              <button onClick={() => handlePayment("basic")} className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">
+                Contact Sales
               </button>
             </motion.div>
           </div>

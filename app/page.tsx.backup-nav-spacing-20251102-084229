@@ -227,7 +227,7 @@ export default function Home() {
                 initial={{ scale: 0 }} 
                 animate={{ scale: 1 }} 
                 transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-                className="hidden md:flex flex-1 items-center justify-end gap-10"
+                className="hidden md:flex flex-1 items-center justify-end gap-6"
               >
                 
 

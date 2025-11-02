@@ -173,12 +173,13 @@ export default function Home() {
 
             <div className="relative aspect-video bg-black">
               <video autoPlay loop muted playsInline className="w-full h-full object-cover hero-video-background">
-                <source src="/videos/How much FPS.mp4" type="video/mp4" />
+                <source src="/videos/VIDEO-2025-10-31-20-16-50.mp4" type="video/mp4" media="(max-width: 768px)" />
+                <source src="/videos/x-large-vecteezy_young-girl-which-applying-virtual-reality-headset-during_13279729_x-large.mp4" type="video/mp4" />
               </video>
               
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/90 to-transparent">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="space-y-3">
-                  <h3 className="text-2xl md:text-4xl font-bold text-white">How It Works</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-white">How It Works</h3>
                   <div className="space-y-2 text-sm md:text-base text-white">
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="flex items-start gap-2">
                       <span className="text-purple-400 font-bold">1.</span>
@@ -227,7 +228,7 @@ export default function Home() {
                 initial={{ scale: 0 }} 
                 animate={{ scale: 1 }} 
                 transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200, damping: 15 }} 
-                className="hidden md:flex flex-1 items-center justify-end gap-10"
+                className="hidden md:flex flex-1 items-center justify-end gap-6"
               >
                 
 
@@ -312,7 +313,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
-                  fontSize: 'clamp(3rem, 10vw, 5rem)',
+                  fontSize: 'clamp(3rem, 10vw, 7rem)',
                   lineHeight: '1.1',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
@@ -425,10 +426,10 @@ export default function Home() {
             transition={{ duration: 0.6 }} 
             className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-5xl md:text-6xl mb-3 md:mb-4">
+            <h2 className="text-section-title mb-3 md:mb-4">
               How It <span className="gradient-text">Works</span>
             </h2>
-            <p className="text-xl md:text-2xl opacity-80 max-w-2xl mx-auto">
+            <p className="text-body opacity-80 max-w-2xl mx-auto">
               Three steps to your dream website. Seriously, that's it.
             </p>
           </motion.div>
@@ -447,11 +448,12 @@ export default function Home() {
                 whileHover={{ scale: 1.03, y: -5 }} 
                 className="card-dark group cursor-pointer"
               >
+                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4`}>
+                  <item.icon className="h-6 w-6 md:h-7 md:w-7 text-white" />
+                </div>
                 <div className="text-2xl md:text-3xl mb-3">{item.step}</div>
-                <h3 className="text-card-title mb-2 md:mb-3 flex items-center gap-2">
-                  {item.title} <item.icon className="h-6 w-6 inline-block text-purple-400" />
-                </h3>
-                <p className="text-xl md:text-2xl opacity-80 leading-relaxed">{item.desc}</p>
+                <h3 className="text-card-title mb-2 md:mb-3">{item.title}</h3>
+                <p className="text-body opacity-80 leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -468,10 +470,10 @@ export default function Home() {
             transition={{ duration: 0.6 }} 
             className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-5xl md:text-6xl mb-3 md:mb-4">
+            <h2 className="text-section-title mb-3 md:mb-4">
               Why We're <span className="gradient-text">Different</span>
             </h2>
-            <p className="text-xl md:text-2xl opacity-80 max-w-2xl mx-auto">
+            <p className="text-body opacity-80 max-w-2xl mx-auto">
               Loved by designers · hated by procrastination
             </p>
           </motion.div>
@@ -498,10 +500,10 @@ export default function Home() {
             transition={{ duration: 0.6 }} 
             className="text-center mb-10 md:mb-12"
           >
-            <h2 className="text-5xl md:text-6xl mb-3 md:mb-4">
+            <h2 className="text-section-title mb-3 md:mb-4">
               Try It <span className="gradient-text">Live</span>
             </h2>
-            <p className="text-xl md:text-2xl opacity-80">
+            <p className="text-body opacity-80">
               Type what you want. Watch the magic happen.
             </p>
           </motion.div>
@@ -525,14 +527,14 @@ export default function Home() {
               value={demoInput}
               onChange={(e) => setDemoInput(e.target.value)}
               placeholder="Try: 'Make me a portfolio site with a dark theme'"
-              className="w-full h-32 px-4 md:px-6 py-3 md:py-4 glass bg-[#14161f]/60 border-2 border-white/10 rounded-xl placeholder-opacity-50 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none resize-none text-xl md:text-2xl"
+              className="w-full h-32 px-4 md:px-6 py-3 md:py-4 glass bg-[#14161f]/60 border-2 border-white/10 rounded-xl placeholder-opacity-50 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none resize-none text-body"
             />
 
-            <div className="flex flex-col sm:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-3">
               <motion.button 
                 onClick={handleGenerate} 
                 disabled={isGenerating || !demoInput.trim()} 
-                whileHover={{ scale: 1.02 }} 
+                whileHover={{ scale: 1.03 }} 
                 whileTap={{ scale: 0.97 }} 
                 className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -541,7 +543,7 @@ export default function Home() {
               
               <motion.button 
                 onClick={() => { setChaosMode(!chaosMode); if (demoInput.trim()) { setShowPreview(true); } }} 
-                whileHover={{ scale: 1.02 }} 
+                whileHover={{ scale: 1.03 }} 
                 whileTap={{ scale: 0.97 }} 
                 className={`px-4 md:px-6 py-3 rounded-xl font-bold transition-all ${chaosMode ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white' : 'glass border-2 border-white/20 hover:bg-white/10'}`}
               >
@@ -589,8 +591,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl md:text-6xl mb-4">Trusted by Creators Worldwide</h2>
-            <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+            <h2 className="text-section-title mb-4">Trusted by Creators Worldwide</h2>
+            <p className="text-body max-w-2xl mx-auto">
               Join thousands of satisfied creators who have transformed their ideas into reality
             </p>
           </motion.div>
@@ -633,8 +635,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl md:text-6xl mb-4">Who It's For</h2>
-            <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+            <h2 className="text-section-title mb-4">Who It's For</h2>
+            <p className="text-body max-w-2xl mx-auto">
               Perfect for anyone who wants to bring their vision to life without the complexity
             </p>
           </motion.div>
@@ -665,11 +667,6 @@ export default function Home() {
                 icon: "🎯",
                 title: "Agencies",
                 description: "Deliver client projects faster and increase your profit margins"
-              },
-              {
-                icon: "✍️",
-                title: "Bloggers & Writers",
-                description: "Create your personal blog or publication without technical headaches"
               }
             ].map((useCase, index) => (
               <motion.div
@@ -700,23 +697,23 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl md:text-6xl mb-4">Why Choose Creative Workspace?</h2>
-            <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+            <h2 className="text-section-title mb-4">Why Choose Creative Workspace?</h2>
+            <p className="text-body max-w-2xl mx-auto">
               See how we compare to traditional development approaches
             </p>
           </motion.div>
 
-          <div className="glass-card rounded-2xl md:rounded-3xl overflow-hidden">
+          <div className="glass-card rounded-2xl md:rounded-3xl overflow-hidden overflow-x-auto">
             {/* Header Row */}
-            <div className="grid grid-cols-3 divide-x divide-white/10">
-              <div className="p-1.5 md:p-8 text-center bg-white/5">
-                <h3 className="text-[10px] md:text-xl font-bold">Metric</h3>
+            <div className="grid grid-cols-3 divide-x divide-white/10 min-w-[600px] md:min-w-0">
+              <div className="p-3 md:p-8 text-center bg-white/5">
+                <h3 className="text-xs md:text-xl font-bold">Metric</h3>
               </div>
-              <div className="p-1.5 md:p-8 text-center">
-                <h3 className="text-[10px] md:text-xl font-bold text-red-400">Traditional</h3>
+              <div className="p-3 md:p-8 text-center">
+                <h3 className="text-xs md:text-xl font-bold text-red-400">Traditional</h3>
               </div>
-              <div className="p-1.5 md:p-8 text-center bg-gradient-to-br from-purple-500/20 to-pink-500/20">
-                <h3 className="text-[10px] md:text-xl font-bold gradient-text">Creative Workspace</h3>
+              <div className="p-3 md:p-8 text-center bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                <h3 className="text-xs md:text-xl font-bold gradient-text">Creative Workspace</h3>
               </div>
             </div>
 
@@ -734,17 +731,19 @@ export default function Home() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="grid grid-cols-3 divide-x divide-white/10 border-t border-white/10"
+                className="grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 min-w-[600px] md:min-w-0"
               >
-                <div className="p-1.5 md:p-6 font-semibold text-[9px] md:text-base leading-tight">{row.metric}</div>
-                <div className="p-1.5 md:p-6 text-white/60 text-[9px] md:text-base leading-tight">{row.traditional}</div>
-                <div className="p-1.5 md:p-6 text-green-400 font-semibold text-[9px] md:text-base leading-tight">{row.workspace}</div>
+                <div className="p-3 md:p-6 font-semibold text-xs md:text-base">{row.metric}</div>
+                <div className="p-3 md:p-6 text-white/60 text-xs md:text-base">{row.traditional}</div>
+                <div className="p-3 md:p-6 text-green-400 font-semibold text-xs md:text-base">{row.workspace}</div>
               </motion.div>
             ))}
           </div>
           
           {/* Mobile scroll hint */}
-          
+          <p className="text-center text-xs text-white/40 mt-4 md:hidden">
+            ← Swipe to see full table →
+          </p>
         </div>
       </section>
 
@@ -759,8 +758,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl md:text-6xl mb-4">🚀 Go Live & Unlock Premium</h2>
-            <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+            <h2 className="text-section-title mb-4">🚀 Go Live & Unlock Premium</h2>
+            <p className="text-body max-w-2xl mx-auto">
               Choose your plan and start creating without limits
             </p>
           </motion.div>
@@ -772,10 +771,8 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0 }}
-              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform relative border-2 border-blue-500">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-1 rounded-full text-sm font-bold">
-                STARTER
-              </div>
+              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform"
+            >
               <h3 className="text-2xl font-bold mb-2">Basic</h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold">$9.99</span>
@@ -853,10 +850,8 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform relative border-2 border-yellow-500">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-500 px-4 py-1 rounded-full text-sm font-bold">
-                ENTERPRISE
-              </div>
+              className="glass-card p-8 rounded-3xl hover:scale-105 transition-transform"
+            >
               <h3 className="text-2xl font-bold mb-2">Premium</h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold">$49.99</span>
@@ -884,7 +879,8 @@ export default function Home() {
                   <span className="text-sm">Dedicated account manager</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("premium")} className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">Get Started
+              <button onClick={() => handlePayment("basic")} className="w-full glass-button py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">
+                Contact Sales
               </button>
             </motion.div>
           </div>
@@ -900,8 +896,8 @@ export default function Home() {
             transition={{ duration: 0.6 }} 
 >
             <div className="text-center space-y-6">
-              <h2 className="text-5xl md:text-6xl">Ready to Get Started?</h2>
-              <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+              <h2 className="text-section-title">Ready to Get Started?</h2>
+              <p className="text-body max-w-2xl mx-auto">
                 Join thousands of creators transforming their ideas into reality.
               </p>
             </div>
