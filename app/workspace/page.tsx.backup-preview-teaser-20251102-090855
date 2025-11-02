@@ -653,53 +653,6 @@ export default function Workspace() {
               </motion.div>
             )}
 
-
-            {/* Preview Variants Teaser - Shows when empty */}
-            {samplePreviews.length === 0 && (
-              <motion.div 
-                className="card-dark"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                  <motion.span
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  >
-                    🎨
-                  </motion.span>
-                  Live Preview Variants
-                </h3>
-                <div className="space-y-4">
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    Your design variations will appear here once you tap <strong className="text-purple-400">Compose</strong>.
-                  </p>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[1, 2, 3, 4].map((i) => (
-                      <motion.div
-                        key={i}
-                        className="aspect-video rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-white/5 flex items-center justify-center relative overflow-hidden"
-                        animate={{ 
-                          opacity: [0.4, 0.7, 0.4],
-                        }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          delay: i * 0.2
-                        }}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent" />
-                        <Sparkles className="h-6 w-6 text-purple-400/30" />
-                      </motion.div>
-                    ))}
-                  </div>
-                  <div className="pt-2 text-xs text-gray-500 text-center">
-                    Multiple variants • Real-time preview • One-click selection
-                  </div>
-                </div>
-              </motion.div>
-            )}
             {previewContent && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}

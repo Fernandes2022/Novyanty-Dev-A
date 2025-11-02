@@ -312,9 +312,8 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }} 
                 className="text-hero px-4 max-w-7xl mx-auto"
                 style={{
-                  fontSize: 'clamp(2.5rem, 8vw, 4rem)',
+                  fontSize: 'clamp(3rem, 10vw, 5rem)',
                   lineHeight: '1.1',
-                  whiteSpace: 'nowrap',
                   textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)'
                 }}
               >
@@ -800,7 +799,7 @@ export default function Home() {
                   <span className="text-sm">Email support</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("basic")} className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 py-3 rounded-xl font-semibold hover:scale-105 transition-all cursor-pointer">
+              <button onClick={() => handlePayment("basic")} className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">
                 Get Started
               </button>
             </motion.div>
@@ -843,7 +842,7 @@ export default function Home() {
                   <span className="text-sm">Priority support</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("pro")} className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 py-3 rounded-xl font-semibold hover:scale-105 transition-all cursor-pointer">
+              <button onClick={() => handlePayment("pro")} className="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">
                 Get Started
               </button>
             </motion.div>
@@ -885,7 +884,7 @@ export default function Home() {
                   <span className="text-sm">Dedicated account manager</span>
                 </li>
               </ul>
-              <button onClick={() => handlePayment("premium")} className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 py-3 rounded-xl font-semibold hover:scale-105 transition-all cursor-pointer">Get Started
+              <button onClick={() => handlePayment("premium")} className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 py-3 rounded-xl font-semibold hover:scale-105 transition-transform cursor-pointer">Get Started
               </button>
             </motion.div>
           </div>
