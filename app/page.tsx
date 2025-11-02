@@ -711,13 +711,13 @@ export default function Home() {
             {/* Header Row */}
             <div className="grid grid-cols-3 divide-x divide-white/10">
               <div className="p-1.5 md:p-8 text-center bg-white/5">
-                <h3 className="text-[10px] md:text-xl font-bold">Metric</h3>
+                <h3 className="text-sm md:text-xl font-bold">Metric</h3>
               </div>
               <div className="p-1.5 md:p-8 text-center">
-                <h3 className="text-[10px] md:text-xl font-bold text-red-400">Traditional</h3>
+                <h3 className="text-sm md:text-xl font-bold text-red-400">Traditional</h3>
               </div>
               <div className="p-1.5 md:p-8 text-center bg-gradient-to-br from-purple-500/20 to-pink-500/20">
-                <h3 className="text-[10px] md:text-xl font-bold gradient-text">Creative Workspace</h3>
+                <h3 className="text-sm md:text-xl font-bold gradient-text">Creative Workspace</h3>
               </div>
             </div>
 
@@ -737,9 +737,9 @@ export default function Home() {
                 transition={{ delay: index * 0.1 }}
                 className="grid grid-cols-3 divide-x divide-white/10 border-t border-white/10"
               >
-                <div className="p-1.5 md:p-6 font-semibold text-[9px] md:text-base leading-tight">{row.metric}</div>
-                <div className="p-1.5 md:p-6 text-white/60 text-[9px] md:text-base leading-tight">{row.traditional}</div>
-                <div className="p-1.5 md:p-6 text-green-400 font-semibold text-[9px] md:text-base leading-tight">{row.workspace}</div>
+                <div className="p-1.5 md:p-6 font-semibold text-xs md:text-base leading-tight">{row.metric}</div>
+                <div className="p-1.5 md:p-6 text-white/60 text-xs md:text-base leading-tight">{row.traditional}</div>
+                <div className="p-1.5 md:p-6 text-green-400 font-semibold text-xs md:text-base leading-tight">{row.workspace}</div>
               </motion.div>
             ))}
           </div>
