@@ -97,7 +97,7 @@ export default function Home() {
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
-  const [showDemoVideo, setShowDemoVideo] = useState(true);
+  const [showDemoVideo, setShowDemoVideo] = useState(false);
   const [chaosMode, setChaosMode] = useState(false);
   const [demoInput, setDemoInput] = useState("");
   const [showPreview, setShowPreview] = useState(false);
@@ -152,7 +152,7 @@ export default function Home() {
       {!disableHeavy && <FloatingFeedback />}
       <GlowLayer />
 
-      {false && showDemoVideo && (
+      {showDemoVideo && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
