@@ -1,7 +1,7 @@
 "use client";
 import "./performance.css";
 import Link from "next/link";
-import { motion, useScroll, useInView } from "framer-motion";
+import { motion, useScroll, useInView, AnimatePresence } from "framer-motion";
 import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Mic, Keyboard, Palette, Lock, Clock, Heart, Star, Shuffle, Eye, Menu, X } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { GlowLayer } from "./components/GlowLayer";
@@ -152,6 +152,8 @@ export default function Home() {
       {!disableHeavy && <FloatingFeedback />}
       <GlowLayer />
 
+      <AnimatePresence>
+      <AnimatePresence>
       {showDemoVideo && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -200,6 +202,7 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
+      </AnimatePresence>
       )}
 
       <motion.nav 
