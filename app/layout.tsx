@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SuppressHydrationWarning } from "./suppressHydration";
 import { Inter } from "next/font/google";
+import { CursorTrail } from "./cursor-script";
 import "./globals.css";
 
 const inter = Inter({ 
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning className={`dark ${inter.variable} antialiased`}>
+        <CursorTrail />
         <SuppressHydrationWarning />
         {children}
         </body>
