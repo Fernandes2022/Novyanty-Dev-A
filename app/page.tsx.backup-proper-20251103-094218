@@ -152,7 +152,7 @@ export default function Home() {
       {!disableHeavy && <FloatingFeedback />}
       <GlowLayer />
 
-      {false && showDemoVideo && (
+      {showDemoVideo && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
