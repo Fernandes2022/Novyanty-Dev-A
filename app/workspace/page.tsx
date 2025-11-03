@@ -187,8 +187,8 @@ export default function Workspace() {
             className="absolute min-w-full min-h-full object-cover"
           >
             {/* DIFFERENT VIDEO FOR WORKSPACE */}
-            <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
-            <source src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4" type="video/mp4" />
+            <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4?v=1762159836" type="video/mp4" />
+            <source src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4?v=1762159836" type="video/mp4" />
           </motion.video>
           
           {/* Dark overlay */}

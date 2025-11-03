@@ -174,7 +174,7 @@ export default function Home() {
 
             <div className="relative aspect-video bg-black">
 <video autoPlay loop muted playsInline webkit-playsinline x-webkit-airplay="allow" preload="auto" className="w-full h-full object-cover hero-video-background">
-                <source src="/videos/How much FPS.mp4" type="video/mp4" />
+                <source src="/videos/How much FPS.mp4?v=1762159836" type="video/mp4" />
               </video>
               
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/90 to-transparent">
