@@ -1,134 +1,90 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Users, Globe, Zap, TrendingUp, Settings, Database, Activity, CheckCircle } from 'lucide-react';
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const stats = [
-    { icon: Users, label: "Total Users", value: "10,247", change: "+12%" },
-    { icon: Globe, label: "Websites Created", value: "15,892", change: "+8%" },
-    { icon: Zap, label: "Active Projects", value: "3,421", change: "+23%" },
-    { icon: TrendingUp, label: "Conversion Rate", value: "4.2%", change: "+0.8%" }
-  ];
+  const generateVideos = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('/api/generate-testimonials', {
+        method: 'POST',
+      });
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setResults(data);
+      }
+    } catch (err) {
+      setError('Failed to generate videos');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+    <div className="min-h-screen p-8 bg-gray-900 text-white">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8">Generate Video Testimonials</h1>
+        
+        <button
+          onClick={generateVideos}
+          disabled={loading}
+          className="px-6 py-3 bg-purple-600 rounded-lg font-bold hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <h1 className="text-4xl font-bold text-white mb-2 flex items-center gap-3">
-            <Settings className="h-10 w-10 text-purple-400" />
-            Admin Dashboard
-          </h1>
-          <p className="text-gray-400">Manage your platform and monitor performance</p>
-        </motion.div>
+          {loading ? 'Generating Videos... (This will take 10-30 minutes)' : 'Generate All 6 Videos'}
+        </button>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="glass-dark p-6 rounded-2xl"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-purple-500/10 rounded-xl">
-                  <stat.icon className="h-6 w-6 text-purple-400" />
-                </div>
-                <span className="text-green-400 text-sm font-semibold">{stat.change}</span>
-              </div>
-              <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-gray-400 text-sm">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
+        {loading && (
+          <div className="mt-8 p-4 bg-blue-900/50 rounded-lg">
+            <p className="font-bold mb-2">⏳ Generating videos...</p>
+            <p className="text-sm text-gray-300">This process takes 2-5 minutes per video. Please keep this page open.</p>
+          </div>
+        )}
 
-        {/* Actions Grid */}
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Quick Actions */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="glass-dark p-8 rounded-3xl"
-          >
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <Zap className="h-6 w-6 text-purple-400" />
-              Quick Actions
-            </h2>
+        {error && (
+          <div className="mt-8 p-4 bg-red-900/50 rounded-lg">
+            <p className="font-bold">❌ Error:</p>
+            <p className="text-sm">{error}</p>
+          </div>
+        )}
+
+        {results && (
+          <div className="mt-8 space-y-4">
+            <h2 className="text-2xl font-bold text-green-400">✅ Videos Generated!</h2>
             
-            <div className="space-y-4">
-              <button
-                onClick={() => setLoading(!loading)}
-                className="w-full flex items-center justify-between p-4 glass-dark hover:bg-white/5 rounded-xl transition-colors group"
-              >
-                <div className="flex items-center gap-3">
-                  <Database className="h-5 w-5 text-purple-400" />
-                  <span className="text-white font-medium">Generate Testimonials</span>
-                </div>
-                <div className="text-gray-400 group-hover:text-purple-400 transition-colors">→</div>
-              </button>
-
-              <button className="w-full flex items-center justify-between p-4 glass-dark hover:bg-white/5 rounded-xl transition-colors group">
-                <div className="flex items-center gap-3">
-                  <Activity className="h-5 w-5 text-purple-400" />
-                  <span className="text-white font-medium">View Analytics</span>
-                </div>
-                <div className="text-gray-400 group-hover:text-purple-400 transition-colors">→</div>
-              </button>
-
-              <button className="w-full flex items-center justify-between p-4 glass-dark hover:bg-white/5 rounded-xl transition-colors group">
-                <div className="flex items-center gap-3">
-                  <Users className="h-5 w-5 text-purple-400" />
-                  <span className="text-white font-medium">Manage Users</span>
-                </div>
-                <div className="text-gray-400 group-hover:text-purple-400 transition-colors">→</div>
-              </button>
+            <div className="bg-gray-800 p-4 rounded-lg overflow-auto max-h-96">
+              <pre className="text-xs">{JSON.stringify(results, null, 2)}</pre>
             </div>
-          </motion.div>
 
-          {/* System Status */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-            className="glass-dark p-8 rounded-3xl"
-          >
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <Activity className="h-6 w-6 text-purple-400" />
-              System Status
-            </h2>
-            
             <div className="space-y-4">
-              {[
-                { service: "API Service", status: "Operational", uptime: "99.9%" },
-                { service: "Database", status: "Operational", uptime: "100%" },
-                { service: "CDN", status: "Operational", uptime: "99.8%" },
-                { service: "Build System", status: "Operational", uptime: "99.7%" }
-              ].map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-white/5 rounded-xl">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-400" />
-                    <div>
-                      <div className="text-white font-medium">{item.service}</div>
-                      <div className="text-sm text-gray-400">{item.status}</div>
-                    </div>
-                  </div>
-                  <div className="text-green-400 text-sm font-semibold">{item.uptime}</div>
+              {results.testimonials?.map((testimonial: any) => (
+                <div key={testimonial.id} className="p-4 bg-gray-800 rounded-lg">
+                  <h3 className="font-bold">{testimonial.author}</h3>
+                  <p className="text-sm text-gray-400">{testimonial.role}, {testimonial.location}</p>
+                  <p className="text-sm mt-2">Rating: {testimonial.rating}★</p>
+                  <a 
+                    href={testimonial.videoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-purple-400 hover:underline text-sm"
+                  >
+                    View Video →
+                  </a>
                 </div>
               ))}
             </div>
-          </motion.div>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
