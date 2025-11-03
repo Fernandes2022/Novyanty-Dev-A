@@ -946,7 +946,7 @@ export default function Home() {
 >
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-6xl">Ready to Get Started?</h2>
-              <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto">
                 Join thousands of creators transforming their ideas into reality.
               </p>
             </div>
