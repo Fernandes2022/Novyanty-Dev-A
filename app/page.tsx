@@ -1030,9 +1030,10 @@ export default function Home() {
             <div>
               <h4 className="font-bold mb-4">Connect</h4>
               <ul className="space-y-2 text-sm text-white/60">
-                <li><a href="#" className="hover:text-purple-400 transition-colors">𝕏 Twitter</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">🎵 TikTok</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">📸 Instagram</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">Pinterest</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">Facebook</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">LinkedIn</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">Blog</a></li>
               </ul>
             </div>
           </div>
