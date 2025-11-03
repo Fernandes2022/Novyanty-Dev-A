@@ -1,3 +1,13 @@
+#!/bin/bash
+
+echo "🔧 ADDING PROPER MUTE/UNMUTE BUTTON..."
+echo ""
+
+# Backup
+cp components/home/VideoBackground.tsx components/home/VideoBackground.tsx.backup-mute-$(date +%Y%m%d-%H%M%S)
+
+# Create NEW VideoBackground with mute button
+cat > components/home/VideoBackground.tsx << 'COMPONENT_END'
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -113,3 +123,42 @@ export function VideoBackground() {
     </div>
   );
 }
+COMPONENT_END
+
+echo "✅ VideoBackground updated with mute button!"
+echo ""
+
+echo "🏗️  Testing build..."
+npm run build
+
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "✅ BUILD SUCCESSFUL!"
+    echo ""
+    echo "🔊 What's new:"
+    echo "   ✅ Mute/Unmute button in bottom-right corner"
+    echo "   ✅ Shows VolumeX when muted, Volume2 when unmuted"
+    echo "   ✅ Starts muted (for autoplay)"
+    echo "   ✅ Actually works when clicked!"
+    echo "   ✅ Beautiful glassmorphism design"
+    echo ""
+    read -p "Deploy? (y/n): " answer
+    
+    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
+        git add .
+        git commit -m "feat: Add working mute/unmute button for background video
+
+- Floating button in bottom-right corner
+- Proper state management for muted/unmuted
+- Starts muted for autoplay compliance
+- Beautiful glassmorphism design with icons"
+        
+        git push origin main
+        
+        echo ""
+        echo "🎉 DEPLOYED! Mute button is LIVE!"
+    fi
+else
+    echo "❌ Build failed"
+fi
+
