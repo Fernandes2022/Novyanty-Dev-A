@@ -108,7 +108,6 @@ export default function Home() {
   const uspRef = useRef(null);
   const demoRef = useRef(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const videoFpsRef = useRef<HTMLVideoElement>(null);
   
   const isHeroInView = useInView(heroRef, { once: false, amount: 0.3 });
   const isStoryInView = useInView(storyRef, { once: true, amount: 0.2 });
@@ -174,7 +173,7 @@ export default function Home() {
             </button>
 
             <div className="relative aspect-video bg-black">
-              <video ref={videoFpsRef} autoPlay loop muted playsInline preload="auto" className="w-full h-full object-cover hero-video-background">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover hero-video-background">
                 <source src="/videos/How much FPS.mp4" type="video/mp4" />
               </video>
               
