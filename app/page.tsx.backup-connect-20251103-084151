@@ -173,7 +173,7 @@ export default function Home() {
             </button>
 
             <div className="relative aspect-video bg-black">
-<video autoPlay loop muted playsInline webkit-playsinline x-webkit-airplay="allow" preload="auto" className="w-full h-full object-cover hero-video-background">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover hero-video-background">
                 <source src="/videos/How much FPS.mp4" type="video/mp4" />
               </video>
               
@@ -1030,10 +1030,9 @@ export default function Home() {
             <div>
               <h4 className="font-bold mb-4">Connect</h4>
               <ul className="space-y-2 text-sm text-white/60">
-                <li><a href="#" className="hover:text-purple-400 transition-colors">Pinterest</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">Facebook</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">LinkedIn</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">𝕏 Twitter</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">🎵 TikTok</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">📸 Instagram</a></li>
               </ul>
             </div>
           </div>
