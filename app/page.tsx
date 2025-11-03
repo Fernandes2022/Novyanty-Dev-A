@@ -946,7 +946,7 @@ export default function Home() {
 >
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-6xl">Ready to Get Started?</h2>
-              <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto">
+              <p className="text-xl md:text-2xl max-w-2xl mx-auto">
                 Join thousands of creators transforming their ideas into reality.
               </p>
             </div>
@@ -992,9 +992,12 @@ export default function Home() {
                 <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
                 <span className="text-sm text-white/60">Fast</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse" />
-                <span className="text-sm text-white/60">Loved</span>
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-pink-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
+                  <div className="relative w-5 h-5 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full animate-bounce"></div>
+                </div>
+                <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400 animate-pulse">Loved</span>
               </div>
             </div>
           </motion.div>
