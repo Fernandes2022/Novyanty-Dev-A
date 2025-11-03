@@ -1,80 +1,126 @@
-"use client";
-import Link from "next/link";
-import { Sparkles } from "lucide-react";
-export default function PrivacyPolicy() {
+'use client';
+
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { ArrowLeft, Shield, Lock, Eye, Users, Database, Globe } from 'lucide-react';
+
+export default function PrivacyPage() {
+  const sections = [
+    {
+      icon: Database,
+      title: "Information We Collect",
+      content: "We collect information you provide when creating an account (name, email), usage data (pages visited, features used), and technical information (IP address, browser type, device). We only collect what's necessary to provide our services."
+    },
+    {
+      icon: Eye,
+      title: "How We Use Your Information",
+      content: "Your data powers the service: account management, website generation, customer support, service improvements, and important updates. We never sell your personal information to third parties."
+    },
+    {
+      icon: Shield,
+      title: "Data Security",
+      content: "We use industry-standard encryption (TLS/SSL) for data transmission, secure servers with regular security audits, encrypted database storage, and strict access controls. Your data is protected at every level."
+    },
+    {
+      icon: Lock,
+      title: "Your Rights",
+      content: "You own your data. You can access, download, or delete your information anytime. Export your websites and content whenever you want. Request data deletion and we'll comply within 30 days."
+    },
+    {
+      icon: Users,
+      title: "Data Sharing",
+      content: "We don't sell your data. We only share information when legally required, with service providers under strict contracts, or with your explicit consent. Your trust matters to us."
+    },
+    {
+      icon: Globe,
+      title: "Cookies & Tracking",
+      content: "We use essential cookies for functionality, analytics cookies to improve our service (you can opt out), and no advertising or tracking cookies. You control your cookie preferences."
+    }
+  ];
+
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-950">
-      <nav className="sticky top-0 z-50 backdrop-blur-lg bg-white/95 dark:bg-gray-900/95 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center shadow-lg">
-                <Sparkles className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">Creative Workspace</span>
-            </Link>
-            
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <Link 
+            href="/"
+            className="inline-flex items-center gap-2 text-white hover:text-purple-400 transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            <span>Back to Home</span>
+          </Link>
         </div>
       </nav>
 
-      <div className="max-w-4xl mx-auto px-6 py-16">
-        <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 md:p-12 border-2 border-gray-200 dark:border-gray-800">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 text-center">
-            Privacy Policy
-          </h1>
-          <p className="text-base text-gray-600 dark:text-gray-400 mb-12 text-center font-semibold">
-            Last updated: October 25, 2025
-          </p>
-
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">1. Information We Collect</h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                We collect information you provide directly to us when you create an account, use our composition tools, 
-                or communicate with us. This includes your name, email address, and project data.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">2. How We Use Your Information</h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                We use the information we collect to provide, maintain, and improve our services, process your 
-                compositions, and communicate with you about updates and features.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">3. Data Security</h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                We implement appropriate security measures to protect your personal information from unauthorized 
-                access, alteration, or destruction.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">4. Your Rights</h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                You have the right to access, update, or delete your personal information at any time. Contact us 
-                to exercise these rights.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">5. Contact Us</h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                If you have questions about this Privacy Policy, please contact us at privacy@creativeworkspace.com
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-12 pt-8 border-t-2 border-gray-200 dark:border-gray-800 text-center">
-            <Link href="/" className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-bold text-lg transition-colors">
-              ← Back to Home
-            </Link>
-          </div>
+      {/* Header */}
+      <section className="pt-32 pb-12 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Shield className="h-16 w-16 text-purple-400 mx-auto mb-6" />
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+              Privacy
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                Policy
+              </span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-4">
+              We take your privacy seriously. Here's exactly how we handle your data.
+            </p>
+            <p className="text-sm text-gray-400">
+              Last updated: November 3, 2025
+            </p>
+          </motion.div>
         </div>
-      </div>
-    </main>
+      </section>
+
+      {/* Content */}
+      <section className="pb-20 px-6">
+        <div className="max-w-4xl mx-auto space-y-6">
+          {sections.map((section, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="glass-dark p-8 rounded-2xl"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-purple-500/10 rounded-xl flex-shrink-0">
+                  <section.icon className="h-6 w-6 text-purple-400" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-3">{section.title}</h2>
+                  <p className="text-gray-300 leading-relaxed">{section.content}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+
+          {/* Contact Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="glass-dark p-8 rounded-2xl text-center mt-12"
+          >
+            <h2 className="text-2xl font-bold text-white mb-4">Questions About Privacy?</h2>
+            <p className="text-gray-300 mb-6">
+              We're here to help. Reach out if you have any questions about how we handle your data.
+            </p>
+            <Link
+              href="/"
+              className="inline-flex px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform"
+            >
+              Contact Us
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </div>
   );
 }

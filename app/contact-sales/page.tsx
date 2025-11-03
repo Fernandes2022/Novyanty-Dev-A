@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { ArrowLeft, Send, CheckCircle, Mail, Building, User, MessageSquare } from 'lucide-react';
 
-export default function ContactSales() {
+export default function ContactSalesPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,12 +13,17 @@ export default function ContactSales() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual form submission (email service, CRM, etc.)
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setSubmitted(true);
+      setIsSubmitting(false);
+    }, 1500);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,134 +33,194 @@ export default function ContactSales() {
     });
   };
 
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white">
-      <div className="max-w-4xl mx-auto px-4 py-16 md:py-24">
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 flex items-center justify-center px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-2xl w-full glass-dark p-12 rounded-3xl text-center"
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 gradient-text">
-            Contact Our Sales Team
-          </h1>
-          <p className="text-xl text-white/60">
-            Let's discuss how Premium can transform your business
+          <CheckCircle className="h-20 w-20 text-green-400 mx-auto mb-6" />
+          <h1 className="text-4xl font-bold text-white mb-4">Message Received!</h1>
+          <p className="text-xl text-gray-300 mb-8">
+            Thanks for reaching out! Our sales team will get back to you within 24 hours.
           </p>
-        </motion.div>
-
-        {!submitted ? (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="glass-card p-8 md:p-12 rounded-3xl"
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <ArrowLeft className="h-5 w-5" />
+            Back to Home
+          </Link>
+        </motion.div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <Link 
+            href="/"
+            className="inline-flex items-center gap-2 text-white hover:text-purple-400 transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            <span>Back to Home</span>
+          </Link>
+        </div>
+      </nav>
+
+      <div className="pt-32 pb-20 px-6">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+          {/* Left: Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              Let's Talk
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                Business
+              </span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-12">
+              Whether you need custom features, volume pricing, or white-label solutions—we're here to help.
+            </p>
+
+            <div className="space-y-6">
+              {[
+                {
+                  icon: Building,
+                  title: "Enterprise Solutions",
+                  desc: "Custom deployments, SSO, dedicated support"
+                },
+                {
+                  icon: User,
+                  title: "Volume Pricing",
+                  desc: "Discounts for teams of 10+ users"
+                },
+                {
+                  icon: CheckCircle,
+                  title: "White Label",
+                  desc: "Rebrand and resell our platform"
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="p-3 bg-purple-500/10 rounded-xl flex-shrink-0">
+                    <item.icon className="h-6 w-6 text-purple-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-1">{item.title}</h3>
+                    <p className="text-gray-400">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right: Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <form onSubmit={handleSubmit} className="glass-dark p-8 rounded-3xl space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold mb-2">
-                  Full Name *
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <User className="h-4 w-4 text-purple-400" />
+                  Your Name
                 </label>
                 <input
                   type="text"
-                  id="name"
                   name="name"
-                  required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500 transition-colors"
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="John Doe"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold mb-2">
-                  Work Email *
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <Mail className="h-4 w-4 text-purple-400" />
+                  Work Email
                 </label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
-                  required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500 transition-colors"
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="john@company.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="company" className="block text-sm font-semibold mb-2">
-                  Company Name *
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <Building className="h-4 w-4 text-purple-400" />
+                  Company Name
                 </label>
                 <input
                   type="text"
-                  id="company"
                   name="company"
-                  required
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500 transition-colors"
-                  placeholder="Acme Inc."
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  placeholder="Acme Corp"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold mb-2">
-                  Tell us about your needs
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <MessageSquare className="h-4 w-4 text-purple-400" />
+                  How Can We Help?
                 </label>
                 <textarea
-                  id="message"
                   name="message"
-                  rows={5}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500 transition-colors resize-none"
-                  placeholder="We're looking to..."
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                  placeholder="Tell us about your needs..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-4 rounded-xl font-semibold hover:scale-105 transition-transform text-lg"
+                disabled={isSubmitting}
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isSubmitting ? (
+                  'Sending...'
+                ) : (
+                  <>
+                    <Send className="h-5 w-5" />
+                    Send Message
+                  </>
+                )}
               </button>
+
+              <p className="text-sm text-gray-400 text-center">
+                We typically respond within 24 hours
+              </p>
             </form>
-
-            <p className="text-center text-sm text-white/40 mt-6">
-              Or email us directly at{' '}
-              <a href="mailto:sales@creativeworkspace.com" className="text-purple-400 hover:underline">
-                sales@creativeworkspace.com
-              </a>
-            </p>
           </motion.div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="glass-card p-12 rounded-3xl text-center"
-          >
-            <div className="text-6xl mb-6">🎉</div>
-            <h2 className="text-3xl font-bold mb-4">Thank You!</h2>
-            <p className="text-white/60 mb-8">
-              We've received your message and our sales team will contact you within 24 hours.
-            </p>
-            <Link
-              href="/"
-              className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
-            >
-              Back to Home
-            </Link>
-          </motion.div>
-        )}
-
-        <div className="mt-12 text-center">
-          <Link href="/" className="text-purple-400 hover:underline">
-            ← Back to Home
-          </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
