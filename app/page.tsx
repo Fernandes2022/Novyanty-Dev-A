@@ -315,6 +315,25 @@ export default function Home() {
       <HeroParallax>
         <VideoBackground />
       <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-16 md:pt-20">
+        {/* Hero Background Video */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+          <video 
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            style={{
+              opacity: 0.7,
+              filter: 'brightness(0.95) contrast(1.1) saturate(1.15)'
+            }}
+          >
+            <source src="/videos/How much FPS.mp4" type="video/mp4" />
+          </video>
+        </div>
+
         
         <div className="absolute inset-0 pointer-events-none">
           {[
