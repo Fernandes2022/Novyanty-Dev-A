@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SuppressHydrationWarning } from "./suppressHydration";
+import { MagneticCursor } from "../components/MagneticCursor";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning className={`dark ${inter.variable} antialiased`}>
         <SuppressHydrationWarning />
+import { MagneticCursor } from "../components/MagneticCursor";
         {children}
+        <MagneticCursor />
         </body>
     </html>
   );
