@@ -68,7 +68,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
               onClick={() => setCurrentIndex(i)}
               className={`h-2 rounded-full transition-all ${
                 i === currentIndex
-                  ? "w-8 bg-indigo-600 dark:bg-indigo-400"
+                  ? "w-8 bg-indigo-400"
                   : "w-2 bg-gray-600"
               }`}
             />

@@ -253,7 +253,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                   animate={{ scale: 1, opacity: 1 }}
                   className="text-center py-12"
                 >
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-900/30 mb-6">
                     <Check className="h-10 w-10 text-green-600 dark:text-green-400" />
                   </div>
                   <h2 className="text-3xl font-bold text-white mb-4">
