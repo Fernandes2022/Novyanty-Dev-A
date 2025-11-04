@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark" style={{ colorScheme: "dark" }}>
       <body suppressHydrationWarning className={`dark ${inter.variable} antialiased`}>
         <CursorTrail />
         <SuppressHydrationWarning />

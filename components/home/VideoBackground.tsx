@@ -1,13 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { useTheme } from 'next-themes';
+
 import { Volume2, VolumeX } from 'lucide-react';
 
 export function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const { theme } = useTheme();
+  
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay
 
@@ -70,7 +70,7 @@ export function VideoBackground() {
   if (prefersReducedMotion) return null;
 
   const opacity = 0.7;
-  const isLight = theme === 'light';
+  const isLight = false; // Always dark mode
   const filter = isLight 
     ? 'brightness(1.2) contrast(1.1) saturate(1.2)' 
     : 'brightness(0.95) contrast(1.1) saturate(1.15)';

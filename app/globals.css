@@ -293,3 +293,21 @@ textarea {
     }
   }
 }
+
+/* Force dark mode - override OS/browser theme preferences */
+html {
+  color-scheme: dark only !important;
+}
+
+html, body {
+  background-color: #1a1d29 !important;
+  color: white !important;
+}
+
+/* Prevent light mode from ever showing */
+@media (prefers-color-scheme: light) {
+  html, body {
+    background-color: #1a1d29 !important;
+    color: white !important;
+  }
+}
