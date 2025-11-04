@@ -107,7 +107,6 @@ export default function Home() {
   const storyRef = useRef(null);
   const uspRef = useRef(null);
   const demoRef = useRef(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const videoFpsRef = useRef<HTMLVideoElement>(null);
   
   const isHeroInView = useInView(heroRef, { once: false, amount: 0.3 });
