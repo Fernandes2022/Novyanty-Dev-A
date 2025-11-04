@@ -1,7 +1,7 @@
 "use client";
 import "./performance.css";
 import Link from "next/link";
-import { motion, useScroll, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useInView } from "framer-motion";
 import { Sparkles, Zap, Rocket, Shield, Users, ArrowRight, Play, Mic, Keyboard, Palette, Lock, Clock, Heart, Star, Shuffle, Eye, Menu, X } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { GlowLayer } from "./components/GlowLayer";
@@ -107,6 +107,7 @@ export default function Home() {
   const storyRef = useRef(null);
   const uspRef = useRef(null);
   const demoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const videoFpsRef = useRef<HTMLVideoElement>(null);
   
   const isHeroInView = useInView(heroRef, { once: false, amount: 0.3 });
@@ -130,6 +131,15 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => {
+        console.log('Video autoplay prevented:', err);
+        document.addEventListener('touchstart', () => {
+          videoRef.current?.play();
+        }, { once: true });
+      });
+    }
+  }, []);
 
   const disableHeavy = typeof window !== "undefined" && shouldDisableHeavyEffects();
   return (
@@ -142,7 +152,6 @@ export default function Home() {
       {!disableHeavy && <FloatingFeedback />}
       <GlowLayer />
 
-      <AnimatePresence>
       {showDemoVideo && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -163,10 +172,12 @@ export default function Home() {
             >
               <span className="text-2xl text-white">×</span>
             </button>
+
             <div className="relative aspect-video bg-black">
               <video ref={videoFpsRef} autoPlay loop muted playsInline preload="auto" className="w-full h-full object-cover hero-video-background">
                 <source src="/videos/How much FPS.mp4" type="video/mp4" />
               </video>
+              
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/90 to-transparent">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="space-y-3">
                   <h3 className="text-2xl md:text-4xl font-bold text-white">How It Works</h3>
@@ -190,7 +201,6 @@ export default function Home() {
           </motion.div>
         </motion.div>
       )}
-      </AnimatePresence>
 
       <motion.nav 
           initial={{ y: -100, opacity: 0 }}
@@ -201,7 +211,6 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
             <div className="flex h-16 md:h-20 items-center justify-between w-full">
               {/* Logo - Far Left */}
-
               <div className="flex-none">
                 <Link href="/" className="flex items-center gap-2 md:gap-3 group">
                   <motion.div 
@@ -305,7 +314,6 @@ export default function Home() {
       <HeroParallax>
         <VideoBackground />
       <section ref={heroRef} className="hero-section relative min-h-screen overflow-hidden pt-16 md:pt-20">
-
         
         <div className="absolute inset-0 pointer-events-none">
           {[
