@@ -46,7 +46,7 @@ export function AudioInput({ onTranscript }: AudioInputProps) {
             ? "bg-red-500 hover:bg-red-600 text-white shadow-lg"
             : isParsing
             ? "bg-indigo-500 text-white cursor-wait"
-            : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 hover:border-indigo-400 dark:hover:border-indigo-500"
+            : "bg-gray-100 dark:bg-gray-800 text-white hover:bg-gray-200 dark:hover:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 hover:border-indigo-400 dark:hover:border-indigo-500"
         }`}
       >
         {isParsing ? (
