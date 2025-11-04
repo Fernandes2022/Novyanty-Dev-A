@@ -20,7 +20,7 @@ export function EditableBlock({ id, type, content, onUpdate, onDelete }: Editabl
   };
 
   return (
-    <div className="group relative bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-indigo-300 dark:hover:border-indigo-600 transition-all">
+    <div className="group relative bg-gray-800 border-2 border-gray-700 rounded-xl p-4 hover:border-indigo-600 transition-all">
       {/* Drag Handle */}
       <div className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
         <GripVertical className="h-5 w-5 text-gray-400 cursor-move" />
@@ -32,7 +32,7 @@ export function EditableBlock({ id, type, content, onUpdate, onDelete }: Editabl
             <textarea
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-900 border-2 border-indigo-500 dark:border-indigo-400 rounded-lg text-gray-900 dark:text-white outline-none"
+              className="w-full px-3 py-2 bg-gray-900 border-2 border-indigo-400 rounded-lg text-white outline-none"
               rows={3}
             />
             <div className="flex gap-2">
@@ -47,7 +47,7 @@ export function EditableBlock({ id, type, content, onUpdate, onDelete }: Editabl
                   setValue(content);
                   setIsEditing(false);
                 }}
-                className="px-3 py-1 bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg text-sm font-semibold hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors"
+                className="px-3 py-1 bg-gray-700 text-white rounded-lg text-sm font-semibold hover:bg-gray-600 transition-colors"
               >
                 Cancel
               </button>
@@ -59,14 +59,14 @@ export function EditableBlock({ id, type, content, onUpdate, onDelete }: Editabl
             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={() => setIsEditing(true)}
-                className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+                className="p-1 hover:bg-gray-700 rounded transition-colors"
                 title="Edit"
               >
                 <Edit2 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
               </button>
               <button
                 onClick={() => onDelete(id)}
-                className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+                className="p-1 hover:bg-gray-700 rounded transition-colors"
                 title="Delete"
               >
                 <Trash2 className="h-4 w-4 text-red-600 dark:text-red-400" />
