@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Menu, Rocket } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { usePayment } from "@/hooks/usePayment";
 import { useToast } from "@/hooks/use-toast";
 
@@ -54,7 +53,6 @@ export default function Header() {
             <Rocket className="h-4 w-4" />
             {isLoading ? "Processing..." : "Go Live"}
           </Button>
-          <ThemeToggle />
           <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
             Log in
           </Button>
