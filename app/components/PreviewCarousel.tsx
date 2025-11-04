@@ -56,7 +56,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
       <div className="flex items-center justify-between mt-4">
         <button
           onClick={previous}
-          className="p-2 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="p-2 bg-gray-800 border-2 border-gray-700 rounded-xl hover:bg-gray-700 transition-colors"
         >
           <ChevronLeft className="h-5 w-5 text-gray-700 dark:text-gray-300" />
         </button>
@@ -69,7 +69,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
               className={`h-2 rounded-full transition-all ${
                 i === currentIndex
                   ? "w-8 bg-indigo-600 dark:bg-indigo-400"
-                  : "w-2 bg-gray-300 dark:bg-gray-600"
+                  : "w-2 bg-gray-600"
               }`}
             />
           ))}
@@ -77,7 +77,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
 
         <button
           onClick={next}
-          className="p-2 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="p-2 bg-gray-800 border-2 border-gray-700 rounded-xl hover:bg-gray-700 transition-colors"
         >
           <ChevronRight className="h-5 w-5 text-gray-700 dark:text-gray-300" />
         </button>

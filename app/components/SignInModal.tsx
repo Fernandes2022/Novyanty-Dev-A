@@ -39,16 +39,16 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-8 border-2 border-gray-200 dark:border-gray-800 relative">
+            <div className="bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-8 border-2 border-gray-800 relative">
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                className="absolute top-4 right-4 p-2 hover:bg-gray-800 rounded-lg transition-colors"
               >
                 <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
               </button>
 
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                <h2 className="text-3xl font-bold text-white mb-2">
                   {isSignUp ? "Create Account" : "Welcome Back"}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400">
@@ -69,7 +69,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="John Doe"
-                        className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                        className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
                         required
                       />
                     </div>
@@ -87,7 +87,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                      className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
                       required
                     />
                   </div>
@@ -104,7 +104,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                      className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
                       required
                     />
                   </div>

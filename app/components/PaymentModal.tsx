@@ -105,12 +105,12 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-4xl w-full p-8 border-2 border-gray-200 dark:border-gray-800 max-h-[90vh] overflow-y-auto">
+            <div className="bg-gray-900 rounded-3xl shadow-2xl max-w-4xl w-full p-8 border-2 border-gray-800 max-h-[90vh] overflow-y-auto">
               {!showSuccess ? (
                 <>
                   <div className="flex items-center justify-between mb-8">
                     <div>
-                      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                      <h2 className="text-3xl font-bold text-white mb-2">
                         🚀 Go Live & Unlock Premium
                       </h2>
                       <p className="text-gray-600 dark:text-gray-400">
@@ -119,7 +119,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                     </div>
                     <button
                       onClick={onClose}
-                      className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                      className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
                     >
                       <X className="h-5 w-5 text-gray-500" />
                     </button>
@@ -149,10 +149,10 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                             <Icon className="h-6 w-6 text-white" />
                           </div>
 
-                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                          <h3 className="text-2xl font-bold text-white mb-2">
                             {plan.name}
                           </h3>
-                          <div className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
+                          <div className="text-3xl font-extrabold text-white mb-4">
                             ${plan.price}
                             <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">/month</span>
                           </div>
@@ -172,8 +172,8 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
 
                   {/* Payment Form */}
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <div className="bg-gray-800 rounded-2xl p-6">
+                      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                         <CreditCard className="h-5 w-5" />
                         Payment Details
                       </h3>
@@ -188,7 +188,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                             value={cardNumber}
                             onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, "").slice(0, 16))}
                             placeholder="4242 4242 4242 4242"
-                            className="w-full px-4 py-3 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                            className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
                             required
                           />
                         </div>
@@ -204,7 +204,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                               onChange={(e) => setExpiryDate(e.target.value)}
                               placeholder="MM/YY"
                               maxLength={5}
-                              className="w-full px-4 py-3 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                              className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
                               required
                             />
                           </div>
@@ -219,7 +219,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                               onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 3))}
                               placeholder="123"
                               maxLength={3}
-                              className="w-full px-4 py-3 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                              className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
                               required
                             />
                           </div>
@@ -256,7 +256,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                   <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
                     <Check className="h-10 w-10 text-green-600 dark:text-green-400" />
                   </div>
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                  <h2 className="text-3xl font-bold text-white mb-4">
                     🎉 Payment Successful!
                   </h2>
                   <p className="text-xl text-gray-600 dark:text-gray-400">
