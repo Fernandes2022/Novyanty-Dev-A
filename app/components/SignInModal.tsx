@@ -44,14 +44,14 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                 onClick={onClose}
                 className="absolute top-4 right-4 p-2 hover:bg-gray-800 rounded-lg transition-colors"
               >
-                <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                <X className="h-5 w-5 text-gray-500" />
               </button>
 
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-white mb-2">
                   {isSignUp ? "Create Account" : "Welcome Back"}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600">
                   {isSignUp ? "Sign up to start creating" : "Sign in to your account"}
                 </p>
               </div>
@@ -59,7 +59,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
               <form onSubmit={handleSubmit} className="space-y-4">
                 {isSignUp && (
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Full Name
                     </label>
                     <div className="relative">
@@ -69,7 +69,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="John Doe"
-                        className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                        className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 outline-none transition-colors"
                         required
                       />
                     </div>
@@ -77,7 +77,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                 )}
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Email Address
                   </label>
                   <div className="relative">
@@ -87,14 +87,14 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                      className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 outline-none transition-colors"
                       required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Password
                   </label>
                   <div className="relative">
@@ -104,7 +104,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                      className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 outline-none transition-colors"
                       required
                     />
                   </div>
@@ -121,7 +121,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
               <div className="mt-6 text-center">
                 <button
                   onClick={() => setIsSignUp(!isSignUp)}
-                  className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-semibold"
+                  className="text-sm text-indigo-600 hover:text-indigo-700 font-semibold"
                 >
                   {isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
                 </button>

@@ -24,7 +24,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
 
   if (previews.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+      <div className="text-center py-12 text-gray-500">
         No previews available
       </div>
     );
@@ -43,10 +43,10 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
           transition={{ duration: 0.3 }}
           className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 rounded-2xl p-8 border-2 border-indigo-200 dark:border-indigo-800"
         >
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
             {current.title}
           </h3>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-gray-700 leading-relaxed">
             {current.content}
           </p>
         </motion.div>
@@ -58,7 +58,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
           onClick={previous}
           className="p-2 bg-gray-800 border-2 border-gray-700 rounded-xl hover:bg-gray-700 transition-colors"
         >
-          <ChevronLeft className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+          <ChevronLeft className="h-5 w-5 text-gray-700" />
         </button>
 
         <div className="flex gap-2">
@@ -79,7 +79,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
           onClick={next}
           className="p-2 bg-gray-800 border-2 border-gray-700 rounded-xl hover:bg-gray-700 transition-colors"
         >
-          <ChevronRight className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+          <ChevronRight className="h-5 w-5 text-gray-700" />
         </button>
       </div>
     </div>

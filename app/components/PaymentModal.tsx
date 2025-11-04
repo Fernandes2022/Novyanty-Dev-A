@@ -113,7 +113,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                       <h2 className="text-3xl font-bold text-white mb-2">
                         🚀 Go Live & Unlock Premium
                       </h2>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-gray-600">
                         Choose your plan and start creating without limits
                       </p>
                     </div>
@@ -136,7 +136,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                           className={`relative p-6 rounded-2xl border-2 transition-all text-left ${
                             selectedPlan === plan.id
                               ? "border-indigo-500 dark:border-indigo-400 shadow-xl scale-105"
-                              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                              : "border-gray-200 dark:border-gray-700 hover:border-gray-300"
                           }`}
                         >
                           {plan.popular && (
@@ -154,12 +154,12 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                           </h3>
                           <div className="text-3xl font-extrabold text-white mb-4">
                             ${plan.price}
-                            <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">/month</span>
+                            <span className="text-sm text-gray-500 font-normal">/month</span>
                           </div>
 
                           <ul className="space-y-2">
                             {plan.features.map((feature, i) => (
-                              <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                              <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
                                 <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
                                 <span>{feature}</span>
                               </li>
@@ -180,7 +180,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
 
                       <div className="space-y-4">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
                             Card Number
                           </label>
                           <input
@@ -188,14 +188,14 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                             value={cardNumber}
                             onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, "").slice(0, 16))}
                             placeholder="4242 4242 4242 4242"
-                            className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                            className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 outline-none transition-colors"
                             required
                           />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                               Expiry Date
                             </label>
                             <input
@@ -204,13 +204,13 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                               onChange={(e) => setExpiryDate(e.target.value)}
                               placeholder="MM/YY"
                               maxLength={5}
-                              className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                              className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 outline-none transition-colors"
                               required
                             />
                           </div>
 
                           <div>
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                               CVV
                             </label>
                             <input
@@ -219,7 +219,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                               onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 3))}
                               placeholder="123"
                               maxLength={3}
-                              className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-colors"
+                              className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-white focus:border-indigo-500 outline-none transition-colors"
                               required
                             />
                           </div>
@@ -242,7 +242,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                       )}
                     </button>
 
-                    <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-center text-sm text-gray-500">
                       🔒 Secured by Stripe • Cancel anytime
                     </p>
                   </form>
@@ -254,12 +254,12 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                   className="text-center py-12"
                 >
                   <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-900/30 mb-6">
-                    <Check className="h-10 w-10 text-green-600 dark:text-green-400" />
+                    <Check className="h-10 w-10 text-green-600" />
                   </div>
                   <h2 className="text-3xl font-bold text-white mb-4">
                     🎉 Payment Successful!
                   </h2>
-                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                  <p className="text-xl text-gray-600">
                     All premium features unlocked
                   </p>
                 </motion.div>

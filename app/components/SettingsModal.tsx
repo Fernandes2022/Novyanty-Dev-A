@@ -41,10 +41,10 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               <div className="space-y-6">
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Palette className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                    <Palette className="h-6 w-6 text-indigo-600" />
                     <h3 className="text-xl font-bold text-white">Appearance</h3>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">Customize your workspace theme</p>
+                  <p className="text-gray-600 mb-4">Customize your workspace theme</p>
                   <button 
                     onClick={() => alert("Theme customization coming soon!")}
                     className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
@@ -55,7 +55,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Globe className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                    <Globe className="h-6 w-6 text-indigo-600" />
                     <h3 className="text-xl font-bold text-white">Language</h3>
                   </div>
                   <select className="w-full px-4 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg text-white font-semibold">
@@ -67,23 +67,23 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Bell className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                    <Bell className="h-6 w-6 text-indigo-600" />
                     <h3 className="text-xl font-bold text-white">Notifications</h3>
                   </div>
                   <label className="flex items-center gap-3">
                     <input type="checkbox" className="w-5 h-5" defaultChecked />
-                    <span className="text-gray-700 dark:text-gray-300 font-semibold">Enable email notifications</span>
+                    <span className="text-gray-700 font-semibold">Enable email notifications</span>
                   </label>
                 </div>
 
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Lock className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                    <Lock className="h-6 w-6 text-indigo-600" />
                     <h3 className="text-xl font-bold text-white">Privacy</h3>
                   </div>
                   <button 
                     onClick={() => alert("Privacy settings coming soon!")}
-                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-semibold"
+                    className="text-indigo-600 hover:text-indigo-700 font-semibold"
                   >
                     Manage Privacy Settings
                   </button>

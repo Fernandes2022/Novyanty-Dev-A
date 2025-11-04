@@ -35,42 +35,42 @@ export function EditorPanel({
         <div className="flex items-center gap-2">
           <button
             onClick={() => onBlockAdd("text")}
-            className="flex items-center gap-2 px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg hover:border-indigo-400 transition-colors"
             title="Add Text Block"
           >
-            <Type className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Text</span>
+            <Type className="h-4 w-4 text-gray-700" />
+            <span className="text-sm font-semibold text-gray-700">Text</span>
           </button>
 
           <button
             onClick={() => onBlockAdd("image")}
-            className="flex items-center gap-2 px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg hover:border-indigo-400 transition-colors"
             title="Add Image Block"
           >
-            <ImageIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Image</span>
+            <ImageIcon className="h-4 w-4 text-gray-700" />
+            <span className="text-sm font-semibold text-gray-700">Image</span>
           </button>
 
           <button
             onClick={() => onBlockAdd("media")}
-            className="flex items-center gap-2 px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg hover:border-indigo-400 transition-colors"
             title="Add Media Block"
           >
-            <Layout className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Media</span>
+            <Layout className="h-4 w-4 text-gray-700" />
+            <span className="text-sm font-semibold text-gray-700">Media</span>
           </button>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowPreview(!showPreview)}
-            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
             title={showPreview ? "Hide Preview" : "Show Preview"}
           >
             {showPreview ? (
-              <EyeOff className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+              <EyeOff className="h-5 w-5 text-gray-700" />
             ) : (
-              <Eye className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+              <Eye className="h-5 w-5 text-gray-700" />
             )}
           </button>
 
@@ -97,11 +97,11 @@ export function EditorPanel({
         {blocks.length === 0 ? (
           <div className="h-full flex items-center justify-center">
             <div className="text-center">
-              <Layout className="h-16 w-16 text-gray-300 dark:text-gray-700 mx-auto mb-4" />
+              <Layout className="h-16 w-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">
                 No Blocks Yet
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-600 mb-6">
                 Add text, images, or media blocks to start building
               </p>
               <div className="flex gap-3 justify-center">
@@ -135,7 +135,7 @@ export function EditorPanel({
           <div className="bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 p-4 max-h-48 overflow-y-auto">
             {blocks.map((block) => (
               <div key={block.id} className="mb-3 last:mb-0">
-                <p className="text-sm text-gray-700 dark:text-gray-300">{block.content}</p>
+                <p className="text-sm text-gray-700">{block.content}</p>
               </div>
             ))}
           </div>

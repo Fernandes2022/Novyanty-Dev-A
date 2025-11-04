@@ -55,21 +55,21 @@ export function EditableBlock({ id, type, content, onUpdate, onDelete }: Editabl
           </div>
         ) : (
           <>
-            <p className="text-gray-700 dark:text-gray-300 mb-2">{content}</p>
+            <p className="text-gray-700 mb-2">{content}</p>
             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={() => setIsEditing(true)}
                 className="p-1 hover:bg-gray-700 rounded transition-colors"
                 title="Edit"
               >
-                <Edit2 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <Edit2 className="h-4 w-4 text-indigo-600" />
               </button>
               <button
                 onClick={() => onDelete(id)}
                 className="p-1 hover:bg-gray-700 rounded transition-colors"
                 title="Delete"
               >
-                <Trash2 className="h-4 w-4 text-red-600 dark:text-red-400" />
+                <Trash2 className="h-4 w-4 text-red-600" />
               </button>
             </div>
           </>

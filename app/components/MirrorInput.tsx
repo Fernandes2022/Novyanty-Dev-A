@@ -58,13 +58,13 @@ export function MirrorInput({ onReferenceAdd }: MirrorInputProps) {
               key={i}
               className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg"
             >
-              <LinkIcon className="h-4 w-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
-              <span className="flex-1 text-sm text-gray-700 dark:text-gray-300 truncate">
+              <LinkIcon className="h-4 w-4 text-gray-500 flex-shrink-0" />
+              <span className="flex-1 text-sm text-gray-700 truncate">
                 {ref}
               </span>
               <button
                 onClick={() => handleRemove(i)}
-                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
+                className="p-1 hover:bg-gray-200 rounded transition-colors"
               >
                 <X className="h-4 w-4 text-gray-500" />
               </button>
