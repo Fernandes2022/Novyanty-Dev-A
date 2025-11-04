@@ -56,8 +56,8 @@ export function TierSelector({ selected, onChange }: TierSelectorProps) {
               onClick={() => onChange(tier.id)}
               className={`p-4 rounded-2xl border-2 transition-all ${
                 isSelected
-                  ? "border-indigo-500 dark:border-indigo-400 shadow-xl scale-105"
-                  : "border-gray-300 dark:border-gray-700 hover:border-gray-400"
+                  ? "border-indigo-400 shadow-xl scale-105"
+                  : "border-gray-700 hover:border-gray-600"
               }`}
             >
               <div className={`inline-flex p-2 rounded-xl bg-gradient-to-br ${tier.color} mb-2`}>

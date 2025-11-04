@@ -31,7 +31,7 @@ export function EditorPanel({
   return (
     <div className="h-full flex flex-col bg-gray-900 rounded-3xl border-2 border-gray-700 shadow-2xl overflow-hidden">
       {/* Toolbar */}
-      <div className="flex items-center justify-between px-6 py-4 border-b-2 border-gray-200 dark:border-gray-800 bg-gray-800">
+      <div className="flex items-center justify-between px-6 py-4 border-b-2 border-gray-800 bg-gray-800">
         <div className="flex items-center gap-2">
           <button
             onClick={() => onBlockAdd("text")}
@@ -130,9 +130,9 @@ export function EditorPanel({
 
       {/* Preview Panel */}
       {showPreview && blocks.length > 0 && (
-        <div className="border-t-2 border-gray-200 dark:border-gray-800 p-6 bg-gray-800">
+        <div className="border-t-2 border-gray-800 p-6 bg-gray-800">
           <h4 className="text-sm font-bold text-white mb-3">Live Preview</h4>
-          <div className="bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 p-4 max-h-48 overflow-y-auto">
+          <div className="bg-gray-900 rounded-xl border-2 border-gray-700 p-4 max-h-48 overflow-y-auto">
             {blocks.map((block) => (
               <div key={block.id} className="mb-3 last:mb-0">
                 <p className="text-sm text-gray-700">{block.content}</p>

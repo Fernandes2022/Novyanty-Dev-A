@@ -41,7 +41,7 @@ export function PreviewCarousel({ previews }: PreviewCarouselProps) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.3 }}
-          className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 rounded-2xl p-8 border-2 border-indigo-200 dark:border-indigo-800"
+          className="bg-gradient-to-br from-indigo-950/30 to-purple-950/30 rounded-2xl p-8 border-2 border-indigo-800"
         >
           <h3 className="text-2xl font-bold text-gray-900 mb-4">
             {current.title}
