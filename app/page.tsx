@@ -130,17 +130,6 @@ export default function Home() {
     setTimeout(() => setShowPreview(true), 500);
   };
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(err => {
-        console.log('Video autoplay prevented:', err);
-        document.addEventListener('touchstart', () => {
-          videoRef.current?.play();
-        }, { once: true });
-      });
-    }
-  }, []);
-
   const disableHeavy = typeof window !== "undefined" && shouldDisableHeavyEffects();
   return (
     <>
