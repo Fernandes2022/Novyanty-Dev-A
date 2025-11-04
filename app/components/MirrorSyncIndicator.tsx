@@ -15,7 +15,7 @@ export function MirrorSyncIndicator({
   hasPendingChanges
 }: MirrorSyncIndicatorProps) {
   return (
-    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
+    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-800 border border-gray-700">
       {isSyncing ? (
         <>
           <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />

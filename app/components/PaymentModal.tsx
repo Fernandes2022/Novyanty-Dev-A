@@ -135,8 +135,8 @@ export function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) 
                           onClick={() => setSelectedPlan(plan.id)}
                           className={`relative p-6 rounded-2xl border-2 transition-all text-left ${
                             selectedPlan === plan.id
-                              ? "border-indigo-500 dark:border-indigo-400 shadow-xl scale-105"
-                              : "border-gray-200 dark:border-gray-700 hover:border-gray-300"
+                              ? "border-indigo-400 shadow-xl scale-105"
+                              : "border-gray-700 hover:border-gray-300"
                           }`}
                         >
                           {plan.popular && (

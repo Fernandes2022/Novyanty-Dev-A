@@ -56,7 +56,7 @@ export function MirrorInput({ onReferenceAdd }: MirrorInputProps) {
           {references.map((ref, i) => (
             <div
               key={i}
-              className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg"
+              className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-lg"
             >
               <LinkIcon className="h-4 w-4 text-gray-500 flex-shrink-0" />
               <span className="flex-1 text-sm text-gray-700 truncate">

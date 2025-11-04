@@ -29,10 +29,10 @@ export function Toast({ id, type, message, onClose, duration = 3000 }: ToastProp
   };
 
   const styles = {
-    success: "bg-green-500 dark:bg-green-600",
-    error: "bg-red-500 dark:bg-red-600",
-    warning: "bg-yellow-500 dark:bg-yellow-600",
-    info: "bg-blue-500 dark:bg-blue-600"
+    success: "bg-green-600",
+    error: "bg-red-600",
+    warning: "bg-yellow-600",
+    info: "bg-blue-600"
   };
 
   return (
