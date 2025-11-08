@@ -1,108 +1,112 @@
-# Creative Workspace
+# 🎨 Creative Workspace - AI-Powered Website Builder
 
-> AI-powered website builder with real-time generation and instant deployment
+A modern Next.js application for building websites with AI assistance. Features glass morphism design, smooth animations, and intelligent website generation.
 
-A modern Next.js application that transforms ideas into live websites in under a minute. Built for speed, designed for simplicity.
-
-[![Next.js](https://img.shields.io/badge/Next.js-16.0-black)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)](https://tailwindcss.com/)
-
-## Features
-
-- **Fast Generation** - Build complete websites in ~50 seconds
-- **Real-time Preview** - Watch your site come together live
-- **Mobile First** - Responsive design that works everywhere
-- **One-Click Deploy** - Push to production instantly
-- **AI-Powered** - Describe what you want, get what you need
-
-## Quick Start
+## 🚀 Quick Start
 ```bash
-# Clone the repository
-git clone https://github.com/Sandy5688/my-creative-workspace.git
-cd my-creative-workspace
-
 # Install dependencies
 npm install
 
 # Run development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Visit `http://localhost:3000` to see the app.
+Visit `http://localhost:3000` to see the application.
 
-## Project Structure
-```
-my-creative-workspace/
-├── app/                      # Next.js app directory
-│   ├── api/                 # API routes
-│   ├── workspace/           # Workspace page
-│   └── page.tsx             # Homepage
-├── components/              # React components
-│   ├── home/               # Homepage components
-│   └── workspace/          # Workspace components
-├── public/                  # Static assets
-│   ├── images/             # Image files
-│   └── videos/             # Video backgrounds
-├── scripts/                 # Development utilities
-│   ├── checks/             # Diagnostic scripts
-│   ├── fixes/              # Fix scripts
-│   ├── deployment/         # Deploy helpers
-│   └── testing/            # Test utilities
-├── docs/                    # Documentation
-├── backups/                 # Backup files
-└── lib/                     # Utility functions
-```
+## 📦 Tech Stack
 
-## Tech Stack
+- **Framework:** Next.js 16.0.0 (App Router)
+- **Language:** TypeScript (Strict Mode)
+- **Styling:** Tailwind CSS with custom utilities
+- **Animations:** Framer Motion
+- **Forms:** React Hook Form
+- **Icons:** Lucide React
 
-### Core
-- **Next.js 16** - React framework with Turbopack
-- **TypeScript** - Type-safe JavaScript
-- **React 19** - UI library
+## 📄 Pages & Routes
 
-### Styling
-- **Tailwind CSS** - Utility-first CSS
-- **Framer Motion** - Smooth animations
-- **Lucide React** - Beautiful icons
+### Public Pages
+- `/` - Landing page with hero, features, pricing
+- `/about` - About the service
+- `/contact` - Contact form with API endpoint
+- `/privacy` - Privacy policy (standalone)
+- `/terms` - Terms of service (standalone)
+- `/refund` - Refund policy
+- `/faq` - Frequently asked questions
+- `/workspace` - Website builder workspace
 
-### Development
-- **ESLint** - Code linting
-- **PostCSS** - CSS processing
-- **Turbopack** - Fast bundler
+### API Endpoints
+- `/api/contact` - Contact form submission
+- `/api/create` - Create workspace stub
+- `/api/checkout` - Payment processing
+- `/api/publish` - Publish website
+- `/api/update` - Update content
 
-## Available Scripts
-```bash
-# Development
-npm run dev          # Start dev server
-npm run build        # Build for production
-npm start            # Start production server
+## 🎨 Design System
 
-# Utilities (in scripts/ folder)
-./scripts/checks/*          # Run diagnostics
-./scripts/fixes/*           # Apply fixes
-./scripts/deployment/*      # Deploy helpers
+### CSS Variables (Tailwind Config)
+```css
+--bg-primary: Background color
+--text-soft: Muted text color
+--accent-primary: Primary accent (#7B5CFF)
+--accent-secondary: Secondary accent (#00F5A0)
 ```
 
-## Key Components
+### Custom Utilities (globals.css)
+- `.glass` - Glass morphism effect
+- `.gradient-text` - Gradient text effect
+- `.shimmer` - Shimmer animation
 
-### Homepage
-- Hero section with animated video background
-- Feature cards with hover effects
-- Testimonials carousel
-- Pricing comparison table
-- Stats dashboard
-- Mobile-responsive navigation
+## 🧩 Component Structure
+```
+/app
+  /contact          → Contact page components
+  /privacy          → Privacy policy
+  /refund           → Refund policy
+  /terms            → Terms of service
+  /api              → API routes
+/components
+  /home             → Homepage components
+  /ui               → Reusable UI components (Button, Sheet, Toast, etc.)
+/hooks              → Custom React hooks
+/lib                → Utility functions
+/types              → TypeScript type definitions
+```
 
-### Workspace
-- Real-time website builder
-- Settings panel with customization options
-- Mobile navigation drawer
-- Sign-in modal
+## 🔧 Key Features
 
-## Configuration
+### ✅ Completed Features
+- TypeScript strict mode enabled
+- Contact form with validation
+- Glass morphism design system
+- Framer Motion animations
+- Social media links (Pinterest, Facebook, LinkedIn, Blog, TikTok, Instagram, X)
+- Floating "Contact Us" button
+- Standalone Privacy & Terms pages
+- Refund policy page
+- API endpoints for forms
 
-### Environment Variables
+### 🎯 Custom Hooks
+- `useToast` - Toast notifications
+- `usePayment` - Payment processing
+- `useCompose` - AI content composition
+- `useReducedMotion` - Accessibility for animations
+- `useWorkspaceState` - Workspace state management
+
+### 🎨 UI Components
+- Button - Customizable button variants
+- Sheet - Slide-out panels
+- Toast - Notification system
+- Panel - Content containers
+- Textarea - Form inputs
+- Select - Dropdown selects
+
+## 📝 Environment Variables
 
 Create a `.env.local` file:
 ```env
@@ -110,134 +114,78 @@ Create a `.env.local` file:
 NEXT_PUBLIC_API_URL=your_api_url
 ```
 
-### Tailwind Configuration
-
-The project uses a custom Tailwind setup with:
-- Custom color palette
-- Extended animations
-- Responsive breakpoints
-- Dark mode support
-
-### TypeScript
-
-Strict mode enabled with proper type checking across the entire codebase.
-
-## Deployment
+## 🚀 Deployment
 
 ### Vercel (Recommended)
-
-This project is optimized for Vercel deployment:
-
-1. Push to GitHub
-2. Connect repository to Vercel
-3. Deploy automatically on push
 ```bash
-# Manual deployment
-git add .
-git commit -m "your changes"
-git push origin main
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Deploy to production
+vercel --prod
 ```
 
-### Other Platforms
-
-Works with any Node.js hosting platform:
-- Netlify
-- Railway
-- Render
-- AWS Amplify
-
-## Performance
-
-- **Build Time**: ~50 seconds
-- **Lighthouse Score**: 95+ on all metrics
-- **Bundle Size**: Optimized with Turbopack
-- **First Paint**: < 1 second
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers
-
-## Development Workflow
-
-1. Create feature branch
-2. Make changes
-3. Test locally with `npm run dev`
-4. Build with `npm run build`
-5. Push to GitHub
-6. Auto-deploy to production
-
-## Folder Organization
-
-The repository follows a clean, professional structure:
-
-- **Core files** in root (configs only)
-- **Scripts** organized by purpose
-- **Documentation** centralized in `docs/`
-- **Backups** kept in `backups/`
-
-## API Routes
-
-- `/api/create` - Generate new website
-- `/api/update` - Update existing content
-- `/api/publish` - Deploy to production
-- `/api/checkout` - Handle payments
-
-## Customization
-
-### Styling
-Edit `tailwind.config.ts` for custom theme values.
-
-### Components
-All components are in `components/` with clear naming.
-
-### Pages
-Add new pages in `app/` directory following Next.js 14+ conventions.
-
-## Troubleshooting
-
-### Build Errors
+### Manual Build
 ```bash
-# Clear cache and rebuild
-rm -rf .next node_modules
-npm install
 npm run build
+npm start
 ```
 
-### Type Errors
-```bash
-# Regenerate types
-npx tsc --noEmit
-```
+## 🔍 TypeScript
 
-## Contributing
+This project uses **strict mode** for TypeScript:
+- All types must be explicitly defined
+- Null checks required
+- No implicit any types
 
-This is a client project, but the structure can be used as a template for similar applications.
+## 📊 Project Stats
 
-## License
+- **Total Routes:** 20
+- **Components:** 30+
+- **Hooks:** 10+
+- **API Endpoints:** 7
+- **Build Time:** ~10 seconds
+- **TypeScript Errors:** 0
 
-Private project - All rights reserved
+## 🤝 Contributing
 
-## Maintenance
+This is a collaborative project. When contributing:
 
-Scripts are organized in `scripts/` folder:
-- Run checks before major changes
-- Use deployment scripts for consistent deploys
-- Keep backups in `backups/` folder
+1. Create a feature branch
+2. Run `npm run lint` before committing
+3. Ensure `npm run build` passes
+4. Test all pages locally
+5. Update this README if adding new features
 
-## Notes
+## 📱 Social Links
 
-- Mobile menus available on homepage and workspace
-- Video backgrounds optimized for performance
-- All forms have proper placeholder alignment
-- Build time consistently around 50 seconds
-- Settings dropdown includes sign-in option
+Connect with us:
+- Pinterest
+- Facebook
+- LinkedIn
+- Blog
+- TikTok
+- Instagram
+- X (Twitter)
+
+## 🐛 Known Issues
+
+- Turbopack experimental warning (can be ignored)
+- Next.config.js 'turbo' key warning (doesn't affect functionality)
+
+## 📞 Support
+
+For questions or issues:
+- **Contact Page:** `/contact`
+- **Email:** support@creativeworkspace.com
+
+## 📄 License
+
+© 2025 Creative Workspace. All rights reserved.
 
 ---
 
-**Built with Next.js** • **Styled with Tailwind** • **Deployed on Vercel**
-
-For questions or issues, refer to documentation in `docs/` folder.
+**Built with ❤️ by creators, for creators.**
