@@ -6,7 +6,7 @@ import { ArrowLeft, Shield, Eye, Lock, Database, UserCheck } from 'lucide-react'
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bg-primary via-slate-950 to-bg-primary">
+    <div className="min-h-screen bg-gradient-to-br from-[#111827] to-[#1E293B]">
       {/* Navigation */}
       <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -42,6 +42,11 @@ export default function PrivacyPage() {
         </div>
       </section>
 
+      {/* Gradient Divider */}
+      <div className="max-w-4xl mx-auto px-6 mb-12">
+        <div className="h-1 bg-gradient-to-r from-accent-primary to-accent-secondary rounded-full" />
+      </div>
+
       {/* Privacy Content */}
       <section className="pb-20 px-6">
         <div className="max-w-4xl mx-auto space-y-12">
@@ -50,7 +55,7 @@ export default function PrivacyPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-dark p-8 rounded-2xl"
+            className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
               <div className="p-3 bg-accent-primary/10 rounded-xl">
@@ -63,11 +68,11 @@ export default function PrivacyPage() {
                 </p>
               </div>
             </div>
-            <div className="space-y-4 text-text-soft">
-              <p>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-text-soft">
                 When you use Creative Workspace, we collect:
               </p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
+              <ul className="list-disc list-inside space-y-2 ml-4 text-text-soft">
                 <li>Account information (email, name) when you sign up</li>
                 <li>Usage data to improve our services</li>
                 <li>Device and browser information for compatibility</li>
@@ -76,12 +81,15 @@ export default function PrivacyPage() {
             </div>
           </motion.div>
 
+          {/* Gradient Divider */}
+          <div className="h-px bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-primary opacity-30" />
+
           {/* How We Use Your Data */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="glass-dark p-8 rounded-2xl"
+            className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
               <div className="p-3 bg-accent-secondary/10 rounded-xl">
@@ -94,9 +102,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
             </div>
-            <div className="space-y-4 text-text-soft">
-              <p>We use your information to:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
+            <div className="prose prose-invert max-w-none">
+              <p className="text-text-soft">We use your information to:</p>
+              <ul className="list-disc list-inside space-y-2 ml-4 text-text-soft">
                 <li>Provide and maintain our services</li>
                 <li>Send important updates and notifications</li>
                 <li>Improve features based on usage patterns</li>
@@ -106,12 +114,15 @@ export default function PrivacyPage() {
             </div>
           </motion.div>
 
+          {/* Gradient Divider */}
+          <div className="h-px bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-primary opacity-30" />
+
           {/* Data Security */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="glass-dark p-8 rounded-2xl"
+            className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
               <div className="p-3 bg-accent-primary/10 rounded-xl">
@@ -124,11 +135,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
             </div>
-            <div className="space-y-4 text-text-soft">
-              <p>
-                Your data is protected through:
-              </p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
+            <div className="prose prose-invert max-w-none">
+              <p className="text-text-soft">Your data is protected through:</p>
+              <ul className="list-disc list-inside space-y-2 ml-4 text-text-soft">
                 <li>Encrypted connections (HTTPS/SSL)</li>
                 <li>Secure database storage</li>
                 <li>Regular security audits</li>
@@ -138,12 +147,15 @@ export default function PrivacyPage() {
             </div>
           </motion.div>
 
+          {/* Gradient Divider */}
+          <div className="h-px bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-primary opacity-30" />
+
           {/* Your Rights */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="glass-dark p-8 rounded-2xl"
+            className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
               <div className="p-3 bg-accent-secondary/10 rounded-xl">
@@ -156,9 +168,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
             </div>
-            <div className="space-y-4 text-text-soft">
-              <p>You can:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
+            <div className="prose prose-invert max-w-none">
+              <p className="text-text-soft">You can:</p>
+              <ul className="list-disc list-inside space-y-2 ml-4 text-text-soft">
                 <li>Access your personal data at any time</li>
                 <li>Request data correction or deletion</li>
                 <li>Export your data in a portable format</li>
@@ -168,31 +180,48 @@ export default function PrivacyPage() {
             </div>
           </motion.div>
 
-          {/* Contact & Questions */}
+          {/* Contact CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="glass-dark p-8 rounded-2xl border-2 border-accent-primary/20"
+            className="glass p-8 rounded-2xl border-2 border-accent-primary/20 text-center"
           >
-            <h2 className="text-2xl font-bold text-white mb-4 text-center">
+            <h2 className="text-2xl font-bold text-white mb-4">
               Questions About Privacy?
             </h2>
-            <p className="text-text-soft text-center mb-6">
+            <p className="text-text-soft mb-6">
               We're here to help. Reach out if you have any concerns about your data.
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="/"
+                className="group relative inline-flex px-8 py-4 bg-white/5 border border-white/10 text-white rounded-xl font-semibold overflow-hidden transition-all hover:border-accent-primary/50"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-accent-primary/10 to-accent-secondary/10 opacity-0"
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <span className="relative">Back to Home</span>
+              </Link>
+              
               <Link
                 href="/contact#contact-form"
-                className="inline-flex px-6 py-3 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-semibold hover:scale-105 transition-transform"
+                className="group relative inline-flex px-8 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-semibold overflow-hidden transition-all shadow-lg"
               >
-                Contact Us
-              </Link>
-              <Link
-                href="/terms"
-                className="inline-flex px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
-              >
-                View Terms
+                <motion.div
+                  className="absolute inset-0 bg-white/20"
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileHover={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary blur-xl opacity-0"
+                  whileHover={{ opacity: 0.6 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <span className="relative">Contact Us</span>
               </Link>
             </div>
           </motion.div>

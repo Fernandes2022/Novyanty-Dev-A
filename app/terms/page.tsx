@@ -55,7 +55,7 @@ export default function TermsPage() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <Link 
             href="/contact#contact-form"
-            className="inline-flex items-center gap-2 text-white hover:text-purple-400 transition-colors"
+            className="inline-flex items-center gap-2 text-white hover:text-accent-primary transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             <span>Back to Home</span>

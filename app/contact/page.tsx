@@ -30,7 +30,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bg-primary via-slate-950 to-bg-primary">
+    <div className="min-h-screen bg-gradient-to-br from-[#111827] to-[#1E293B]">
       {/* Navigation */}
       <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -60,7 +60,7 @@ export default function ContactPage() {
               </span>
             </h1>
             <p className="text-xl text-text-soft">
-              Have a question or want to work together? We'd love to hear from you!
+              Slide into our inbox — we actually reply 😎
             </p>
           </motion.div>
         </div>
@@ -74,7 +74,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="glass-dark p-8 md:p-12 rounded-2xl">
+            <div className="glass p-8 md:p-12 rounded-2xl">
               <h2 className="text-3xl font-bold text-white mb-2">Send us a message</h2>
               <p className="text-text-soft mb-8">Fill out the form below and we'll get back to you within 24 hours.</p>
               
@@ -124,24 +124,27 @@ export default function ContactPage() {
                   />
                 </div>
 
-                {/* Submit Button with Client Colors */}
+                {/* Animated Submit Button */}
                 <motion.button
                   type="submit"
                   disabled={isSubmitting || submitted}
-                  className="group relative w-full py-4 px-8 bg-gradient-to-r from-accent-primary to-accent-secondary bg-size-200 bg-pos-0 hover:bg-pos-100 text-white rounded-xl font-bold text-lg overflow-hidden transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  whileHover={{ scale: 1.02 }}
+                  className="group relative w-full py-4 px-8 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-bold text-lg overflow-hidden transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-accent-primary/50"
+                  whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
+                  {/* Shimmer effect */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                    initial={{ x: '-100%' }}
-                    animate={{ x: '100%' }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 3,
-                      ease: 'linear',
-                      repeatDelay: 1
-                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    initial={{ x: '-200%' }}
+                    whileHover={{ x: '200%' }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  
+                  {/* Pulse glow on hover */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary opacity-0 blur-xl"
+                    whileHover={{ opacity: 0.6 }}
+                    transition={{ duration: 0.3 }}
                   />
                   
                   <span className="relative flex items-center justify-center gap-3">
@@ -168,14 +171,15 @@ export default function ContactPage() {
                     ) : (
                       <>
                         Send Message
-                        <Send className="h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <motion.div
+                          whileHover={{ x: 3, y: -3 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Send className="h-5 w-5" />
+                        </motion.div>
                       </>
                     )}
                   </span>
-
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary blur-xl" />
-                  </div>
                 </motion.button>
               </form>
 
@@ -215,7 +219,8 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass p-6 rounded-2xl text-center"
             >
               <div className="p-4 bg-accent-primary/10 rounded-xl w-fit mx-auto mb-4">
                 <Mail className="h-8 w-8 text-accent-primary" />
@@ -233,7 +238,8 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass p-6 rounded-2xl text-center"
             >
               <div className="p-4 bg-accent-secondary/10 rounded-xl w-fit mx-auto mb-4">
                 <Phone className="h-8 w-8 text-accent-secondary" />
@@ -252,7 +258,8 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass p-6 rounded-2xl text-center"
             >
               <div className="p-4 bg-accent-primary/10 rounded-xl w-fit mx-auto mb-4">
                 <MapPin className="h-8 w-8 text-accent-primary" />
@@ -268,7 +275,8 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="glass-dark p-6 rounded-2xl text-center border border-accent-secondary/20"
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass p-6 rounded-2xl text-center border border-accent-secondary/20"
             >
               <div className="p-4 bg-accent-secondary/10 rounded-xl w-fit mx-auto mb-4">
                 <Clock className="h-8 w-8 text-accent-secondary" />

@@ -1,211 +1,153 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { ArrowLeft, Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 const faqs = [
   {
-    category: "Getting Started",
-    questions: [
-      {
-        q: "How quickly can I build a website?",
-        a: "Most websites are ready in about 50 seconds. You describe what you want, we handle the rest. You can then customize and deploy immediately."
-      },
-      {
-        q: "Do I need coding experience?",
-        a: "Not at all. Creative Workspace is built for everyone. If you can describe your vision, you can build it. No HTML, CSS, or JavaScript knowledge required."
-      },
-      {
-        q: "What kind of websites can I create?",
-        a: "Portfolios, landing pages, business sites, blogs, product showcases—pretty much anything. If you need custom functionality, you can add it or request it."
-      }
-    ]
+    question: "What is Creative Workspace?",
+    answer: "Creative Workspace is an AI-powered platform that helps you create stunning visual content, manage projects, and collaborate with your team - all in one place."
   },
   {
-    category: "Features & Capabilities",
-    questions: [
-      {
-        q: "Can I customize the generated design?",
-        a: "Absolutely. Every element is customizable. Colors, fonts, layouts, content—change whatever you want. Or start fresh with a new generation."
-      },
-      {
-        q: "Is it mobile-friendly?",
-        a: "Yes. Every website automatically works perfectly on phones, tablets, and desktops. No extra work needed."
-      },
-      {
-        q: "Can I use my own domain?",
-        a: "Yes. Connect any domain you own, or use our free subdomain to start. Domain connection takes just a few clicks."
-      }
-    ]
+    question: "How does the pricing work?",
+    answer: "We offer flexible pricing plans starting from free for individuals to enterprise plans for teams. You only pay for what you use, with no hidden fees."
   },
   {
-    category: "Pricing & Plans",
-    questions: [
-      {
-        q: "Is there a free plan?",
-        a: "Yes. Start building immediately with our free plan. Create and publish your first site without entering a card. Upgrade when you're ready for more features."
-      },
-      {
-        q: "What happens if I cancel?",
-        a: "Your sites stay live. You can keep using them, but you won't be able to create new ones or access premium features. No tricks, no data hostage situations."
-      },
-      {
-        q: "Can I export my website?",
-        a: "Yes. On paid plans, you can export all your code and assets. Take your site anywhere—you own it completely."
-      }
-    ]
+    question: "Can I cancel my subscription anytime?",
+    answer: "Yes! You can cancel your subscription at any time. Your access will continue until the end of your billing period. Check our refund policy for more details."
   },
   {
-    category: "Technical Questions",
-    questions: [
-      {
-        q: "How fast will my site load?",
-        a: "Fast. We optimize everything automatically—images, code, hosting. Most sites load in under 2 seconds globally."
-      },
-      {
-        q: "Is it SEO-friendly?",
-        a: "Yes. Clean code, proper meta tags, fast loading, mobile-responsive—all the SEO fundamentals are handled automatically."
-      },
-      {
-        q: "What about security and uptime?",
-        a: "We use enterprise-grade hosting with 99.9% uptime. SSL certificates included. Automatic backups. DDoS protection. Your site is safe."
-      }
-    ]
+    question: "What file formats do you support?",
+    answer: "We support all major file formats including PNG, JPG, SVG, PDF, MP4, and more. You can export your work in any format you need."
   },
   {
-    category: "Support",
-    questions: [
-      {
-        q: "What if I get stuck?",
-        a: "We're here to help. Email support, documentation, video tutorials, and community forums. Most questions get answered within a few hours."
-      },
-      {
-        q: "Can you build it for me?",
-        a: "While Creative Workspace is designed to be self-service, we offer custom development services for complex projects. Contact us for pricing."
-      },
-      {
-        q: "Do you offer refunds?",
-        a: "Yes. 30-day money-back guarantee on all paid plans. If you're not happy, we'll refund you—no questions asked."
-      }
-    ]
+    question: "Is my data secure?",
+    answer: "Absolutely! We use industry-standard encryption and security measures to protect your data. Read our privacy policy to learn more about how we handle your information."
+  },
+  {
+    question: "Do you offer custom development?",
+    answer: "While Creative Workspace is designed to be self-service, we offer custom development services for complex projects. Contact us for pricing."
+  },
+  {
+    question: "How do I get started?",
+    answer: "Simply sign up for a free account, explore our templates, and start creating! Our intuitive interface makes it easy to get started in minutes."
+  },
+  {
+    question: "What kind of support do you provide?",
+    answer: "We offer email support for all users, with priority support for premium subscribers. Our comprehensive documentation and video tutorials are also available 24/7."
   }
 ];
 
-function FAQItem({ question, answer, index }: { question: string; answer: string; index: number }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="glass-dark rounded-xl overflow-hidden"
-    >
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
-      >
-        <span className="text-lg font-semibold text-white pr-4">{question}</span>
-        {isOpen ? (
-          <Minus className="h-5 w-5 text-purple-400 flex-shrink-0" />
-        ) : (
-          <Plus className="h-5 w-5 text-purple-400 flex-shrink-0" />
-        )}
-      </button>
-      {isOpen && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          className="px-6 pb-4"
-        >
-          <p className="text-gray-300 leading-relaxed">{answer}</p>
-        </motion.div>
-      )}
-    </motion.div>
-  );
-}
-
 export default function FAQPage() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <Link 
-            href="/"
-            className="inline-flex items-center gap-2 text-white hover:text-purple-400 transition-colors"
-          >
-            <ArrowLeft className="h-5 w-5" />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-      </nav>
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-      {/* Header */}
-      <section className="pt-32 pb-12 px-6">
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#111827] to-[#1E293B]">
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            <HelpCircle className="h-16 w-16 text-accent-primary mx-auto mb-6" />
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
               Frequently Asked
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-accent-secondary">
                 Questions
               </span>
             </h1>
-            <p className="text-xl text-gray-300">
-              Everything you need to know about Creative Workspace
+            <p className="text-xl text-text-soft">
+              Find answers to common questions about Creative Workspace
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* FAQ Categories */}
+      {/* FAQ Accordion */}
       <section className="pb-20 px-6">
-        <div className="max-w-4xl mx-auto space-y-12">
-          {faqs.map((category, categoryIndex) => (
-            <div key={categoryIndex}>
-              <h2 className="text-2xl font-bold text-white mb-6">{category.category}</h2>
-              <div className="space-y-4">
-                {category.questions.map((faq, index) => (
-                  <FAQItem
-                    key={index}
-                    question={faq.q}
-                    answer={faq.a}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </div>
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="glass rounded-2xl overflow-hidden"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+              >
+                <span className="text-lg font-semibold text-white pr-4">
+                  {faq.question}
+                </span>
+                <motion.div
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown className={`h-5 w-5 ${openIndex === index ? 'text-accent-primary' : 'text-text-soft'}`} />
+                </motion.div>
+              </button>
+              
+              <motion.div
+                initial={false}
+                animate={{
+                  height: openIndex === index ? 'auto' : 0,
+                  opacity: openIndex === index ? 1 : 0
+                }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="px-6 pb-5 text-text-soft">
+                  {faq.answer}
+                </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Still Have Questions */}
+      {/* Contact CTA */}
       <section className="pb-20 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="glass-dark p-12 rounded-3xl text-center"
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="glass p-8 md:p-12 rounded-2xl text-center border-2 border-accent-primary/20"
           >
             <h2 className="text-3xl font-bold text-white mb-4">
               Still have questions?
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-text-soft mb-8">
               We're here to help. Reach out and we'll get back to you quickly.
             </p>
             <Link
-              href="/"
-              className="inline-flex px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform"
+              href="/contact#contact-form"
+              className="group relative inline-flex px-8 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-semibold overflow-hidden transition-all shadow-lg"
             >
-              Contact Support
+              <motion.div
+                className="absolute inset-0 bg-white/20"
+                initial={{ scale: 0, opacity: 0 }}
+                whileHover={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary blur-xl opacity-0"
+                whileHover={{ opacity: 0.6 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span 
+                className="relative"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                Contact Support
+              </motion.span>
             </Link>
           </motion.div>
         </div>
