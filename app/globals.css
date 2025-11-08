@@ -167,3 +167,54 @@ video {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Performance Optimizations */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth scrolling with better performance */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Optimize animations for mobile */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration for transforms */
+.glass,
+.glass-dark,
+[class*="motion-"] {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Optimize backdrop blur for mobile */
+@media (max-width: 768px) {
+  .glass,
+  .glass-dark {
+    backdrop-filter: blur(8px) !important;
+  }
+}
+
+/* Prevent layout shift */
+img,
+video {
+  height: auto;
+}
+
+/* Optimize font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
