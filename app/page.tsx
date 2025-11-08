@@ -1024,6 +1024,7 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-white/60">
                 <li><Link href="/privacy" className="hover:text-purple-400 transition-colors">Privacy</Link></li>
                 <li><Link href="/terms" className="hover:text-purple-400 transition-colors">Terms</Link></li>
+                <li><Link href="/refund" className="hover:text-purple-400 transition-colors">Refund Policy</Link></li>
               </ul>
             </div>
             <div>
