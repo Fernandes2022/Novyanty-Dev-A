@@ -197,9 +197,27 @@ export default function RefundPage() {
             </p>
             <Link
               href="/contact#contact-form"
-              className="inline-flex px-8 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-semibold text-lg hover:scale-105 transition-transform"
+              className="group relative inline-flex px-8 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-semibold text-lg overflow-hidden transition-all shadow-lg hover:shadow-accent-primary/50"
             >
-              Contact Support
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                initial={{ x: "-200%" }}
+                whileHover={{ x: "200%" }}
+                transition={{ duration: 0.6 }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary opacity-0 blur-xl"
+                whileHover={{ opacity: 0.6 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                className="relative flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                Contact Support
+                <motion.span whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>→</motion.span>
+              </motion.span>
             </Link>
           </div>
         </motion.div>
