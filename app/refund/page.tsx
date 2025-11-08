@@ -196,7 +196,7 @@ export default function RefundPage() {
               Have questions about our refund policy? Our support team is here to help you out.
             </p>
             <Link
-              href="/contact"
+              href="/contact#contact-form"
               className="inline-flex px-8 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-semibold text-lg hover:scale-105 transition-transform"
             >
               Contact Support

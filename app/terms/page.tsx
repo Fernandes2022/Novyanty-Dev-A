@@ -54,7 +54,7 @@ export default function TermsPage() {
       <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <Link 
-            href="/"
+            href="/contact#contact-form"
             className="inline-flex items-center gap-2 text-white hover:text-purple-400 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
@@ -145,7 +145,7 @@ export default function TermsPage() {
               We're happy to clarify anything. Reach out anytime.
             </p>
             <Link
-              href="/"
+              href="/contact#contact-form"
               className="inline-flex px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform"
             >
               Contact Us
