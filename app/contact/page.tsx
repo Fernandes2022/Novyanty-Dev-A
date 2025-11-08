@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowLeft, Mail, MapPin, MessageSquare, Send, Phone } from 'lucide-react';
+import { ArrowLeft, Mail, MapPin, MessageSquare, Send, Phone, Clock } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ContactPage() {
@@ -68,15 +68,13 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form & Info Grid */}
-      <section className="pb-20 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
-          {/* Contact Form - Takes 2 columns */}
+      {/* Contact Form - Full Width, Centered */}
+      <section className="pb-16 px-6">
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2"
           >
             <div className="glass-dark p-8 md:p-12 rounded-2xl">
               <h2 className="text-3xl font-bold text-white mb-2">Send us a message</h2>
@@ -200,65 +198,103 @@ export default function ContactPage() {
               )}
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Contact Info Sidebar */}
+      {/* Contact Info - Below the Form */}
+      <section className="pb-20 px-6">
+        <div className="max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6"
+            className="text-center mb-12"
           >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Other Ways to Reach Us
+            </h2>
+            <p className="text-gray-400">
+              Choose the method that works best for you
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Email Card */}
-            <div className="glass-dark p-6 rounded-2xl group hover:scale-105 transition-transform">
-              <div className="p-3 bg-purple-500/10 rounded-xl w-fit mb-4">
-                <Mail className="h-6 w-6 text-purple-400" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
+            >
+              <div className="p-4 bg-purple-500/10 rounded-xl w-fit mx-auto mb-4">
+                <Mail className="h-8 w-8 text-purple-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Email Us</h3>
               <a 
                 href="mailto:support@creativeworkspace.com"
-                className="text-gray-400 hover:text-purple-400 transition-colors"
+                className="text-gray-400 hover:text-purple-400 transition-colors text-sm break-all"
               >
                 support@creativeworkspace.com
               </a>
-            </div>
+            </motion.div>
 
             {/* Phone Card */}
-            <div className="glass-dark p-6 rounded-2xl group hover:scale-105 transition-transform">
-              <div className="p-3 bg-pink-500/10 rounded-xl w-fit mb-4">
-                <Phone className="h-6 w-6 text-pink-400" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
+            >
+              <div className="p-4 bg-pink-500/10 rounded-xl w-fit mx-auto mb-4">
+                <Phone className="h-8 w-8 text-pink-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Call Us</h3>
               <a 
                 href="tel:+1234567890"
-                className="text-gray-400 hover:text-pink-400 transition-colors"
+                className="text-gray-400 hover:text-pink-400 transition-colors text-sm"
               >
                 +1 (234) 567-890
               </a>
-            </div>
+              <p className="text-xs text-gray-500 mt-1">Mon-Fri, 9AM-6PM EST</p>
+            </motion.div>
 
             {/* Location Card */}
-            <div className="glass-dark p-6 rounded-2xl group hover:scale-105 transition-transform">
-              <div className="p-3 bg-blue-500/10 rounded-xl w-fit mb-4">
-                <MapPin className="h-6 w-6 text-blue-400" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
+            >
+              <div className="p-4 bg-blue-500/10 rounded-xl w-fit mx-auto mb-4">
+                <MapPin className="h-8 w-8 text-blue-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Visit Us</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-400 text-sm">
                 123 Creative Street<br />
                 San Francisco, CA 94103
               </p>
-            </div>
+            </motion.div>
 
-            {/* Response Time */}
-            <div className="glass-dark p-6 rounded-2xl border border-green-500/20">
-              <div className="flex items-center gap-3 mb-2">
+            {/* Response Time Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="glass-dark p-6 rounded-2xl text-center border border-green-500/20"
+            >
+              <div className="p-4 bg-green-500/10 rounded-xl w-fit mx-auto mb-4">
+                <Clock className="h-8 w-8 text-green-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Quick Response</h3>
+              <div className="flex items-center justify-center gap-2 mb-2">
                 <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse" />
-                <h3 className="text-lg font-bold text-white">Quick Response</h3>
+                <span className="text-green-400 text-sm font-medium">Online Now</span>
               </div>
               <p className="text-gray-400 text-sm">
-                We typically respond within 24 hours during business days.
+                We typically respond within 24 hours
               </p>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>
