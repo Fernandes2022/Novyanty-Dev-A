@@ -1,86 +1,73 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import { Block, Draft } from '@/types/api';
 
 export interface WorkspaceStore {
   currentDraft: Draft | null;
-  isLoading: boolean;
-  isSaving: boolean;
-  unlockedFeatures: string[];
-  setDraft: (draft: Draft) => void;
-  setLoading: (loading: boolean) => void;
-  setSaving: (saving: boolean) => void;
-  unlockFeatures: (features: string[]) => void;
-  updateBlock: (blockId: string, content: string) => void;
-  deleteBlock: (blockId: string) => void;
-  addBlock: (block: Block) => void;
+  blocks: Block[];
+  selectedBlockId: string | null;
 }
 
-export function useWorkspaceState(): WorkspaceStore {
+export function useWorkspaceState() {
   const [currentDraft, setCurrentDraft] = useState<Draft | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [unlockedFeatures, setUnlockedFeatures] = useState<string[]>([]);
+  const [blocks, setBlocks] = useState<Block[]>([]);
+  const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
 
-  const setDraft = (draft: Draft) => {
+  const loadDraft = (draft: Draft) => {
     setCurrentDraft(draft);
+    setBlocks(draft.blocks || []);
   };
 
-  const setLoading = (loading: boolean) => {
-    setIsLoading(loading);
+  const addBlock = (type: Block['type']) => {
+    const newBlock: Block = {
+      id: `block-${Date.now()}`,
+      type,
+      content: '',
+    };
+    setBlocks([...blocks, newBlock]);
+    if (currentDraft) {
+      setCurrentDraft({
+        ...currentDraft,
+        blocks: [...(currentDraft.blocks || []), newBlock],
+      });
+    }
   };
 
-  const setSaving = (saving: boolean) => {
-    setIsSaving(saving);
-  };
-
-  const unlockFeatures = (features: string[]) => {
-    setUnlockedFeatures(features);
+  const removeBlock = (blockId: string) => {
+    setBlocks(blocks.filter((b) => b.id !== blockId));
+    if (currentDraft) {
+      setCurrentDraft({
+        ...currentDraft,
+        blocks: (currentDraft.blocks || []).filter((b) => b.id !== blockId),
+      });
+    }
   };
 
   const updateBlock = (blockId: string, content: string) => {
-    if (!currentDraft) return;
+    if (!currentDraft || !currentDraft.blocks) return;
     const updatedBlocks = currentDraft.blocks.map((block) =>
       block.id === blockId ? { ...block, content } : block
     );
     setCurrentDraft({
       ...currentDraft,
       blocks: updatedBlocks,
-      lastEdited: new Date().toISOString(),
     });
+    setBlocks(updatedBlocks);
   };
 
-  const deleteBlock = (blockId: string) => {
-    if (!currentDraft) return;
-    const updatedBlocks = currentDraft.blocks.filter((block) => block.id !== blockId);
-    setCurrentDraft({
-      ...currentDraft,
-      blocks: updatedBlocks,
-      lastEdited: new Date().toISOString(),
-    });
-  };
-
-  const addBlock = (block: Block) => {
-    if (!currentDraft) return;
-    setCurrentDraft({
-      ...currentDraft,
-      blocks: [...currentDraft.blocks, block],
-      lastEdited: new Date().toISOString(),
-    });
+  const selectBlock = (blockId: string | null) => {
+    setSelectedBlockId(blockId);
   };
 
   return {
     currentDraft,
-    isLoading,
-    isSaving,
-    unlockedFeatures,
-    setDraft,
-    setLoading,
-    setSaving,
-    unlockFeatures,
-    updateBlock,
-    deleteBlock,
+    blocks,
+    selectedBlockId,
+    loadDraft,
     addBlock,
+    removeBlock,
+    updateBlock,
+    selectBlock,
   };
 }

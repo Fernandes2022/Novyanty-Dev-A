@@ -1,3 +1,6 @@
+// PLACEHOLDER: Dev E will add USPFlipGrid component here
+// import USPFlipGrid from "@/components/home/USPFlipGrid";
+
 "use client";
 import "./performance.css";
 import Link from "next/link";
@@ -1030,6 +1033,9 @@ export default function Home() {
                 <li><a href="#" className="hover:text-purple-400 transition-colors">Facebook</a></li>
                 <li><a href="#" className="hover:text-purple-400 transition-colors">LinkedIn</a></li>
                 <li><a href="#" className="hover:text-purple-400 transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">TikTok</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">Instagram</a></li>
+                <li><a href="#" className="hover:text-purple-400 transition-colors">X (Twitter)</a></li>
               </ul>
             </div>
           </div>

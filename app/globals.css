@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===================================
+   CLIENT-REQUESTED CSS VARIABLES
+   =================================== */
+:root {
+  --background: #0a0a0f;
+  --foreground: #e5e7eb;
+  
+  /* New theme variables for Dev E */
+  --bg-primary: #0a0a0f;
+  --text-soft: #e5e7eb;
+  --accent-primary: #7B5CFF;
+  --accent-secondary: #00F5A0;
+}
+
+/* ===================================
+   BASE STYLES
+   =================================== */
 * {
   margin: 0;
   padding: 0;
@@ -15,20 +32,21 @@ html {
 }
 
 body {
-  background: #1a1d29;
-  color: white;
+  background: var(--bg-primary);
+  color: var(--text-soft);
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Mobile text optimization */
+/* ===================================
+   MOBILE TEXT OPTIMIZATION
+   =================================== */
 @media (max-width: 640px) {
   html {
     font-size: 14px;
   }
 }
 
-/* Prevent text from being too large on small screens */
 @media (max-width: 480px) {
   h1 {
     font-size: clamp(1.5rem, 8vw, 3rem) !important;
@@ -46,7 +64,9 @@ body {
   }
 }
 
-/* Glass effect utility */
+/* ===================================
+   GLASS MORPHISM (Dev E needs this)
+   =================================== */
 .glass {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -54,20 +74,68 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Ensure buttons are readable on mobile */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+}
+
+/* ===================================
+   GRADIENT TEXT (Dev E needs this)
+   =================================== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* ===================================
+   SHIMMER ANIMATION (Dev E needs this)
+   =================================== */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 3s infinite linear;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* ===================================
+   BUTTON OPTIMIZATIONS
+   =================================== */
 button {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Smooth transitions */
+/* ===================================
+   SMOOTH TRANSITIONS
+   =================================== */
 * {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
-/* Hide video controls and play button */
+/* ===================================
+   VIDEO CONTROLS (Hide all)
+   =================================== */
 video::-webkit-media-controls {
   display: none !important;
 }
@@ -92,222 +160,10 @@ video {
   pointer-events: none !important;
 }
 
-/* Performance optimizations */
+/* ===================================
+   PERFORMANCE OPTIMIZATIONS
+   =================================== */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Hardware acceleration for animations */
-.card-dark,
-.glass,
-.glass-dark,
-.btn-primary,
-.btn-secondary {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-/* Enhanced readability - ALL text bold and clear */
-body {
-  font-weight: 600 !important;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 800 !important;
-  color: #ffffff !important;
-  text-shadow: 0 2px 20px rgba(255,255,255,0.1);
-}
-
-p, span, div {
-  font-weight: 600 !important;
-  color: #e9edef !important;
-}
-
-/* Super obvious clickable buttons */
-button, .btn, [role="button"] {
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-}
-
-button:hover, .btn:hover, [role="button"]:hover {
-  transform: translateY(-2px) scale(1.05) !important;
-  filter: brightness(1.2) !important;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #06b6d4 100%) !important;
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.6), 0 0 60px rgba(236, 72, 153, 0.4) !important;
-  color: white !important;
-  font-weight: 800 !important;
-  padding: 0.75rem 1.5rem !important;
-  border-radius: 0.75rem !important;
-}
-
-.btn-primary:hover {
-  box-shadow: 0 0 40px rgba(139, 92, 246, 0.8), 0 0 80px rgba(236, 72, 153, 0.6) !important;
-  transform: translateY(-3px) scale(1.08) !important;
-}
-
-/* Radiant dark colors */
-.gradient-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 50%, #22d3ee 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 800 !important;
-  filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.5));
-}
-
-
-/* Background Video - MOBILE ONLY */
-@media (max-width: 768px) {
-  .hero-video-background,
-  section:first-of-type video {
-    /* Fill viewport height */
-    height: 100vh !important;
-    width: auto !important;
-    min-width: 100% !important;
-    
-    /* Lock aspect ratio */
-    object-fit: cover !important;
-    
-    /* Left align - video starts from left side of screen */
-    object-position: left center !important;
-    
-    /* Position from left */
-    left: 0 !important;
-    right: auto !important;
-    transform: none !important;
-  }
-  
-  /* Ensure video container doesn't interfere */
-  section:first-of-type > .absolute:has(video) {
-    left: 0 !important;
-    transform: none !important;
-  }
-}
-
-/* Mobile Video - Use uploaded video */
-@media (max-width: 768px) {
-  .hero-video-background {
-    /* This will be used for the uploaded mobile video */
-    height: 100vh !important;
-    width: auto !important;
-    min-width: 100% !important;
-    object-fit: cover !important;
-    object-position: left center !important;
-    left: 0 !important;
-    right: auto !important;
-    transform: none !important;
-  }
-}
-
-/* ================================
-   PLACEHOLDER ALIGNMENT FIX
-   ================================ */
-
-/* All input and textarea placeholders - left aligned */
-input::placeholder,
-textarea::placeholder {
-  text-align: left !important;
-  opacity: 0.6;
-}
-
-/* Ensure input fields themselves are left-aligned */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
-textarea {
-  text-align: left !important;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  input::placeholder,
-  textarea::placeholder {
-    text-align: left !important;
-    font-size: 0.9rem;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="url"],
-  input[type="password"],
-  textarea {
-    text-align: left !important;
-    width: 100% !important;
-  }
-}
-
-
-/* Custom Larger Cursor for Desktop */
-@media (min-width: 768px) {
-  * {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" stroke="black" stroke-width="1" d="M5 3l14 8.5-6 1.5-1.5 6z"/></svg>') 4 4, auto !important;
-  }
-  
-  a, button, [role="button"] {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><path fill="white" stroke="black" stroke-width="1.5" d="M6 4l16 10-7 2-2 7z"/></svg>') 6 6, pointer !important;
-  }
-  
-  input, textarea {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="28" viewBox="0 0 20 28"><rect x="8" y="2" width="4" height="24" fill="white" stroke="black" stroke-width="1"/></svg>') 10 14, text !important;
-  }
-}
-
-/* Sparkle Trail Cursor - WOW Factor */
-@media (min-width: 768px) {
-  .cursor-sparkle {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    animation: sparkle-fade 0.8s ease-out forwards;
-  }
-
-  @keyframes sparkle-fade {
-    0% {
-      transform: scale(0) rotate(0deg);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.5) rotate(180deg);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(0) rotate(360deg);
-      opacity: 0;
-    }
-  }
-}
-
-/* Force dark mode - override OS/browser theme preferences */
-html {
-  color-scheme: dark only !important;
-}
-
-html, body {
-  background-color: #1a1d29 !important;
-  color: white !important;
-}
-
-/* Prevent light mode from ever showing */
-@media (prefers-color-scheme: light) {
-  html, body {
-    background-color: #1a1d29 !important;
-    color: white !important;
-  }
 }
