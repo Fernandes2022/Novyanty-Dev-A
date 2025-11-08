@@ -18,13 +18,11 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     setIsSubmitting(false);
     setSubmitted(true);
     
-    // Reset form after 3 seconds
     setTimeout(() => {
       setFormData({ name: '', email: '', message: '' });
       setSubmitted(false);
@@ -32,13 +30,13 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-bg-primary via-slate-950 to-bg-primary">
       {/* Navigation */}
       <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-white hover:text-purple-400 transition-colors"
+            className="inline-flex items-center gap-2 text-white hover:text-accent-primary transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             <span>Back to Home</span>
@@ -54,21 +52,21 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <MessageSquare className="h-16 w-16 text-purple-400 mx-auto mb-6" />
+            <MessageSquare className="h-16 w-16 text-accent-primary mx-auto mb-6" />
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
               Let's
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-accent-secondary">
                 Talk ✉️
               </span>
             </h1>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-text-soft">
               Have a question or want to work together? We'd love to hear from you!
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Form - Full Width, Centered */}
+      {/* Contact Form */}
       <section className="pb-16 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.div
@@ -78,12 +76,11 @@ export default function ContactPage() {
           >
             <div className="glass-dark p-8 md:p-12 rounded-2xl">
               <h2 className="text-3xl font-bold text-white mb-2">Send us a message</h2>
-              <p className="text-gray-400 mb-8">Fill out the form below and we'll get back to you within 24 hours.</p>
+              <p className="text-text-soft mb-8">Fill out the form below and we'll get back to you within 24 hours.</p>
               
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name Input */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-text-soft mb-2">
                     Your Name
                   </label>
                   <input
@@ -92,14 +89,13 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
                     placeholder="John Doe"
                   />
                 </div>
 
-                {/* Email Input */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-text-soft mb-2">
                     Email Address
                   </label>
                   <input
@@ -108,14 +104,13 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
                     placeholder="john@example.com"
                   />
                 </div>
 
-                {/* Message Textarea */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-text-soft mb-2">
                     Your Message
                   </label>
                   <textarea
@@ -124,20 +119,19 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all resize-none"
                     placeholder="Tell us about your project or question..."
                   />
                 </div>
 
-                {/* Submit Button - Professional & Animated */}
+                {/* Submit Button with Client Colors */}
                 <motion.button
                   type="submit"
                   disabled={isSubmitting || submitted}
-                  className="group relative w-full py-4 px-8 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white rounded-xl font-bold text-lg overflow-hidden transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="group relative w-full py-4 px-8 bg-gradient-to-r from-accent-primary to-accent-secondary bg-size-200 bg-pos-0 hover:bg-pos-100 text-white rounded-xl font-bold text-lg overflow-hidden transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {/* Animated Background Shine */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                     initial={{ x: '-100%' }}
@@ -150,7 +144,6 @@ export default function ContactPage() {
                     }}
                   />
                   
-                  {/* Button Content */}
                   <span className="relative flex items-center justify-center gap-3">
                     {isSubmitting ? (
                       <>
@@ -180,9 +173,8 @@ export default function ContactPage() {
                     )}
                   </span>
 
-                  {/* Hover Glow Effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 blur-xl" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary blur-xl" />
                   </div>
                 </motion.button>
               </form>
@@ -191,7 +183,7 @@ export default function ContactPage() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-center"
+                  className="mt-4 p-4 bg-accent-secondary/10 border border-accent-secondary/20 rounded-xl text-accent-secondary text-center"
                 >
                   🎉 Thank you! We'll get back to you soon.
                 </motion.div>
@@ -201,7 +193,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Info - Below the Form */}
+      {/* Contact Info */}
       <section className="pb-20 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -213,84 +205,80 @@ export default function ContactPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
               Other Ways to Reach Us
             </h2>
-            <p className="text-gray-400">
+            <p className="text-text-soft">
               Choose the method that works best for you
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Email Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
             >
-              <div className="p-4 bg-purple-500/10 rounded-xl w-fit mx-auto mb-4">
-                <Mail className="h-8 w-8 text-purple-400" />
+              <div className="p-4 bg-accent-primary/10 rounded-xl w-fit mx-auto mb-4">
+                <Mail className="h-8 w-8 text-accent-primary" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Email Us</h3>
               <a 
                 href="mailto:support@creativeworkspace.com"
-                className="text-gray-400 hover:text-purple-400 transition-colors text-sm break-all"
+                className="text-text-soft hover:text-accent-primary transition-colors text-sm break-all"
               >
                 support@creativeworkspace.com
               </a>
             </motion.div>
 
-            {/* Phone Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
             >
-              <div className="p-4 bg-pink-500/10 rounded-xl w-fit mx-auto mb-4">
-                <Phone className="h-8 w-8 text-pink-400" />
+              <div className="p-4 bg-accent-secondary/10 rounded-xl w-fit mx-auto mb-4">
+                <Phone className="h-8 w-8 text-accent-secondary" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Call Us</h3>
               <a 
                 href="tel:+1234567890"
-                className="text-gray-400 hover:text-pink-400 transition-colors text-sm"
+                className="text-text-soft hover:text-accent-secondary transition-colors text-sm"
               >
                 +1 (234) 567-890
               </a>
               <p className="text-xs text-gray-500 mt-1">Mon-Fri, 9AM-6PM EST</p>
             </motion.div>
 
-            {/* Location Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
               className="glass-dark p-6 rounded-2xl text-center group hover:scale-105 transition-transform"
             >
-              <div className="p-4 bg-blue-500/10 rounded-xl w-fit mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-blue-400" />
+              <div className="p-4 bg-accent-primary/10 rounded-xl w-fit mx-auto mb-4">
+                <MapPin className="h-8 w-8 text-accent-primary" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Visit Us</h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-text-soft text-sm">
                 123 Creative Street<br />
                 San Francisco, CA 94103
               </p>
             </motion.div>
 
-            {/* Response Time Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="glass-dark p-6 rounded-2xl text-center border border-green-500/20"
+              className="glass-dark p-6 rounded-2xl text-center border border-accent-secondary/20"
             >
-              <div className="p-4 bg-green-500/10 rounded-xl w-fit mx-auto mb-4">
-                <Clock className="h-8 w-8 text-green-400" />
+              <div className="p-4 bg-accent-secondary/10 rounded-xl w-fit mx-auto mb-4">
+                <Clock className="h-8 w-8 text-accent-secondary" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Quick Response</h3>
               <div className="flex items-center justify-center gap-2 mb-2">
-                <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-green-400 text-sm font-medium">Online Now</span>
+                <div className="h-2 w-2 bg-accent-secondary rounded-full animate-pulse" />
+                <span className="text-accent-secondary text-sm font-medium">Online Now</span>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className="text-text-soft text-sm">
                 We typically respond within 24 hours
               </p>
             </motion.div>
