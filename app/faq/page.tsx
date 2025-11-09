@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown, HelpCircle, ArrowLeft } from 'lucide-react';
+import ScrollToTop from '../components/ScrollToTop';
 
 const faqs = [
   {
@@ -45,6 +46,20 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#111827] to-[#1E293B]">
+
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full glass-dark border-b border-white/10 z-50 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-white hover:text-accent-primary transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            <span>Back to Home</span>
+          </Link>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto text-center">

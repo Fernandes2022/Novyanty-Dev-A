@@ -1,7 +1,5 @@
-// PLACEHOLDER: Dev E will add USPFlipGrid component here
-// import USPFlipGrid from "@/components/home/USPFlipGrid";
-
 "use client";
+import ScrollToTop from "./components/ScrollToTop";
 import "./performance.css";
 import Link from "next/link";
 import { motion, useScroll, useInView } from "framer-motion";
@@ -1047,6 +1045,7 @@ export default function Home() {
         </div>
       </footer>
 
+      <ScrollToTop />
     </main>
     </>
 );
