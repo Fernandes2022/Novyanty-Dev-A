@@ -13,6 +13,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { TierSelector, Tier } from "../components/TierSelector";
 import { MirrorInput } from "../components/MirrorInput";
 import { RemixButton } from "../components/RemixButton";
+import ScrollToTop from '../components/ScrollToTop';
 import { EditableBlock } from "../components/EditableBlock";
 import { MetaPreview } from "../components/MetaPreview";
 import { PreviewCarousel } from "../components/PreviewCarousel";
@@ -784,6 +785,7 @@ export default function Workspace() {
         onClose={() => setShowPayment(false)} 
         onSuccess={handlePaymentSuccess}
       />
+      <ScrollToTop />
     </main>
   );
 }

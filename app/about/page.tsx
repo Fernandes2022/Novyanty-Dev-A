@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, Zap, Users, Globe, Award } from 'lucide-react';
+import ScrollToTop from '../components/ScrollToTop';
 
 export default function AboutPage() {
   return (
@@ -171,6 +172,7 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
+      <ScrollToTop />
     </div>
   );
 }
