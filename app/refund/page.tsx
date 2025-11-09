@@ -230,6 +230,7 @@ export default function RefundPage() {
           </div>
         </motion.div>
       </section>
+      <ScrollToTop />
     </div>
   );
 }

@@ -167,6 +167,7 @@ export default function FAQPage() {
           </motion.div>
         </div>
       </section>
+      <ScrollToTop />
     </div>
   );
 }

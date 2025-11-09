@@ -161,6 +161,7 @@ export default function TermsPage() {
           </motion.div>
         </div>
       </section>
+      <ScrollToTop />
     </div>
   );
 }
