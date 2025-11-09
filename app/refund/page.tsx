@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle, RefreshCw, XCircle, HelpCircle } from 'lucide-react';
+import ScrollToTop from '../components/ScrollToTop';
 
 export default function RefundPage() {
   useEffect(() => {

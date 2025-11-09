@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, Mail, MapPin, MessageSquare, Send, Phone, Clock } from 'lucide-react';
+import ScrollToTop from '../components/ScrollToTop';
 import { useState } from 'react';
 
 export default function ContactPage() {
