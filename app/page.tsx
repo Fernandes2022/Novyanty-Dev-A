@@ -786,7 +786,7 @@ export default function Home() {
 <GradientDivider />
 
       {/* Pricing Section */}
-      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
+      <section id="pricing" className="py-16 md:py-24 px-4 md:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
