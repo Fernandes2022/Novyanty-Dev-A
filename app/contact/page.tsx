@@ -1,4 +1,6 @@
 'use client';
+import { useEffect } from 'react';
+
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -6,6 +8,11 @@ import { ArrowLeft, Mail, MapPin, MessageSquare, Send, Phone, Clock } from 'luci
 import { useState } from 'react';
 
 export default function ContactPage() {
+  useEffect(() => {
+    document.title = "Contact Us - Creative Workspace";
+    const metaDesc = document.querySelector("meta[name=\"description\"]");
+    if (metaDesc) metaDesc.setAttribute("content", "Get in touch with Creative Workspace. We reply within 24 hours.");
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',

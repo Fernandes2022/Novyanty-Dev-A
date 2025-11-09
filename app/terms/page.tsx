@@ -1,10 +1,17 @@
 'use client';
+import { useEffect } from 'react';
+
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, FileText, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 
 export default function TermsPage() {
+  useEffect(() => {
+    document.title = "Terms of Service - Creative Workspace";
+    const metaDesc = document.querySelector("meta[name=\"description\"]");
+    if (metaDesc) metaDesc.setAttribute("content", "Terms and conditions for using Creative Workspace.");
+  }, []);
   const terms = [
     {
       title: "Agreement to Terms",

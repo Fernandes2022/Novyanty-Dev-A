@@ -1,10 +1,17 @@
 'use client';
+import { useEffect } from 'react';
+
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle, RefreshCw, XCircle, HelpCircle } from 'lucide-react';
 
 export default function RefundPage() {
+  useEffect(() => {
+    document.title = "Refund Policy - Creative Workspace";
+    const metaDesc = document.querySelector("meta[name=\"description\"]");
+    if (metaDesc) metaDesc.setAttribute("content", "14-day money-back guarantee. Full refund, no questions asked.");
+  }, []);
   return (
     <div className="min-h-screen bg-bg-primary">
       {/* Navigation */}

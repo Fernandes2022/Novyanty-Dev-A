@@ -1,10 +1,17 @@
 'use client';
+import { useEffect } from 'react';
+
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, Shield, Eye, Lock, Database, UserCheck } from 'lucide-react';
 
 export default function PrivacyPage() {
+  useEffect(() => {
+    document.title = "Privacy Policy - Creative Workspace";
+    const metaDesc = document.querySelector("meta[name=\"description\"]");
+    if (metaDesc) metaDesc.setAttribute("content", "Learn how Creative Workspace protects your data and privacy.");
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#111827] to-[#1E293B]">
       {/* Navigation */}
