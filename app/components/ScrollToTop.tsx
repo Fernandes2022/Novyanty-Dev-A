@@ -39,7 +39,7 @@ export default function ScrollToTop() {
           whileHover={{ scale: 1.1, y: -2 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-[60] p-3 bg-gradient-to-r from-accent-primary to-accent-secondary rounded-full shadow-lg hover:shadow-accent-primary/50 transition-shadow group"
+          className="fixed bottom-6 right-24 z-[999] p-3 bg-gradient-to-r from-accent-primary to-accent-secondary rounded-full shadow-lg hover:shadow-accent-primary/50 transition-shadow group"
           aria-label="Scroll to top"
         >
           {/* Glow effect on hover */}
