@@ -1,6 +1,9 @@
 "use client";
-import { X, Palette, Globe, Bell, Lock } from "lucide-react";
+
+import { X, Palette, Globe, Bell, Lock, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { useMirrorSync } from "@/app/hooks/useMirrorSync";
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -8,6 +11,33 @@ interface SettingsModalProps {
 }
 
 export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const mirrorSync = useMirrorSync();
+
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' || 'dark';
+    setTheme(savedTheme);
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+  }, []);
+
+  // Handle theme change with MirrorSync broadcast
+  const handleThemeChange = (newTheme: 'dark' | 'light') => {
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    
+    // Broadcast theme change to mirror components via MirrorSync
+    mirrorSync.sync([{
+      type: 'theme',
+      value: {
+        mode: newTheme,
+        accentPrimary: '#7B5CFF',
+        accentSecondary: '#00F5A0'
+      }
+    }]);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -24,6 +54,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
@@ -39,23 +70,49 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               </div>
 
               <div className="space-y-6">
+                {/* Theme Toggle Section */}
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Palette className="h-6 w-6 text-indigo-600" />
+                    <Palette className="h-6 w-6 text-accent-primary" />
                     <h3 className="text-xl font-bold text-white">Appearance</h3>
                   </div>
-                  <p className="text-gray-600 mb-4">Customize your workspace theme</p>
-                  <button 
-                    onClick={() => alert("Theme customization coming soon!")}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
-                  >
-                    Change Theme
-                  </button>
+                  <p className="text-gray-400 mb-4">Choose your preferred theme</p>
+                  
+                  {/* Theme Toggle Buttons */}
+                  <div className="flex gap-3">
+                    <motion.button
+                      onClick={() => handleThemeChange('dark')}
+                      className={`flex-1 px-4 py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
+                        theme === 'dark'
+                          ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-white'
+                          : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Moon className="h-5 w-5" />
+                      Dark
+                    </motion.button>
+                    
+                    <motion.button
+                      onClick={() => handleThemeChange('light')}
+                      className={`flex-1 px-4 py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
+                        theme === 'light'
+                          ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-white'
+                          : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Sun className="h-5 w-5" />
+                      Light
+                    </motion.button>
+                  </div>
                 </div>
 
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Globe className="h-6 w-6 text-indigo-600" />
+                    <Globe className="h-6 w-6 text-accent-primary" />
                     <h3 className="text-xl font-bold text-white">Language</h3>
                   </div>
                   <select className="w-full px-4 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg text-white font-semibold">
@@ -67,23 +124,23 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Bell className="h-6 w-6 text-indigo-600" />
+                    <Bell className="h-6 w-6 text-accent-primary" />
                     <h3 className="text-xl font-bold text-white">Notifications</h3>
                   </div>
                   <label className="flex items-center gap-3">
                     <input type="checkbox" className="w-5 h-5" defaultChecked />
-                    <span className="text-gray-700 font-semibold">Enable email notifications</span>
+                    <span className="text-gray-400 font-semibold">Enable email notifications</span>
                   </label>
                 </div>
 
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <Lock className="h-6 w-6 text-indigo-600" />
+                    <Lock className="h-6 w-6 text-accent-primary" />
                     <h3 className="text-xl font-bold text-white">Privacy</h3>
                   </div>
                   <button 
                     onClick={() => alert("Privacy settings coming soon!")}
-                    className="text-indigo-600 hover:text-indigo-700 font-semibold"
+                    className="text-accent-primary hover:text-accent-secondary font-semibold transition-colors"
                   >
                     Manage Privacy Settings
                   </button>
