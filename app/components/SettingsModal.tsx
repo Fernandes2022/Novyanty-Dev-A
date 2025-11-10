@@ -1,6 +1,6 @@
 "use client";
 
-import { X, Palette, Globe, Bell, Lock, Sun, Moon } from "lucide-react";
+import { X, Palette, Globe, Bell, Lock, Sun, Moon, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useMirrorSync } from "@/app/hooks/useMirrorSync";
@@ -70,44 +70,91 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               </div>
 
               <div className="space-y-6">
-                {/* Theme Toggle Section */}
+                {/* Theme Toggle Section - ENHANCED */}
                 <div className="p-6 bg-gray-800 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
                     <Palette className="h-6 w-6 text-accent-primary" />
                     <h3 className="text-xl font-bold text-white">Appearance</h3>
                   </div>
-                  <p className="text-gray-400 mb-4">Choose your preferred theme</p>
+                  <p className="text-gray-400 mb-6">Choose your preferred theme</p>
                   
-                  {/* Theme Toggle Buttons */}
-                  <div className="flex gap-3">
+                  {/* Theme Toggle Buttons - CRYSTAL CLEAR */}
+                  <div className="grid grid-cols-2 gap-4">
                     <motion.button
                       onClick={() => handleThemeChange('dark')}
-                      className={`flex-1 px-4 py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
+                      className={`relative px-6 py-4 rounded-xl font-semibold transition-all flex flex-col items-center justify-center gap-3 border-2 ${
                         theme === 'dark'
-                          ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-white'
-                          : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                          ? 'bg-gradient-to-br from-accent-primary to-accent-secondary text-white border-accent-primary shadow-lg shadow-accent-primary/50'
+                          : 'bg-gray-900 text-gray-500 border-gray-700 hover:border-gray-600 hover:bg-gray-800'
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Moon className="h-5 w-5" />
-                      Dark
+                      {/* Active Checkmark */}
+                      {theme === 'dark' && (
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          className="absolute top-2 right-2 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center"
+                        >
+                          <Check className="h-4 w-4 text-white" />
+                        </motion.div>
+                      )}
+                      
+                      <Moon className="h-8 w-8" />
+                      <span className="text-base">Dark Mode</span>
+                      
+                      {theme === 'dark' && (
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: "100%" }}
+                          className="absolute bottom-0 left-0 h-1 bg-white/30 rounded-full"
+                        />
+                      )}
                     </motion.button>
                     
                     <motion.button
                       onClick={() => handleThemeChange('light')}
-                      className={`flex-1 px-4 py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
+                      className={`relative px-6 py-4 rounded-xl font-semibold transition-all flex flex-col items-center justify-center gap-3 border-2 ${
                         theme === 'light'
-                          ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-white'
-                          : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                          ? 'bg-gradient-to-br from-accent-primary to-accent-secondary text-white border-accent-primary shadow-lg shadow-accent-primary/50'
+                          : 'bg-gray-900 text-gray-500 border-gray-700 hover:border-gray-600 hover:bg-gray-800'
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Sun className="h-5 w-5" />
-                      Light
+                      {/* Active Checkmark */}
+                      {theme === 'light' && (
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          className="absolute top-2 right-2 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center"
+                        >
+                          <Check className="h-4 w-4 text-white" />
+                        </motion.div>
+                      )}
+                      
+                      <Sun className="h-8 w-8" />
+                      <span className="text-base">Light Mode</span>
+                      
+                      {theme === 'light' && (
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: "100%" }}
+                          className="absolute bottom-0 left-0 h-1 bg-white/30 rounded-full"
+                        />
+                      )}
                     </motion.button>
                   </div>
+                  
+                  {/* Current Selection Indicator */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 text-center text-sm text-gray-400"
+                  >
+                    Current: <span className="text-accent-primary font-semibold">{theme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                  </motion.div>
                 </div>
 
                 <div className="p-6 bg-gray-800 rounded-2xl">

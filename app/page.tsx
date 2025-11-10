@@ -569,7 +569,7 @@ export default function Home() {
                 disabled={isGenerating || !demoInput.trim()} 
                 whileHover={{ scale: 1.01 }} 
                 whileTap={{ scale: 0.97 }} 
-                className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-8 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-xl font-bold text-lg shadow-lg shadow-accent-primary/30 hover:shadow-xl hover:shadow-accent-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
               >
                 {isGenerating ? (<><span className="animate-pulse">⚡</span> Generating...</>) : (<><span className="hidden sm:inline">🎨 Generate Preview</span><span className="sm:hidden">✨ Compose</span></>)}
               </motion.button>
