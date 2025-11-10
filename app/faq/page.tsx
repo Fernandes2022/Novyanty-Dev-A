@@ -66,7 +66,7 @@ export default function FAQPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <HelpCircle className="h-16 w-16 text-accent-primary mx-auto mb-6" />
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">

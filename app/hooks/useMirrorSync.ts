@@ -1,4 +1,36 @@
 import { useState, useEffect, useCallback } from 'react';
+/**
+ * useMirrorSync Hook
+ * 
+ * @description
+ * Custom React hook for synchronizing state across mirror/duplicate UI components.
+ * Enables real-time broadcast of theme changes, content updates, and AI input sync
+ * between primary interface and mirror displays.
+ * 
+ * @usage
+ * ```typescript
+ * const mirrorSync = useMirrorSync();
+ * 
+ * // Broadcast theme change
+ * mirrorSync.update('theme', { mode: 'dark', accent: '#7B5CFF' });
+ * 
+ * // Broadcast content change
+ * mirrorSync.update('content', { prompt: 'Build a website', reference: '...' });
+ * ```
+ * 
+ * @emits
+ * - 'theme' - Theme configuration updates (dark/light mode, accent colors)
+ * - 'content' - AI input/prompt changes
+ * - 'sync' - General synchronization events
+ * 
+ * @dependencies
+ * - Requires event emitter or state management solution
+ * - Links to theme variables and AI input refs
+ * 
+ * @author Dev A
+ * @version 1.0.0
+ */
+
 
 interface SyncState {
   isSyncing: boolean;

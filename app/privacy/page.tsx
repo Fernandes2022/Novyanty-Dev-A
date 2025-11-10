@@ -34,7 +34,7 @@ export default function PrivacyPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <Shield className="h-16 w-16 text-accent-primary mx-auto mb-6" />
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
             className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
             className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
             className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
@@ -162,7 +162,7 @@ export default function PrivacyPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
             className="glass p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-6">
@@ -192,7 +192,7 @@ export default function PrivacyPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.6 }}
             className="glass p-8 rounded-2xl border-2 border-accent-primary/20 text-center"
           >
             <h2 className="text-2xl font-bold text-white mb-4">

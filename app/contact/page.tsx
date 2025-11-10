@@ -58,7 +58,7 @@ export default function ContactPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <MessageSquare className="h-16 w-16 text-accent-primary mx-auto mb-6" />
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -80,7 +80,7 @@ export default function ContactPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
           >
             <div className="glass p-8 md:p-12 rounded-2xl">
               <h2 className="text-3xl font-bold text-white mb-2">Send us a message</h2>
@@ -145,14 +145,14 @@ export default function ContactPage() {
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                     initial={{ x: '-200%' }}
                     whileHover={{ x: '200%' }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                   />
                   
                   {/* Pulse glow on hover */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary opacity-0 blur-xl"
                     whileHover={{ opacity: 0.6 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                   />
                   
                   <span className="relative flex items-center justify-center gap-3">

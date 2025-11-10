@@ -77,7 +77,7 @@ export default function TermsPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <FileText className="h-16 w-16 text-purple-400 mx-auto mb-6" />
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -118,7 +118,7 @@ export default function TermsPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
             className="glass-dark p-8 rounded-2xl mt-12"
           >
             <h2 className="text-2xl font-bold text-white mb-6 text-center">Key Takeaways</h2>
@@ -145,7 +145,7 @@ export default function TermsPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.6 }}
             className="glass-dark p-8 rounded-2xl text-center"
           >
             <h2 className="text-2xl font-bold text-white mb-4">Questions About Terms?</h2>

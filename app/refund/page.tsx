@@ -33,7 +33,7 @@ export default function RefundPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="max-w-4xl mx-auto text-center"
         >
           <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-6">
@@ -52,7 +52,7 @@ export default function RefundPage() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
             className="glass p-8 rounded-2xl"
           >
             <div className="flex items-center gap-3 mb-6">
@@ -97,7 +97,7 @@ export default function RefundPage() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
             className="glass p-8 rounded-2xl"
           >
             <div className="flex items-center gap-3 mb-6">
@@ -142,7 +142,7 @@ export default function RefundPage() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.6 }}
             className="glass p-8 rounded-2xl"
           >
             <div className="flex items-center gap-3 mb-6">
@@ -190,7 +190,7 @@ export default function RefundPage() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.8 }}
           className="max-w-2xl mx-auto"
         >
           <div className="glass p-8 md:p-12 rounded-2xl text-center">
@@ -211,7 +211,7 @@ export default function RefundPage() {
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                 initial={{ x: "-200%" }}
                 whileHover={{ x: "200%" }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               />
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-accent-primary to-accent-secondary opacity-0 blur-xl"
