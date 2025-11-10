@@ -10,12 +10,14 @@ import { AudioInput } from "../components/AudioInput";
 import { ToastContainer } from "../components/Toast";
 import { useToast } from "../hooks/useToast";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useMirrorSync } from "../hooks/useMirrorSync";
 import { TierSelector, Tier } from "../components/TierSelector";
 import { MirrorInput } from "../components/MirrorInput";
 import { RemixButton } from "../components/RemixButton";
 import ScrollToTop from '../components/ScrollToTop';
 import { EditableBlock } from "../components/EditableBlock";
 import { MetaPreview } from "../components/MetaPreview";
+import { MirrorSyncIndicator } from "../components/MirrorSyncIndicator";
 import { PreviewCarousel } from "../components/PreviewCarousel";
 
 interface Block {
@@ -26,6 +28,7 @@ interface Block {
 
 export default function Workspace() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const mirrorSync = useMirrorSync();
 
   // Load saved theme on mount
   useEffect(() => {
@@ -77,6 +80,16 @@ export default function Workspace() {
   const handleThemeChange = (newTheme: "light" | "dark") => {
     setTheme(newTheme);
     localStorage.setItem("workspace-theme", newTheme);
+    
+    // Broadcast theme change via MirrorSync
+    mirrorSync.addChange({ 
+      type: 'theme', 
+      payload: { 
+        mode: newTheme,
+        accent: '#7B5CFF',
+        timestamp: new Date().toISOString()
+      } 
+    });
   };
 
   const handleAudioTranscript = (transcript: string) => {
@@ -718,6 +731,16 @@ export default function Workspace() {
         onSuccess={handlePaymentSuccess}
       />
       <ScrollToTop />
+
+      {/* MirrorSync Indicator */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <MirrorSyncIndicator
+          isSyncing={mirrorSync.isSyncing}
+          lastSynced={mirrorSync.lastSync}
+          error={mirrorSync.error}
+          hasPendingChanges={mirrorSync.pendingChanges > 0}
+        />
+      </div>
     </main>
   );
 }

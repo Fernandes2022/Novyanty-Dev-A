@@ -9,9 +9,10 @@ interface SettingsModalProps {
   onClose: () => void;
   currentTheme: 'dark' | 'light';
   onThemeChange: (theme: 'light' | 'dark') => void;
+  isSyncing?: boolean;
 }
 
-export default function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange }: SettingsModalProps) {
+export default function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, isSyncing = false }: SettingsModalProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
