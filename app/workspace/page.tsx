@@ -4,7 +4,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, Send, Save, Download, Settings, Zap, Lock, Plus, ChevronDown } from "lucide-react";
 import { SignInModal } from "../components/SignInModal";
-import { SettingsModal } from "../components/SettingsModal";
+import SettingsModal from "../components/SettingsModal";
 import { PaymentModal } from "../components/PaymentModal";
 import { AudioInput } from "../components/AudioInput";
 import { ToastContainer } from "../components/Toast";
@@ -26,6 +26,14 @@ interface Block {
 
 export default function Workspace() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  // Load saved theme on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("workspace-theme") as "light" | "dark" | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
   const [directive, setDirective] = useLocalStorage("workspace_directive", "");
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -66,10 +74,9 @@ export default function Workspace() {
     }
   }, []);
 
-  const handleThemeChange = (newTheme: 'light' | 'dark') => {
+  const handleThemeChange = (newTheme: "light" | "dark") => {
     setTheme(newTheme);
-    localStorage.setItem('workspace-theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    localStorage.setItem("workspace-theme", newTheme);
   };
 
   const handleAudioTranscript = (transcript: string) => {
@@ -184,7 +191,7 @@ export default function Workspace() {
   ] : [];
 
   return (
-    <main className={`min-h-screen transition-colors duration-300 relative overflow-hidden ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
+    <main className={`min-h-screen transition-colors duration-300 relative overflow-hidden ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
       <ToastContainer toasts={toasts} onClose={removeToast} />
 
       {/* WORKSPACE VIDEO BACKGROUND */}
@@ -231,7 +238,7 @@ export default function Workspace() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 border-b ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-white/80 backdrop-blur-xl border-gray-200'}`}
+        className={`fixed top-0 left-0 right-0 z-50 border-b ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-[#FAF9F6]/95 backdrop-blur-xl border-gray-200'}`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
@@ -268,7 +275,7 @@ export default function Workspace() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className={`absolute top-full right-0 mt-2 w-48 rounded-xl border shadow-xl z-50 overflow-hidden ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-white border-gray-200'}`}
+                    className={`absolute top-full right-0 mt-2 w-48 rounded-xl border shadow-xl z-50 overflow-hidden ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-[#FAF9F6] border-gray-200'}`}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
@@ -368,7 +375,7 @@ export default function Workspace() {
             className="space-y-6"
           >
             <motion.div 
-              className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
+              className={theme === 'dark' ? 'card-dark' : 'bg-[#FAF9F6]/95 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
             >
@@ -388,7 +395,7 @@ export default function Workspace() {
                   value={directive}
                   onChange={(e) => setDirective(e.target.value)}
                   placeholder="Describe what you want to create..."
-                  className={`w-full h-48 md:h-56 px-6 py-4 rounded-2xl outline-none resize-none text-base md:text-lg leading-relaxed transition-all ${theme === 'dark' ? 'glass bg-black/40 border-2 border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20' : 'bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20'}`}
+                  className={`w-full h-48 md:h-56 px-6 py-4 rounded-2xl outline-none resize-none text-base md:text-lg leading-relaxed transition-all ${theme === 'dark' ? 'glass bg-black/40 border-2 border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20' : 'bg-[#FAF9F6] border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20'}`}
                 />
 
                 <TierSelector selected={selectedTier} onChange={setSelectedTier} />
@@ -438,7 +445,7 @@ export default function Workspace() {
                       onClick={btn.action}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold transition-all ${theme === 'dark' ? 'glass border-2 border-white/10 hover:border-purple-500/50 hover:bg-white/5' : 'bg-white border-2 border-gray-200 hover:border-purple-500 hover:bg-gray-50'}`}
+                      className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold transition-all ${theme === 'dark' ? 'glass border-2 border-white/10 hover:border-purple-500/50 hover:bg-white/5' : 'bg-[#FAF9F6] border-2 border-gray-200 hover:border-purple-500 hover:bg-gray-50'}`}
                     >
                       {btn.premium && <Lock className="h-3 w-3" />}
                       <btn.icon className="h-4 w-4" />
@@ -451,7 +458,7 @@ export default function Workspace() {
             </motion.div>
 
             <motion.div 
-              className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
+              className={theme === 'dark' ? 'card-dark' : 'bg-[#FAF9F6]/95 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
               initial={{ opacity: 0, y: 20 }}
               animate={isLeftInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -494,7 +501,7 @@ export default function Workspace() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.3, delay: i * 0.05 }}
                           whileHover={{ scale: 1.02, x: 5, backgroundColor: theme === 'dark' ? "rgba(139, 92, 246, 0.1)" : "rgba(139, 92, 246, 0.05)" }}
-                          className={`w-full text-left px-4 py-3 rounded-xl transition-all border text-sm md:text-base ${theme === 'dark' ? 'glass hover:bg-white/10 border-white/10 hover:border-purple-500/50' : 'bg-white hover:bg-purple-50 border-gray-200 hover:border-purple-500'}`}
+                          className={`w-full text-left px-4 py-3 rounded-xl transition-all border text-sm md:text-base ${theme === 'dark' ? 'glass hover:bg-white/10 border-white/10 hover:border-purple-500/50' : 'bg-[#FAF9F6] hover:bg-purple-50 border-gray-200 hover:border-purple-500'}`}
                         >
                           <div className="flex items-center gap-3">
                             <span className={`font-bold ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>{i + 1}.</span>
@@ -509,7 +516,7 @@ export default function Workspace() {
             </motion.div>
 
             <motion.div 
-              className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
+              className={theme === 'dark' ? 'card-dark' : 'bg-[#FAF9F6]/95 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={isRightInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.7 }}
@@ -554,7 +561,7 @@ export default function Workspace() {
 
             {blocks.length > 0 && (
               <motion.div 
-                className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
+                className={theme === 'dark' ? 'card-dark' : 'bg-[#FAF9F6]/95 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={isLeftInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -603,7 +610,7 @@ export default function Workspace() {
           >
             {samplePreviews.length > 0 && (
               <motion.div 
-                className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
+                className={theme === 'dark' ? 'card-dark' : 'bg-[#FAF9F6]/95 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.3 }}
               >
@@ -622,7 +629,7 @@ export default function Workspace() {
 
             {samplePreviews.length === 0 && (
               <motion.div 
-                className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
+                className={theme === 'dark' ? 'card-dark' : 'bg-[#FAF9F6]/95 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -675,7 +682,7 @@ export default function Workspace() {
             )}
 
             <motion.div 
-              className={`relative overflow-hidden ${theme === 'dark' ? 'card-dark border-2 border-purple-500/30' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border-2 border-purple-300 shadow-xl'}`}
+              className={`relative overflow-hidden ${theme === 'dark' ? 'card-dark border-2 border-purple-500/30' : 'bg-[#FAF9F6]/95 backdrop-blur-xl p-6 md:p-8 rounded-3xl border-2 border-purple-300 shadow-xl'}`}
               initial={{ opacity: 0, y: 20 }}
               animate={isRightInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
