@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, Send, Save, Download, Settings, Zap, Lock, Plus, ChevronDown } from "lucide-react";
@@ -25,6 +25,7 @@ interface Block {
 }
 
 export default function Workspace() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [directive, setDirective] = useLocalStorage("workspace_directive", "");
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -56,6 +57,20 @@ export default function Workspace() {
   const rightPanelRef = useRef(null);
   const isLeftInView = useInView(leftPanelRef, { once: true, amount: 0.2 });
   const isRightInView = useInView(rightPanelRef, { once: true, amount: 0.2 });
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('workspace-theme') as 'light' | 'dark' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    }
+  }, []);
+
+  const handleThemeChange = (newTheme: 'light' | 'dark') => {
+    setTheme(newTheme);
+    localStorage.setItem('workspace-theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  };
 
   const handleAudioTranscript = (transcript: string) => {
     setDirective((prev: string) => {
@@ -169,12 +184,11 @@ export default function Workspace() {
   ] : [];
 
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden">
+    <main className={`min-h-screen transition-colors duration-300 relative overflow-hidden ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
       <ToastContainer toasts={toasts} onClose={removeToast} />
 
-      {/* WORKSPACE VIDEO BACKGROUND - DIFFERENT FROM HOMEPAGE */}
+      {/* WORKSPACE VIDEO BACKGROUND */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Video Layer */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.video
             autoPlay
@@ -183,59 +197,32 @@ export default function Workspace() {
             playsInline
             onLoadedData={() => setVideoLoaded(true)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: videoLoaded ? 0.25 : 0 }}
+            animate={{ opacity: videoLoaded ? (theme === 'dark' ? 0.25 : 0.15) : 0 }}
             transition={{ duration: 1 }}
             className="absolute min-w-full min-h-full object-cover"
           >
-            {/* DIFFERENT VIDEO FOR WORKSPACE */}
             <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4?v=1762159836" type="video/mp4" />
             <source src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4?v=1762159836" type="video/mp4" />
           </motion.video>
           
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/85"></div>
+          <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-b from-black/80 via-black/70 to-black/85' : 'bg-gradient-to-b from-white/90 via-white/85 to-white/90'}`}></div>
         </div>
 
-        {/* Floating Orbs */}
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-purple-600/10 rounded-full blur-[100px]"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          className={`absolute top-20 left-10 w-72 h-72 rounded-full blur-[100px] ${theme === 'dark' ? 'bg-purple-600/10' : 'bg-purple-400/20'}`}
+          animate={{ x: [0, 100, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-72 h-72 bg-blue-600/10 rounded-full blur-[100px]"
-          animate={{
-            x: [0, -100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.3, 1]
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
+          className={`absolute bottom-20 right-10 w-72 h-72 rounded-full blur-[100px] ${theme === 'dark' ? 'bg-blue-600/10' : 'bg-blue-400/20'}`}
+          animate={{ x: [0, -100, 0], y: [0, -50, 0], scale: [1, 1.3, 1] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
 
-        {/* Animated Grid */}
         <motion.div
           className="absolute inset-0 grid-bg opacity-5"
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%"]
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear"
-          }}
+          animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         />
       </div>
 
@@ -244,7 +231,7 @@ export default function Workspace() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 glass-dark border-b border-white/10"
+        className={`fixed top-0 left-0 right-0 z-50 border-b ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-white/80 backdrop-blur-xl border-gray-200'}`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
@@ -256,7 +243,7 @@ export default function Workspace() {
               >
                 <Sparkles className="h-5 w-5 text-white" />
               </motion.div>
-              <span className="text-xl font-bold hidden sm:block">Creative Workspace</span>
+              <span className={`text-xl font-bold hidden sm:block ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Creative Workspace</span>
             </Link>
 
             <div className="flex items-center gap-2 md:gap-4">
@@ -273,16 +260,15 @@ export default function Workspace() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSettingsMenuOpen(!settingsMenuOpen)}
-                className="p-2.5 glass rounded-xl hover:bg-white/10 transition-colors relative"
+                className={`p-2.5 rounded-xl transition-colors relative ${theme === 'dark' ? 'glass hover:bg-white/10' : 'bg-gray-100 hover:bg-gray-200'}`}
               >
                 <Settings className="h-5 w-5" />
                 
-                {/* Settings Dropdown Menu */}
                 {settingsMenuOpen && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-xl border border-white/10 shadow-xl z-50 overflow-hidden"
+                    className={`absolute top-full right-0 mt-2 w-48 rounded-xl border shadow-xl z-50 overflow-hidden ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-white border-gray-200'}`}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
@@ -290,7 +276,7 @@ export default function Workspace() {
                         setShowSettings(true);
                         setSettingsMenuOpen(false);
                       }}
-                      className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3"
+                      className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 ${theme === 'dark' ? 'text-white hover:bg-white/10' : 'text-gray-900 hover:bg-gray-100'}`}
                     >
                       <Settings className="h-4 w-4" />
                       Settings
@@ -300,21 +286,13 @@ export default function Workspace() {
                         setShowSignIn(true);
                         setSettingsMenuOpen(false);
                       }}
-                      className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3 border-t border-white/10"
+                      className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 border-t ${theme === 'dark' ? 'text-white hover:bg-white/10 border-white/10' : 'text-gray-900 hover:bg-gray-100 border-gray-200'}`}
                     >
                       <Lock className="h-4 w-4" />
                       Sign In
                     </button>
                   </motion.div>
                 )}
-              </motion.button>
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowSignIn(true)}
-                className="hidden px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition"
-              >
-                Sign In
               </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(139, 92, 246, 0.5)" }}
@@ -331,7 +309,6 @@ export default function Workspace() {
       </motion.nav>
 
       <div className="pt-32 pb-20 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
-        {/* Page Title */}
         <motion.div
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -339,16 +316,9 @@ export default function Workspace() {
           className="text-center mb-16 relative"
         >
           <motion.div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-gradient-to-b from-purple-600/20 to-transparent blur-3xl"
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-              scale: [1, 1.1, 1]
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            className={`absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] blur-3xl ${theme === 'dark' ? 'bg-gradient-to-b from-purple-600/20 to-transparent' : 'bg-gradient-to-b from-purple-400/30 to-transparent'}`}
+            animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.1, 1] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
 
           <motion.h1 
@@ -360,14 +330,8 @@ export default function Workspace() {
             <span className="block">Start</span>
             <motion.span 
               className="block gradient-text-neon"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "linear"
-              }}
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
               style={{ backgroundSize: "200% 200%" }}
             >
               Creating
@@ -375,7 +339,7 @@ export default function Workspace() {
           </motion.h1>
           
           <motion.p 
-            className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto relative z-10"
+            className={`text-lg md:text-xl max-w-2xl mx-auto relative z-10 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -387,23 +351,15 @@ export default function Workspace() {
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="w-2 h-2 rounded-full bg-purple-500"
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.5, 1, 0.5]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.3
-                }}
+                className={`w-2 h-2 rounded-full ${theme === 'dark' ? 'bg-purple-500' : 'bg-purple-600'}`}
+                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
               />
             ))}
           </div>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left Panel */}
           <motion.div
             ref={leftPanelRef}
             initial={{ opacity: 0, x: -100 }}
@@ -412,11 +368,11 @@ export default function Workspace() {
             className="space-y-6"
           >
             <motion.div 
-              className="card-dark"
+              className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+              <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 <motion.span 
                   animate={{ rotate: [0, 10, 0, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -432,14 +388,12 @@ export default function Workspace() {
                   value={directive}
                   onChange={(e) => setDirective(e.target.value)}
                   placeholder="Describe what you want to create..."
-                  className="w-full h-48 md:h-56 px-6 py-4 glass bg-black/40 border-2 border-white/10 rounded-2xl text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none resize-none text-base md:text-lg leading-relaxed transition-all"
+                  className={`w-full h-48 md:h-56 px-6 py-4 rounded-2xl outline-none resize-none text-base md:text-lg leading-relaxed transition-all ${theme === 'dark' ? 'glass bg-black/40 border-2 border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20' : 'bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20'}`}
                 />
 
                 <TierSelector selected={selectedTier} onChange={setSelectedTier} />
                 
-                <MirrorInput onReferenceAdd={(url) => {
-                  setReferences([...references, url]);
-                }} />
+                <MirrorInput onReferenceAdd={(url) => setReferences([...references, url])} />
 
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                   <div className="flex-1">
@@ -456,14 +410,8 @@ export default function Workspace() {
                     {isComposing && (
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                        animate={{
-                          x: ["-100%", "100%"]
-                        }}
-                        transition={{
-                          duration: 1,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
+                        animate={{ x: ["-100%", "100%"] }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       />
                     )}
                     {isComposing ? (
@@ -490,7 +438,7 @@ export default function Workspace() {
                       onClick={btn.action}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-5 py-3 glass border-2 border-white/10 rounded-xl font-bold hover:border-purple-500/50 hover:bg-white/5 transition-all"
+                      className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold transition-all ${theme === 'dark' ? 'glass border-2 border-white/10 hover:border-purple-500/50 hover:bg-white/5' : 'bg-white border-2 border-gray-200 hover:border-purple-500 hover:bg-gray-50'}`}
                     >
                       {btn.premium && <Lock className="h-3 w-3" />}
                       <btn.icon className="h-4 w-4" />
@@ -502,9 +450,8 @@ export default function Workspace() {
               </div>
             </motion.div>
 
-            {/* Collapsible Recent Directives */}
             <motion.div 
-              className="card-dark"
+              className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
               initial={{ opacity: 0, y: 20 }}
               animate={isLeftInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -514,7 +461,7 @@ export default function Workspace() {
                 className="w-full flex items-center justify-between"
                 whileHover={{ scale: 1.01 }}
               >
-                <h3 className="text-xl font-bold flex items-center gap-2">
+                <h3 className={`text-xl font-bold flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                   <span>📜</span>
                   Recent Directives ({savedDrafts.length})
                 </h3>
@@ -522,7 +469,7 @@ export default function Workspace() {
                   animate={{ rotate: isDirectivesOpen ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ChevronDown className="h-5 w-5 text-purple-400" />
+                  <ChevronDown className={`h-5 w-5 ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`} />
                 </motion.div>
               </motion.button>
 
@@ -535,7 +482,7 @@ export default function Workspace() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="space-y-3 mt-4 pt-4 border-t border-white/10">
+                    <div className={`space-y-3 mt-4 pt-4 border-t ${theme === 'dark' ? 'border-white/10' : 'border-gray-200'}`}>
                       {savedDrafts.map((item: string, i: number) => (
                         <motion.button
                           key={i}
@@ -546,11 +493,11 @@ export default function Workspace() {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.3, delay: i * 0.05 }}
-                          whileHover={{ scale: 1.02, x: 5, backgroundColor: "rgba(139, 92, 246, 0.1)" }}
-                          className="w-full text-left px-4 py-3 glass hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-purple-500/50 text-sm md:text-base"
+                          whileHover={{ scale: 1.02, x: 5, backgroundColor: theme === 'dark' ? "rgba(139, 92, 246, 0.1)" : "rgba(139, 92, 246, 0.05)" }}
+                          className={`w-full text-left px-4 py-3 rounded-xl transition-all border text-sm md:text-base ${theme === 'dark' ? 'glass hover:bg-white/10 border-white/10 hover:border-purple-500/50' : 'bg-white hover:bg-purple-50 border-gray-200 hover:border-purple-500'}`}
                         >
                           <div className="flex items-center gap-3">
-                            <span className="text-purple-400 font-bold">{i + 1}.</span>
+                            <span className={`font-bold ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>{i + 1}.</span>
                             <span className="flex-1">{item}</span>
                           </div>
                         </motion.button>
@@ -561,30 +508,23 @@ export default function Workspace() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Pro Tips Section */}
             <motion.div 
-              className="card-dark"
+              className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={isRightInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
               <div className="space-y-4">
-                <h3 className="text-xl font-bold flex items-center gap-2">
+                <h3 className={`text-xl font-bold flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                   <motion.span
-                    animate={{
-                      rotate: [0, 10, -10, 0],
-                      scale: [1, 1.2, 1]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity
-                    }}
+                    animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
                   >
                     💡
                   </motion.span>
                   Pro Tips
                 </h3>
-                <ul className="space-y-3 text-gray-300">
+                <ul className={`space-y-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                   {[
                     "Use quality tiers to control output detail",
                     "Add reference URLs for inspiration",
@@ -599,15 +539,9 @@ export default function Workspace() {
                       transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
                     >
                       <motion.span 
-                        className="text-purple-400 font-bold"
-                        animate={{
-                          scale: [1, 1.2, 1]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.2
-                        }}
+                        className={theme === 'dark' ? 'text-purple-400 font-bold' : 'text-purple-600 font-bold'}
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
                       >
                         •
                       </motion.span>
@@ -617,16 +551,16 @@ export default function Workspace() {
                 </ul>
               </div>
             </motion.div>
-            {/* Editable Blocks */}
+
             {blocks.length > 0 && (
               <motion.div 
-                className="card-dark"
+                className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={isLeftInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.5 }}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold flex items-center gap-2">
+                  <h3 className={`text-xl font-bold flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                     <span>🧩</span>
                     Content Blocks
                   </h3>
@@ -660,7 +594,6 @@ export default function Workspace() {
             )}
           </motion.div>
 
-          {/* Right Panel */}
           <motion.div
             ref={rightPanelRef}
             initial={{ opacity: 0, x: 100 }}
@@ -670,11 +603,11 @@ export default function Workspace() {
           >
             {samplePreviews.length > 0 && (
               <motion.div 
-                className="card-dark"
+                className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <h3 className={`text-xl font-bold mb-6 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                   <motion.span
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
@@ -687,16 +620,14 @@ export default function Workspace() {
               </motion.div>
             )}
 
-
-            {/* Preview Variants Teaser - Shows when empty */}
             {samplePreviews.length === 0 && (
               <motion.div 
-                className="card-dark"
+                className={theme === 'dark' ? 'card-dark' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-gray-200 shadow-xl'}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <h3 className={`text-xl font-bold mb-6 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                   <motion.span
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
@@ -706,34 +637,29 @@ export default function Workspace() {
                   Live Preview Variants
                 </h3>
                 <div className="space-y-4">
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    Your design variations will appear here once you tap <strong className="text-purple-400">Compose</strong>.
+                  <p className={`text-sm leading-relaxed ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    Your design variations will appear here once you tap <strong className={theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}>Compose</strong>.
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     {[1, 2, 3, 4].map((i) => (
                       <motion.div
                         key={i}
-                        className="aspect-video rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-white/5 flex items-center justify-center relative overflow-hidden"
-                        animate={{ 
-                          opacity: [0.4, 0.7, 0.4],
-                        }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          delay: i * 0.2
-                        }}
+                        className={`aspect-video rounded-lg border-2 flex items-center justify-center relative overflow-hidden ${theme === 'dark' ? 'bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-white/5' : 'bg-gradient-to-br from-purple-100 to-pink-100 border-gray-200'}`}
+                        animate={{ opacity: [0.4, 0.7, 0.4] }}
+                        transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.2 }}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent" />
-                        <Sparkles className="h-6 w-6 text-purple-400/30" />
+                        <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-br from-purple-500/5 to-transparent' : 'bg-gradient-to-br from-purple-200/30 to-transparent'}`} />
+                        <Sparkles className={`h-6 w-6 ${theme === 'dark' ? 'text-purple-400/30' : 'text-purple-500/40'}`} />
                       </motion.div>
                     ))}
                   </div>
-                  <div className="pt-2 text-xs text-gray-500 text-center">
+                  <div className={`pt-2 text-xs text-center ${theme === 'dark' ? 'text-gray-500' : 'text-gray-600'}`}>
                     Multiple variants • Real-time preview • One-click selection
                   </div>
                 </div>
               </motion.div>
             )}
+
             {previewContent && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -749,7 +675,7 @@ export default function Workspace() {
             )}
 
             <motion.div 
-              className="relative card-dark border-2 border-purple-500/30 overflow-hidden"
+              className={`relative overflow-hidden ${theme === 'dark' ? 'card-dark border-2 border-purple-500/30' : 'bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border-2 border-purple-300 shadow-xl'}`}
               initial={{ opacity: 0, y: 20 }}
               animate={isRightInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -765,21 +691,20 @@ export default function Workspace() {
                     "linear-gradient(0deg, transparent, rgba(139, 92, 246, 0.3), transparent)"
                   ]
                 }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               />
-
             </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* Modals */}
       <SignInModal isOpen={showSignIn} onClose={() => setShowSignIn(false)} />
-      <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      <SettingsModal 
+        isOpen={showSettings} 
+        onClose={() => setShowSettings(false)}
+        currentTheme={theme}
+        onThemeChange={handleThemeChange}
+      />
       <PaymentModal 
         isOpen={showPayment} 
         onClose={() => setShowPayment(false)} 

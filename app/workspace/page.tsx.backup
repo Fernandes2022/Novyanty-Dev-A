@@ -13,6 +13,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { TierSelector, Tier } from "../components/TierSelector";
 import { MirrorInput } from "../components/MirrorInput";
 import { RemixButton } from "../components/RemixButton";
+import ScrollToTop from '../components/ScrollToTop';
 import { EditableBlock } from "../components/EditableBlock";
 import { MetaPreview } from "../components/MetaPreview";
 import { PreviewCarousel } from "../components/PreviewCarousel";
@@ -27,6 +28,8 @@ export default function Workspace() {
   const [directive, setDirective] = useLocalStorage("workspace_directive", "");
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [previewContent, setPreviewContent] = useState<string | null>(null);
   const [isComposing, setIsComposing] = useState(false);
@@ -185,8 +188,8 @@ export default function Workspace() {
             className="absolute min-w-full min-h-full object-cover"
           >
             {/* DIFFERENT VIDEO FOR WORKSPACE */}
-            <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4" type="video/mp4" />
-            <source src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4" type="video/mp4" />
+            <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4?v=1762159836" type="video/mp4" />
+            <source src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4?v=1762159836" type="video/mp4" />
           </motion.video>
           
           {/* Dark overlay */}
@@ -269,16 +272,47 @@ export default function Workspace() {
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setShowSettings(true)}
-                className="p-2.5 glass rounded-xl hover:bg-white/10 transition-colors"
+                onClick={() => setSettingsMenuOpen(!settingsMenuOpen)}
+                className="p-2.5 glass rounded-xl hover:bg-white/10 transition-colors relative"
               >
                 <Settings className="h-5 w-5" />
+                
+                {/* Settings Dropdown Menu */}
+                {settingsMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-xl border border-white/10 shadow-xl z-50 overflow-hidden"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      onClick={() => {
+                        setShowSettings(true);
+                        setSettingsMenuOpen(false);
+                      }}
+                      className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3"
+                    >
+                      <Settings className="h-4 w-4" />
+                      Settings
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowSignIn(true);
+                        setSettingsMenuOpen(false);
+                      }}
+                      className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3 border-t border-white/10"
+                    >
+                      <Lock className="h-4 w-4" />
+                      Sign In
+                    </button>
+                  </motion.div>
+                )}
               </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowSignIn(true)}
-                className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition"
+                className="hidden px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition"
               >
                 Sign In
               </motion.button>
@@ -583,7 +617,6 @@ export default function Workspace() {
                 </ul>
               </div>
             </motion.div>
-                initial={{ opacity: 0, scale: 0.95 }}
             {/* Editable Blocks */}
             {blocks.length > 0 && (
               <motion.div 
@@ -654,6 +687,53 @@ export default function Workspace() {
               </motion.div>
             )}
 
+
+            {/* Preview Variants Teaser - Shows when empty */}
+            {samplePreviews.length === 0 && (
+              <motion.div 
+                className="card-dark"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                  <motion.span
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    🎨
+                  </motion.span>
+                  Live Preview Variants
+                </h3>
+                <div className="space-y-4">
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    Your design variations will appear here once you tap <strong className="text-purple-400">Compose</strong>.
+                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[1, 2, 3, 4].map((i) => (
+                      <motion.div
+                        key={i}
+                        className="aspect-video rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-white/5 flex items-center justify-center relative overflow-hidden"
+                        animate={{ 
+                          opacity: [0.4, 0.7, 0.4],
+                        }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          delay: i * 0.2
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent" />
+                        <Sparkles className="h-6 w-6 text-purple-400/30" />
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className="pt-2 text-xs text-gray-500 text-center">
+                    Multiple variants • Real-time preview • One-click selection
+                  </div>
+                </div>
+              </motion.div>
+            )}
             {previewContent && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -692,13 +772,7 @@ export default function Workspace() {
                 }}
               />
 
-              <div className="relative z-10">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <motion.span
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 10, -10, 0]
-                    }}
+            </motion.div>
           </motion.div>
         </div>
       </div>
@@ -711,6 +785,7 @@ export default function Workspace() {
         onClose={() => setShowPayment(false)} 
         onSuccess={handlePaymentSuccess}
       />
+      <ScrollToTop />
     </main>
   );
 }

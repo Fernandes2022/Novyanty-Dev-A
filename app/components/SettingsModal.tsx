@@ -1,162 +1,76 @@
-"use client";
+'use client';
 
-import { X, Palette, Globe, Bell, Lock, Sun, Moon, Check } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import { useMirrorSync } from "@/app/hooks/useMirrorSync";
+import { X, Moon, Sun } from 'lucide-react';
+import { useEffect } from 'react';
 
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  currentTheme: 'light' | 'dark';
+  onThemeChange: (theme: 'light' | 'dark') => void;
 }
 
-export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-  const mirrorSync = useMirrorSync();
-
-  // Load theme from localStorage on mount
+export default function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange }: SettingsModalProps) {
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' || 'dark';
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-  }, []);
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
 
-  // Handle theme change with MirrorSync broadcast
-  const handleThemeChange = (newTheme: 'dark' | 'light') => {
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-    
-    // Broadcast theme change to mirror components via MirrorSync
-    mirrorSync.sync([{
-      type: 'theme',
-      value: {
-        mode: newTheme,
-        accentPrimary: '#7B5CFF',
-        accentSecondary: '#00F5A0'
-      }
-    }]);
-  };
+  if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
-          />
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className={`relative w-full max-w-md mx-4 rounded-2xl shadow-2xl transition-colors ${currentTheme === 'dark' ? 'bg-gray-900 border border-gray-700' : 'bg-white border border-gray-200'}`}>
+        <div className={`flex items-center justify-between p-6 border-b ${currentTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+          <h2 className={`text-xl font-bold ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Settings</h2>
+          <button onClick={onClose} className={`p-2 rounded-lg transition-colors ${currentTheme === 'dark' ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'}`}>
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="bg-gray-900 rounded-3xl shadow-2xl max-w-2xl w-full p-8 border-2 border-gray-800 max-h-[80vh] overflow-y-auto">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-3xl font-bold text-white">Settings</h2>
-                <button
-                  onClick={onClose}
-                  className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-                >
-                  <X className="h-5 w-5 text-gray-500" />
-                </button>
-              </div>
-
-              <div className="space-y-6">
-                {/* Theme Toggle Section - ENHANCED */}
-                <div className="p-6 bg-gray-800 rounded-2xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Palette className="h-6 w-6 text-accent-primary" />
-                    <h3 className="text-xl font-bold text-white">Appearance</h3>
+        <div className="p-6">
+          <div className="mb-6">
+            <h3 className={`text-sm font-semibold mb-3 ${currentTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>APPEARANCE</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <button onClick={() => onThemeChange('light')} className={`p-4 rounded-xl border-2 transition-all ${currentTheme === 'light' ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20' : currentTheme === 'dark' ? 'border-gray-700 bg-gray-800 hover:border-gray-600' : 'border-gray-300 bg-gray-50 hover:border-gray-400'}`}>
+                <div className="flex flex-col items-center gap-2">
+                  <div className={`p-3 rounded-lg ${currentTheme === 'light' ? 'bg-gradient-to-br from-yellow-400 to-orange-500' : 'bg-gray-700'}`}>
+                    <Sun className="w-6 h-6 text-white" />
                   </div>
-                  <p className="text-gray-400 mb-6">Choose your preferred theme</p>
-                  
-
-                  
+                  <span className={`text-sm font-medium ${currentTheme === 'light' ? 'text-purple-600' : currentTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Light</span>
                 </div>
-                  {/* Theme Toggle - Pro Dev Design */}
-                  <div className="flex gap-3">
-                    <motion.button
-                      onClick={() => handleThemeChange('dark')}
-                      className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all flex items-center justify-center gap-2 border ${
-                        theme === 'dark'
-                          ? 'bg-accent-primary/10 text-white border-accent-primary/50 shadow-sm'
-                          : 'bg-gray-900/50 text-gray-400 border-gray-700/50 hover:border-gray-600 hover:bg-gray-800/50'
-                      }`}
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                    >
-                      <Moon className="h-4 w-4" />
-                      <span>Dark</span>
-                      {theme === 'dark' && (
-                        <Check className="h-3.5 w-3.5 text-accent-secondary" />
-                      )}
-                    </motion.button>
-                    
-                    <motion.button
-                      onClick={() => handleThemeChange('light')}
-                      className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all flex items-center justify-center gap-2 border ${
-                        theme === 'light'
-                          ? 'bg-accent-primary/10 text-white border-accent-primary/50 shadow-sm'
-                          : 'bg-gray-900/50 text-gray-400 border-gray-700/50 hover:border-gray-600 hover:bg-gray-800/50'
-                      }`}
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                    >
-                      <Sun className="h-4 w-4" />
-                      <span>Light</span>
-                      {theme === 'light' && (
-                        <Check className="h-3.5 w-3.5 text-accent-secondary" />
-                      )}
-                    </motion.button>
-                  </div>
-                <div className="p-6 bg-gray-800 rounded-2xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Globe className="h-6 w-6 text-accent-primary" />
-                    <h3 className="text-xl font-bold text-white">Language</h3>
-                  </div>
-                  <select className="w-full px-4 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg text-white font-semibold">
-                    <option>English</option>
-                    <option>Spanish</option>
-                    <option>French</option>
-                  </select>
-                </div>
+              </button>
 
-                <div className="p-6 bg-gray-800 rounded-2xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Bell className="h-6 w-6 text-accent-primary" />
-                    <h3 className="text-xl font-bold text-white">Notifications</h3>
+              <button onClick={() => onThemeChange('dark')} className={`p-4 rounded-xl border-2 transition-all ${currentTheme === 'dark' ? 'border-purple-500 bg-purple-900/20' : 'border-gray-300 bg-gray-50 hover:border-gray-400'}`}>
+                <div className="flex flex-col items-center gap-2">
+                  <div className={`p-3 rounded-lg ${currentTheme === 'dark' ? 'bg-gradient-to-br from-indigo-600 to-purple-600' : 'bg-gray-300'}`}>
+                    <Moon className="w-6 h-6 text-white" />
                   </div>
-                  <label className="flex items-center gap-3">
-                    <input type="checkbox" className="w-5 h-5" defaultChecked />
-                    <span className="text-gray-400 font-semibold">Enable email notifications</span>
-                  </label>
+                  <span className={`text-sm font-medium ${currentTheme === 'dark' ? 'text-purple-400' : 'text-gray-700'}`}>Dark</span>
                 </div>
-
-                <div className="p-6 bg-gray-800 rounded-2xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Lock className="h-6 w-6 text-accent-primary" />
-                    <h3 className="text-xl font-bold text-white">Privacy</h3>
-                  </div>
-                  <button 
-                    onClick={() => alert("Privacy settings coming soon!")}
-                    className="text-accent-primary hover:text-accent-secondary font-semibold transition-colors"
-                  >
-                    Manage Privacy Settings
-                  </button>
-                </div>
-              </div>
+              </button>
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+          </div>
+
+          <div className={`p-4 rounded-lg ${currentTheme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-gray-50 border border-gray-200'}`}>
+            <p className={`text-sm ${currentTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Theme preference is saved automatically and only applies to the workspace.</p>
+          </div>
+        </div>
+
+        <div className={`p-6 border-t ${currentTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+          <button onClick={onClose} className="w-full px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all font-medium">Done</button>
+        </div>
+      </div>
+    </div>
   );
 }

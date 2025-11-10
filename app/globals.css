@@ -218,3 +218,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+/* ============================================
+   WORKSPACE THEME SUPPORT ONLY
+   ============================================ */
+
+/* Light theme variables for workspace */
+.workspace-light {
+  --workspace-bg: 255 255 255;
+  --workspace-text: 17 24 39;
+  --workspace-card: 249 250 251;
+}
+
+.workspace-dark {
+  --workspace-bg: 17 24 39;
+  --workspace-text: 255 255 255;
+  --workspace-card: 31 41 55;
+}
