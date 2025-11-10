@@ -7,7 +7,19 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // Client brand colors
+        'accent-primary': 'var(--accent-primary)',
+        'accent-secondary': 'var(--accent-secondary)',
+        'bg-primary': 'var(--bg-primary)',
+        'text-soft': 'var(--text-soft)',
+        
+        // Additional semantic colors
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+      },
+    },
   },
   plugins: [],
 }
