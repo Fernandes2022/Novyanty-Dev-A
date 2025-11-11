@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { SuppressHydrationWarning } from "./suppressHydration";
 import { Inter } from "next/font/google";
-import { CursorTrail } from "./cursor-script";
+import { LayoutClient } from "./layout-client";
 import "./globals.css";
 
 const inter = Inter({ 
@@ -42,13 +41,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark" style={{ colorScheme: "dark" }}>
       <body suppressHydrationWarning className={`dark ${inter.variable} antialiased`}>
-        <CursorTrail />
-        <SuppressHydrationWarning />
-        {children}
+        <LayoutClient>{children}</LayoutClient>
       </body>
     </html>
   );
 }
-
-// Deployment trigger - Mon Oct 27 10:13:17 UTC 2025
-// Force deploy 1761560835
