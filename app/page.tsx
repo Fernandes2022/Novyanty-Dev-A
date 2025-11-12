@@ -195,7 +195,7 @@ export default function Home() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed top-0 left-0 right-0 z-50 glass-dark"
+          className="fixed top-0 left-0 right-0 z-50 "
         >
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
             <div className="flex h-16 md:h-20 items-center justify-between w-full">
