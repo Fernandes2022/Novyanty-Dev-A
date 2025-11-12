@@ -9,7 +9,6 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
   const mirrorSync = useMirrorSync();
 
   useEffect(() => {
-    // MirrorSync initialized globally
     console.log('✅ MirrorSync ready');
   }, [mirrorSync]);
 
