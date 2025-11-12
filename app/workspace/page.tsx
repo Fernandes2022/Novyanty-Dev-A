@@ -27,7 +27,7 @@ interface Block {
 }
 
 export default function Workspace() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const mirrorSync = useMirrorSync();
 
   // Load saved theme on mount
@@ -75,8 +75,8 @@ export default function Workspace() {
       setTheme(savedTheme);
       document.documentElement.classList.toggle('dark', savedTheme === 'dark');
     } else {
-      // No saved theme - default to dark
-      document.documentElement.classList.add('dark');
+      // No saved theme - match default state (light)
+      document.documentElement.classList.remove('dark');
     }
   }, []);
 
