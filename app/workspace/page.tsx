@@ -81,6 +81,9 @@ export default function Workspace() {
     setTheme(newTheme);
     localStorage.setItem("workspace-theme", newTheme);
     
+    // Toggle dark class on HTML element
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    
     // Broadcast theme change via MirrorSync
     mirrorSync.addChange({ 
       type: 'theme', 
