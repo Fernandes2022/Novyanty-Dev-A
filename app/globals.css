@@ -235,3 +235,35 @@ body {
   --workspace-text: 255 255 255;
   --workspace-card: 31 41 55;
 }
+
+/* ===================================
+   LIGHT THEME VARIABLES
+   =================================== */
+html.light,
+html[data-theme="light"] {
+  --bg-primary: #fdfcfa;          /* Warm off-white background */
+  --bg-secondary: #f8f6f3;        /* Slightly darker warm white */
+  --text-primary: #1a1a1a;        /* Near black for text */
+  --text-soft: #4a4a4a;           /* Soft dark gray */
+  --text-muted: #6b6b6b;          /* Muted gray */
+  --accent-primary: #7B5CFF;      /* Keep purple accent */
+  --accent-secondary: #00F5A0;    /* Keep green accent */
+  --border-color: #e8e6e3;        /* Warm border */
+  --card-bg: #ffffff;             /* Pure white for cards */
+  --shadow: rgba(0, 0, 0, 0.08);  /* Subtle shadow */
+}
+
+/* Dark theme (default) */
+html.dark,
+html[data-theme="dark"] {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #13131a;
+  --text-primary: #ffffff;
+  --text-soft: #e5e7eb;
+  --text-muted: #9ca3af;
+  --accent-primary: #7B5CFF;
+  --accent-secondary: #00F5A0;
+  --border-color: #1f1f28;
+  --card-bg: #13131a;
+  --shadow: rgba(0, 0, 0, 0.3);
+}

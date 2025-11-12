@@ -217,7 +217,7 @@ export default function Workspace() {
             playsInline
             onLoadedData={() => setVideoLoaded(true)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: videoLoaded ? (theme === 'dark' ? 0.25 : 0.15) : 0 }}
+            animate={{ opacity: videoLoaded ? (theme === 'dark' ? 0.25 : 0.02) : 0 }}
             transition={{ duration: 1 }}
             className="absolute min-w-full min-h-full object-cover"
           >
@@ -225,7 +225,7 @@ export default function Workspace() {
             <source src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4?v=1762159836" type="video/mp4" />
           </motion.video>
           
-          <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-b from-black/80 via-black/70 to-black/85' : 'bg-gradient-to-b from-white/90 via-white/85 to-white/90'}`}></div>
+          <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-b from-black/80 via-black/70 to-black/85' : 'bg-gradient-to-b from-white/98 via-white/98 to-white/99'}`}></div>
         </div>
 
         <motion.div
