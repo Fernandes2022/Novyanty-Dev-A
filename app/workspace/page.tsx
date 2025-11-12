@@ -207,11 +207,11 @@ export default function Workspace() {
   ] : [];
 
   return (
-    <main style={{ backgroundColor: theme === 'light' ? '#FAF9F6' : '#000000' }} className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-[1] ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
+    <main data-workspace-theme={theme} style={{ backgroundColor: theme === 'light' ? '#FAF9F6' : '#000000' }} className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-[1] ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
       <ToastContainer toasts={toasts} onClose={removeToast} />
 
       {/* WORKSPACE VIDEO BACKGROUND */}
-      <div className={`fixed inset-0 pointer-events-none z-0 ${theme === 'light' ? 'hidden' : ''}`}>
+      <div style={{ display: theme === 'light' ? 'none' : 'block' }} className="fixed inset-0 pointer-events-none -z-10">
         <div className="absolute inset-0 overflow-hidden">
           <motion.video
             autoPlay
