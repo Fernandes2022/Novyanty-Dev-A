@@ -74,6 +74,9 @@ export default function Workspace() {
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    } else {
+      // No saved theme - default to dark
+      document.documentElement.classList.add('dark');
     }
   }, []);
 
