@@ -73,10 +73,8 @@ export default function Workspace() {
     const savedTheme = localStorage.getItem('workspace-theme') as 'light' | 'dark' | null;
     if (savedTheme) {
       setTheme(savedTheme);
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
     } else {
       // No saved theme - match default state (light)
-      document.documentElement.classList.remove('dark');
     }
   }, []);
 
@@ -85,7 +83,6 @@ export default function Workspace() {
     localStorage.setItem("workspace-theme", newTheme);
     
     // Toggle dark class on HTML element
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
     
     // Broadcast theme change via MirrorSync
     mirrorSync.addChange({ 
@@ -210,7 +207,7 @@ export default function Workspace() {
   ] : [];
 
   return (
-    <main style={{ backgroundColor: theme === 'light' ? '#FAF9F6' : '#000000' }} className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-10 ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
+    <main style={{ backgroundColor: theme === 'light' ? '#FAF9F6' : '#000000' }} className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-[1] ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
       <ToastContainer toasts={toasts} onClose={removeToast} />
 
       {/* WORKSPACE VIDEO BACKGROUND */}

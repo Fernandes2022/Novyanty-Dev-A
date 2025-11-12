@@ -17,12 +17,6 @@
 /* ===================================
    LIGHT THEME OVERRIDE
    =================================== */
-html:not(.dark) {
-  --background: #fdfcfa;
-  --foreground: #1a1a1a;
-  --bg-primary: #fdfcfa !important;
-  --text-soft: #4a4a4a !important;
-}
 
 /* ===================================
    BASE STYLES
@@ -57,4 +51,23 @@ body {
   background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===================================
+   WORKSPACE LIGHT THEME (SCOPED)
+   =================================== */
+[data-workspace-theme="light"] {
+  --workspace-bg: #fdfcfa;
+  --workspace-text: #1a1a1a;
+}
+
+[data-workspace-theme="dark"] {
+  --workspace-bg: #0a0a0f;
+  --workspace-text: #e5e7eb;
 }
