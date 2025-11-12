@@ -210,7 +210,7 @@ export default function Workspace() {
   ] : [];
 
   return (
-    <main className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-10 ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
+    <main style={{ backgroundColor: theme === 'light' ? '#FAF9F6' : '#000000' }} className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-10 ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
       <ToastContainer toasts={toasts} onClose={removeToast} />
 
       {/* WORKSPACE VIDEO BACKGROUND */}
