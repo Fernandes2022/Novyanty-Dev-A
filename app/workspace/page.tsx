@@ -217,7 +217,7 @@ export default function Workspace() {
             playsInline
             onLoadedData={() => setVideoLoaded(true)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: videoLoaded ? (theme === 'dark' ? 0.25 : 0.02) : 0 }}
+            animate={{ opacity: videoLoaded && theme === 'dark' ? 0.25 : 0 }}
             transition={{ duration: 1 }}
             className="absolute min-w-full min-h-full object-cover"
           >
@@ -240,7 +240,7 @@ export default function Workspace() {
         />
 
         <motion.div
-          className="absolute inset-0 grid-bg opacity-5"
+          className={`absolute inset-0 grid-bg ${theme === 'dark' ? 'opacity-5' : 'opacity-0'}`}
           animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         />

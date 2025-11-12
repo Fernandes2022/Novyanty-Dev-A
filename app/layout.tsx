@@ -39,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark" style={{ colorScheme: "dark" }}>
-      <body suppressHydrationWarning className={`dark ${inter.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className="" >
+      <body suppressHydrationWarning className={`${inter.variable} antialiased`}>
         <LayoutClient>{children}</LayoutClient>
       </body>
     </html>
