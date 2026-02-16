@@ -28,22 +28,84 @@ import { VideoTestimonials } from "@/components/home/VideoTestimonials";
 import { VoiceIntro } from "@/components/home/VoiceIntro";
 // Testimonials Data
 
-  // Payment handler for pricing plans
-  const handlePayment = (plan: 'basic' | 'pro' | 'premium') => {
-    const prices = {
-      basic: 'price_basic_999',  // Replace with your actual Stripe price IDs
-      pro: 'price_pro_2499',
-      premium: 'price_premium_4999'
-    };
-    
-    // Redirect to Stripe Checkout
-    window.location.href = `/api/checkout?plan=${plan}&priceId=${prices[plan]}`;
+// Payment handler for pricing plans
+const handlePayment = async (plan: "basic" | "pro" | "premium") => {
+  const apiBase =
+    process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") ?? "https://miravoxx.com/v1";
+
+  // These should be your Stripe PRICE IDs (starting with price_),
+  // exposed as public env vars in Dev-A (.env.local).
+  const prices: Record<string, string | undefined> = {
+    basic: process.env.NEXT_PUBLIC_STRIPE_BASIC_PRICE_ID,
+    pro: process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PRICE_ID,
+    premium: process.env.NEXT_PUBLIC_STRIPE_PRO_PLUS_MONTHLY_PRICE_ID,
   };
 
-  // Contact sales handler
-  const handleContactSales = () => {
-    window.location.href = '/contact-sales';
-  };
+  const priceId = prices[plan];
+
+  if (!priceId) {
+    alert("This plan is not configured yet. Please contact support.");
+    return;
+  }
+
+  const token =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("novyanty_token")
+      : null;
+
+  if (!token) {
+    alert("Please sign in first, then try again.");
+    if (typeof window !== "undefined") {
+      window.location.href = "/workspace";
+    }
+    return;
+  }
+
+  try {
+    const response = await fetch(`${apiBase}/payments/checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        priceId,
+        successUrl: "https://miravoxx.com/workspace?checkout=success",
+        cancelUrl: "https://miravoxx.com/workspace?checkout=canceled",
+        metadata: {
+          type: "subscription",
+          plan,
+        },
+      }),
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || !data?.success) {
+      throw new Error(data?.error || data?.message || "Failed to start checkout.");
+    }
+
+    const url = data.data?.url || data.url;
+    if (!url) {
+      throw new Error("Checkout URL not returned from server.");
+    }
+
+    if (typeof window !== "undefined") {
+      window.location.href = url;
+    }
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Something went wrong starting checkout.";
+    alert(message);
+  }
+};
+
+// Contact sales handler
+const handleContactSales = () => {
+  if (typeof window !== "undefined") {
+    window.location.href = "/contact-sales";
+  }
+};
 
 const testimonials = [
   {
@@ -202,14 +264,18 @@ export default function Home() {
               {/* Logo - Far Left */}
               <div className="flex-none">
                 <Link href="/" className="flex items-center gap-2 md:gap-3 group">
-                  <motion.div 
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="h-10 w-auto md:h-12 flex items-center"
                   >
-                    <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                    <img
+                      src="/miravoxx-logo.png"
+                      alt="Miravoxx"
+                      className="h-10 md:h-12 w-auto object-contain"
+                      loading="eager"
+                    />
                   </motion.div>
-                  <span className="text-lg md:text-xl font-bold hidden sm:block">Creative Workspace</span>
                 </Link>
               </div>
               
@@ -1042,13 +1108,66 @@ export default function Home() {
             <div>
               <h4 className="font-bold mb-4">Connect</h4>
               <ul className="space-y-2 text-sm text-white/60">
-                <li><a href="#" className="hover:text-purple-400 transition-colors">Pinterest</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">Facebook</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">LinkedIn</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">TikTok</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-purple-400 transition-colors">X (Twitter)</a></li>
+                <li>
+                  <a
+                    href="https://www.tiktok.com/@hello.miravoxx?is_from_webapp=1&sender_device=pc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-400 transition-colors"
+                  >
+                    TikTok
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://pin.it/4m848TIps"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-400 transition-colors"
+                  >
+                    Pinterest
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/miravoxx.web/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-400 transition-colors"
+                  >
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.youtube.com/@miravoxx-h3z"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-400 transition-colors"
+                  >
+                    YouTube
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.reddit.com/user/Miravoxx/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-400 transition-colors"
+                  >
+                    Reddit
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/hello_miravoxx"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-400 transition-colors"
+                  >
+                    X (Twitter)
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

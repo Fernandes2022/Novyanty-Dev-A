@@ -13,11 +13,69 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(isSignUp ? "Account created successfully! 🎉" : "Signed in successfully! 🎉");
-    onClose();
+
+    // Basic validation
+    if (!email || !password || (isSignUp && !name)) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const baseUrl =
+        process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") ?? "https://miravoxx.com/v1";
+      const endpoint = isSignUp ? "/auth/signup" : "/auth/login";
+
+      const response = await fetch(`${baseUrl}${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          isSignUp
+            ? { name, email, password }
+            : { email, password }
+        ),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error ||
+            data.message ||
+            (isSignUp ? "Failed to create account." : "Failed to sign in.")
+        );
+      }
+
+      // Backend returns { success, data: { token, refreshToken, ... } }
+      const token = data.data?.token;
+      if (token) {
+        // Store JWT for subsequent API calls
+        if (typeof window !== "undefined") {
+          localStorage.setItem("novyanty_token", token);
+        }
+      }
+
+      // Optionally navigate to workspace/dashboard
+      if (typeof window !== "undefined") {
+        window.location.href = "/workspace";
+      } else {
+        onClose();
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setError(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -110,11 +168,24 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                   </div>
                 </div>
 
+                {error && (
+                  <p className="text-sm text-red-500 bg-red-950/40 border border-red-800 rounded-lg px-3 py-2">
+                    {error}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-xl transition-all"
+                  disabled={isSubmitting}
+                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {isSignUp ? "Create Account" : "Sign In"}
+                  {isSubmitting
+                    ? isSignUp
+                      ? "Creating account..."
+                      : "Signing in..."
+                    : isSignUp
+                    ? "Create Account"
+                    : "Sign In"}
                 </button>
               </form>
 

@@ -9,23 +9,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Creative Workspace - Build Websites with AI",
-  description: "No code. No drama. Just say what you want and watch the magic happen. AI-powered website builder with professional templates, real-time collaboration, and instant deployment.",
-  keywords: ["AI website builder", "no-code", "web development", "creative workspace", "AI tools", "website design"],
-  authors: [{ name: "Creative Workspace Team" }],
-  creator: "Creative Workspace",
+  title: "Miravoxx – AI-Powered Website Builder",
+  description:
+    "Miravoxx helps you create and launch AI-generated websites with integrated payments, email, and social automation.",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://my-creative-workspace.vercel.app",
-    title: "Creative Workspace - Build Websites with AI",
-    description: "No code. No drama. Just say what you want and watch the magic happen.",
-    siteName: "Creative Workspace",
+    url: "https://miravoxx.com",
+    title: "Miravoxx – AI-Powered Website Builder",
+    description:
+      "Create and launch AI-generated websites with Miravoxx.",
+    siteName: "Miravoxx",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Creative Workspace - Build Websites with AI",
-    description: "No code. No drama. Just say what you want and watch the magic happen.",
+    title: "Miravoxx – AI-Powered Website Builder",
+    description:
+      "Create and launch AI-generated websites with Miravoxx.",
   },
   robots: {
     index: true,

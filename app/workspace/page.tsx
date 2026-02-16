@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Sparkles, Send, Save, Download, Settings, Zap, Lock, Plus, ChevronDown } from "lucide-react";
 import { SignInModal } from "../components/SignInModal";
 import SettingsModal from "../components/SettingsModal";
@@ -14,7 +15,7 @@ import { useMirrorSync } from "../hooks/useMirrorSync";
 import { TierSelector, Tier } from "../components/TierSelector";
 import { MirrorInput } from "../components/MirrorInput";
 import { RemixButton } from "../components/RemixButton";
-import ScrollToTop from '../components/ScrollToTop';
+import ScrollToTop from "../components/ScrollToTop";
 import { EditableBlock } from "../components/EditableBlock";
 import { MetaPreview } from "../components/MetaPreview";
 import { MirrorSyncIndicator } from "../components/MirrorSyncIndicator";
@@ -27,8 +28,11 @@ interface Block {
 }
 
 export default function Workspace() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const mirrorSync = useMirrorSync();
+  // Auth state
+  const [userName, setUserName] = useState<string | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   // Load saved theme on mount
   useEffect(() => {
@@ -37,6 +41,7 @@ export default function Workspace() {
       setTheme(savedTheme);
     }
   }, []);
+
   const [directive, setDirective] = useLocalStorage("workspace_directive", "");
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -53,46 +58,84 @@ export default function Workspace() {
   const [metaDescription, setMetaDescription] = useState("");
   const [isDirectivesOpen, setIsDirectivesOpen] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  
+
   const [savedDrafts, setSavedDrafts] = useLocalStorage("workspace_drafts", [
     "Landing page with gradient hero",
     "Portfolio with project gallery",
     "Dashboard with analytics",
     "E-commerce product showcase",
-    "Blog layout with sidebar"
+    "Blog layout with sidebar",
   ]);
 
   const { toasts, removeToast, success, error, warning } = useToast();
-  
+
   const leftPanelRef = useRef(null);
   const rightPanelRef = useRef(null);
   const isLeftInView = useInView(leftPanelRef, { once: true, amount: 0.2 });
   const isRightInView = useInView(rightPanelRef, { once: true, amount: 0.2 });
 
+  // Load theme and user auth state on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem('workspace-theme') as 'light' | 'dark' | null;
+    const savedTheme = localStorage.getItem("workspace-theme") as "light" | "dark" | null;
     if (savedTheme) {
       setTheme(savedTheme);
-    } else {
-      // No saved theme - match default state (light)
     }
+
+    const token =
+      typeof window !== "undefined" ? window.localStorage.getItem("novyanty_token") : null;
+
+    if (!token) {
+      setIsAuthLoading(false);
+      return;
+    }
+
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") ?? "https://miravoxx.com/v1";
+
+    fetch(`${baseUrl}/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(async (res) => {
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.success && data?.data?.name) {
+          setUserName(data.data.name as string);
+        } else {
+          if (typeof window !== "undefined") {
+            window.localStorage.removeItem("novyanty_token");
+          }
+        }
+      })
+      .catch(() => {
+        // Ignore errors, treat as logged out
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
+      });
   }, []);
 
   const handleThemeChange = (newTheme: "light" | "dark") => {
     setTheme(newTheme);
     localStorage.setItem("workspace-theme", newTheme);
-    
-    // Toggle dark class on HTML element
-    
+
     // Broadcast theme change via MirrorSync
-    mirrorSync.addChange({ 
-      type: 'theme', 
-      payload: { 
+    mirrorSync.addChange({
+      type: "theme",
+      payload: {
         mode: newTheme,
-        accent: '#7B5CFF',
-        timestamp: new Date().toISOString()
-      } 
+        accent: "#7B5CFF",
+        timestamp: new Date().toISOString(),
+      },
     });
+  };
+
+  const handleSignOut = () => {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem("novyanty_token");
+    }
+    setUserName(null);
+    success("Signed out successfully.");
   };
 
   const handleAudioTranscript = (transcript: string) => {
@@ -108,20 +151,22 @@ export default function Workspace() {
       error("Please enter a directive first!");
       return;
     }
-    
+
     setIsComposing(true);
-    
+
     setTimeout(() => {
       setPreviewContent(directive);
-      setMetaTitle(`${selectedTier.charAt(0).toUpperCase() + selectedTier.slice(1)} Composition`);
+      setMetaTitle(
+        `${selectedTier.charAt(0).toUpperCase() + selectedTier.slice(1)} Composition`
+      );
       setMetaDescription(directive.slice(0, 150));
-      
+
       setBlocks([
         { id: "1", type: "text", content: "Hero Section: " + directive.slice(0, 50) },
         { id: "2", type: "text", content: "Main Content with adaptive styling" },
-        { id: "3", type: "text", content: "Call-to-action section" }
+        { id: "3", type: "text", content: "Call-to-action section" },
       ]);
-      
+
       setIsComposing(false);
       success("Composition complete!");
     }, 2000);
@@ -140,7 +185,7 @@ export default function Workspace() {
       error("Nothing to save!");
       return;
     }
-    
+
     const shortTitle = directive.slice(0, 40) + (directive.length > 40 ? "..." : "");
     setSavedDrafts([shortTitle, ...savedDrafts.slice(0, 9)]);
     success("Draft saved successfully!");
@@ -152,12 +197,12 @@ export default function Workspace() {
       setShowPayment(true);
       return;
     }
-    
+
     if (!previewContent) {
       error("Please compose something first!");
       return;
     }
-    
+
     success("Export complete!");
   };
 
@@ -166,12 +211,12 @@ export default function Workspace() {
       setShowPayment(true);
       return;
     }
-    
+
     if (!previewContent) {
       error("Please compose something first!");
       return;
     }
-    
+
     success("Deployed successfully!");
   };
 
@@ -181,12 +226,12 @@ export default function Workspace() {
   };
 
   const handleBlockUpdate = (id: string, content: string) => {
-    setBlocks(blocks.map(b => b.id === id ? { ...b, content } : b));
+    setBlocks(blocks.map((b) => (b.id === id ? { ...b, content } : b)));
     success("Block updated!");
   };
 
   const handleBlockDelete = (id: string) => {
-    setBlocks(blocks.filter(b => b.id !== id));
+    setBlocks(blocks.filter((b) => b.id !== id));
     warning("Block deleted");
   };
 
@@ -194,24 +239,35 @@ export default function Workspace() {
     const newBlock: Block = {
       id: Date.now().toString(),
       type: "text",
-      content: "New block content"
+      content: "New block content",
     };
     setBlocks([...blocks, newBlock]);
     success("Block added!");
   };
 
-  const samplePreviews = previewContent ? [
-    { id: "1", title: "Default Layout", content: previewContent },
-    { id: "2", title: "Alternative Style", content: previewContent + " (Variant A)" },
-    { id: "3", title: "Premium Version", content: previewContent + " (Enhanced)" }
-  ] : [];
+  const samplePreviews = previewContent
+    ? [
+        { id: "1", title: "Default Layout", content: previewContent },
+        { id: "2", title: "Alternative Style", content: previewContent + " (Variant A)" },
+        { id: "3", title: "Premium Version", content: previewContent + " (Enhanced)" },
+      ]
+    : [];
 
   return (
-    <main data-workspace-theme={theme} style={{ backgroundColor: theme === 'light' ? '#FAF9F6' : '#000000' }} className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-[1] ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF9F6] text-gray-900'}`}>
+    <main
+      data-workspace-theme={theme}
+      style={{ backgroundColor: theme === "light" ? "#FAF9F6" : "#000000" }}
+      className={`min-h-screen transition-colors duration-300 relative overflow-hidden z-[1] ${
+        theme === "dark" ? "bg-black text-white" : "bg-[#FAF9F6] text-gray-900"
+      }`}
+    >
       <ToastContainer toasts={toasts} onClose={removeToast} />
 
       {/* WORKSPACE VIDEO BACKGROUND */}
-      <div style={{ display: theme === 'light' ? 'none' : 'block' }} className="fixed inset-0 pointer-events-none -z-10">
+      <div
+        style={{ display: theme === "light" ? "none" : "block" }}
+        className="fixed inset-0 pointer-events-none -z-10"
+      >
         <div className="absolute inset-0 overflow-hidden">
           <motion.video
             autoPlay
@@ -220,58 +276,86 @@ export default function Workspace() {
             playsInline
             onLoadedData={() => setVideoLoaded(true)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: videoLoaded && theme === 'dark' ? 0.25 : 0 }}
+            animate={{ opacity: videoLoaded && theme === "dark" ? 0.25 : 0 }}
             transition={{ duration: 1 }}
             className="absolute min-w-full min-h-full object-cover"
           >
-            <source src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4?v=1762159836" type="video/mp4" />
-            <source src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4?v=1762159836" type="video/mp4" />
+            <source
+              src="/videos/user-ai-generation-YKAem45Y8p-1080p.mp4?v=1762159836"
+              type="video/mp4"
+            />
+            <source
+              src="/videos/user-ai-generation-js8F6dEiSZiA-1080p.mp4?v=1762159836"
+              type="video/mp4"
+            />
           </motion.video>
-          
-          <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-b from-black/80 via-black/70 to-black/85' : 'bg-gradient-to-b from-white/98 via-white/98 to-white/99'}`}></div>
+
+          <div
+            className={`absolute inset-0 ${
+              theme === "dark"
+                ? "bg-gradient-to-b from-black/80 via-black/70 to-black/85"
+                : "bg-gradient-to-b from-white/98 via-white/98 to-white/99"
+            }`}
+          ></div>
         </div>
 
         <motion.div
-          className={`absolute top-20 left-10 w-72 h-72 rounded-full blur-[100px] ${theme === 'dark' ? 'bg-purple-600/10' : 'bg-purple-400/20'}`}
+          className={`absolute top-20 left-10 w-72 h-72 rounded-full blur-[100px] ${
+            theme === "dark" ? "bg-purple-600/10" : "bg-purple-400/20"
+          }`}
           animate={{ x: [0, 100, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className={`absolute bottom-20 right-10 w-72 h-72 rounded-full blur-[100px] ${theme === 'dark' ? 'bg-blue-600/10' : 'bg-blue-400/20'}`}
+          className={`absolute bottom-20 right-10 w-72 h-72 rounded-full blur-[100px] ${
+            theme === "dark" ? "bg-blue-600/10" : "bg-blue-400/20"
+          }`}
           animate={{ x: [0, -100, 0], y: [0, -50, 0], scale: [1, 1.3, 1] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
 
         <motion.div
-          className={`absolute inset-0 grid-bg ${theme === 'dark' ? 'opacity-5' : 'opacity-0'}`}
+          className={`absolute inset-0 grid-bg ${
+            theme === "dark" ? "opacity-5" : "opacity-0"
+          }`}
           animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         />
       </div>
 
       {/* Header */}
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 border-b ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-[#FAF9F6]/95 backdrop-blur-xl border-gray-200'}`}
+        className={`fixed top-0 left-0 right-0 z-50 border-b ${
+          theme === "dark"
+            ? "glass-dark border-white/10"
+            : "bg-[#FAF9F6]/95 backdrop-blur-xl border-gray-200"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
-              <motion.div 
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.6 }}
-                className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50"
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="h-10 w-auto md:h-12 flex items-center"
               >
-                <Sparkles className="h-5 w-5 text-white" />
+                <Image
+                  src="/miravoxx-logo.png"
+                  alt="Miravoxx"
+                  width={140}
+                  height={48}
+                  className="h-10 md:h-12 w-auto object-contain"
+                  priority
+                />
               </motion.div>
-              <span className={`text-xl font-bold hidden sm:block ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Creative Workspace</span>
             </Link>
 
             <div className="flex items-center gap-2 md:gap-4">
               {isPremium && (
-                <motion.span 
+                <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   className="px-3 py-1.5 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold rounded-full hidden sm:inline-block"
@@ -279,19 +363,42 @@ export default function Workspace() {
                   ⭐ PREMIUM
                 </motion.span>
               )}
-              <motion.button 
+
+              {/* User greeting (if logged in) */}
+              {!isAuthLoading && userName && (
+                <div className="hidden md:flex flex-col items-end mr-2 text-sm">
+                  <span
+                    className={
+                      theme === "dark" ? "text-gray-300" : "text-gray-700"
+                    }
+                  >
+                    Welcome,
+                  </span>
+                  <span className="font-semibold">{userName}</span>
+                </div>
+              )}
+
+              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSettingsMenuOpen(!settingsMenuOpen)}
-                className={`p-2.5 rounded-xl transition-colors relative ${theme === 'dark' ? 'glass hover:bg-white/10' : 'bg-gray-100 hover:bg-gray-200'}`}
+                className={`p-2.5 rounded-xl transition-colors relative ${
+                  theme === "dark"
+                    ? "glass hover:bg-white/10"
+                    : "bg-gray-100 hover:bg-gray-200"
+                }`}
               >
                 <Settings className="h-5 w-5" />
-                
+
                 {settingsMenuOpen && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className={`absolute top-full right-0 mt-2 w-48 rounded-xl border shadow-xl z-50 overflow-hidden ${theme === 'dark' ? 'glass-dark border-white/10' : 'bg-[#FAF9F6] border-gray-200'}`}
+                    className={`absolute top-full right-0 mt-2 w-52 rounded-xl border shadow-xl z-50 overflow-hidden ${
+                      theme === "dark"
+                        ? "glass-dark border-white/10"
+                        : "bg-[#FAF9F6] border-gray-200"
+                    }`}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
@@ -299,25 +406,56 @@ export default function Workspace() {
                         setShowSettings(true);
                         setSettingsMenuOpen(false);
                       }}
-                      className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 ${theme === 'dark' ? 'text-white hover:bg-white/10' : 'text-gray-900 hover:bg-gray-100'}`}
+                      className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 ${
+                        theme === "dark"
+                          ? "text-white hover:bg-white/10"
+                          : "text-gray-900 hover:bg-gray-100"
+                      }`}
                     >
                       <Settings className="h-4 w-4" />
                       Settings
                     </button>
-                    <button
-                      onClick={() => {
-                        setShowSignIn(true);
-                        setSettingsMenuOpen(false);
-                      }}
-                      className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 border-t ${theme === 'dark' ? 'text-white hover:bg-white/10 border-white/10' : 'text-gray-900 hover:bg-gray-100 border-gray-200'}`}
-                    >
-                      <Lock className="h-4 w-4" />
-                      Sign In
-                    </button>
+
+                    {/* Only show Sign In if not logged in */}
+                    {!isAuthLoading && !userName && (
+                      <button
+                        onClick={() => {
+                          setShowSignIn(true);
+                          setSettingsMenuOpen(false);
+                        }}
+                        className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 border-t ${
+                          theme === "dark"
+                            ? "text-white hover:bg-white/10 border-white/10"
+                            : "text-gray-900 hover:bg-gray-100 border-gray-200"
+                        }`}
+                      >
+                        <Lock className="h-4 w-4" />
+                        Sign In
+                      </button>
+                    )}
+
+                    {/* Only show Sign Out if logged in */}
+                    {!isAuthLoading && userName && (
+                      <button
+                        onClick={() => {
+                          handleSignOut();
+                          setSettingsMenuOpen(false);
+                        }}
+                        className={`w-full px-4 py-3 text-left transition-colors flex items-center gap-3 border-t ${
+                          theme === "dark"
+                            ? "text-white hover:bg-white/10 border-white/10"
+                            : "text-gray-900 hover:bg-gray-100 border-gray-200"
+                        }`}
+                      >
+                        <Lock className="h-4 w-4" />
+                        Sign Out
+                      </button>
+                    )}
                   </motion.div>
                 )}
               </motion.button>
-              <motion.button 
+
+              <motion.button
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(139, 92, 246, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleGoLive}
@@ -722,15 +860,15 @@ export default function Workspace() {
       </div>
 
       <SignInModal isOpen={showSignIn} onClose={() => setShowSignIn(false)} />
-      <SettingsModal 
-        isOpen={showSettings} 
+      <SettingsModal
+        isOpen={showSettings}
         onClose={() => setShowSettings(false)}
         currentTheme={theme}
         onThemeChange={handleThemeChange}
       />
-      <PaymentModal 
-        isOpen={showPayment} 
-        onClose={() => setShowPayment(false)} 
+      <PaymentModal
+        isOpen={showPayment}
+        onClose={() => setShowPayment(false)}
         onSuccess={handlePaymentSuccess}
       />
       <ScrollToTop />
